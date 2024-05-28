@@ -1,3 +1,44 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pj_piscine";
+
+// Créer une connexion
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Vérifier la connexion
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Initialiser les variables de recherche
+$type = isset($_GET['type']) ? trim($_GET['type']) : '';
+$description = isset($_GET['description']) ? trim($_GET['description']) : '';
+$ville = isset($_GET['ville']) ? trim($_GET['ville']) : '';
+
+// Initialiser la variable des résultats
+$searchExecuted = false;
+$result = null;
+
+if ($type !== '' || $description !== '' || $ville !== '') {
+    // Construire la requête SQL
+    $sql = "SELECT * FROM biens WHERE 1=1";
+    if ($type !== '') {
+        $sql .= " AND type LIKE '%" . $conn->real_escape_string($type) . "%'";
+    }
+    if ($description !== '') {
+        $sql .= " AND description LIKE '%" . $conn->real_escape_string($description) . "%'";
+    }
+    if ($ville !== '') {
+        $sql .= " AND adresse LIKE '%" . $conn->real_escape_string($ville) . "%'";
+    }
+
+    $result = $conn->query($sql);
+    $searchExecuted = true;
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,14 +69,14 @@
             box-sizing: border-box;
         }
         input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: rgb(135,206,250);
             color: white;
             border: none;
             cursor: pointer;
             width: 100%;
         }
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: rgb(135,206,250);
         }
         table {
             width: 80%;
@@ -53,6 +94,10 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+        .thumbnail {
+            max-width: 100px;
+            max-height: 100px;
+        }
     </style>
 </head>
 <body>
@@ -61,11 +106,11 @@
 
 <form method="get" action="recherche.php">
     <label for="type">Type:</label>
-    <input type="text" id="type" name="type" value="<?php echo htmlspecialchars($type); ?>"><br>
+    <input type="text" id="type" name="type" value="<?php echo htmlspecialchars($type ?? ''); ?>"><br>
     <label for="description">Description:</label>
-    <input type="text" id="description" name="description" value="<?php echo htmlspecialchars($description); ?>"><br>
+    <input type="text" id="description" name="description" value="<?php echo htmlspecialchars($description ?? ''); ?>"><br>
     <label for="ville">Ville:</label>
-    <input type="text" id="ville" name="ville" value="<?php echo htmlspecialchars($ville); ?>"><br>
+    <input type="text" id="ville" name="ville" value="<?php echo htmlspecialchars($ville ?? ''); ?>"><br>
     <input type="submit" value="Rechercher">
 </form>
 
@@ -79,14 +124,16 @@
                 <th>Photos</th>
                 <th>Description</th>
                 <th>Adresse</th>
+                <th>Liens</th>
             </tr>
             <?php while($row = $result->fetch_assoc()): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($row["id"]); ?></td>
                     <td><?php echo htmlspecialchars($row["type"]); ?></td>
-                    <td><?php echo htmlspecialchars($row["photos"]); ?></td>
+                    <td><img src="<?php echo htmlspecialchars($row["photos"]); ?>" alt="Photo du bien" class="thumbnail"></td>
                     <td><?php echo htmlspecialchars($row["description"]); ?></td>
                     <td><?php echo htmlspecialchars($row["adresse"]); ?></td>
+                    <td><a href="annonce.php?id=<?php echo htmlspecialchars($row["id"]); ?>">Voir l'annonce</a></td>
                 </tr>
             <?php endwhile; ?>
         </table>
