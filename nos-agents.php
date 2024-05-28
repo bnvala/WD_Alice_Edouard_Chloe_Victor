@@ -31,7 +31,7 @@
         .agent-card img {
             border-radius: 50%;
             width: 150px;
-            height: 150px;
+            height: 180px;
         }
         .agent-card .specialty {
             margin-top: 10px;
