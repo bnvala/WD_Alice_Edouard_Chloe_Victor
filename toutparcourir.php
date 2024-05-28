@@ -15,9 +15,17 @@
             padding: 10px;
             text-align: center;
         }
+        .item-container {
+            border: 1px solid #ccc; /* Bordure autour de chaque bien */
+            padding: 10px;
+            margin-bottom: 20px;
+            cursor: pointer; /* Curseur pointer pour indiquer qu'il est cliquable */
+        }
         .item img {
-            max-width: 100%;
-            height: auto;
+            width: 100%; /* Largeur fixe pour toutes les images */
+            height: 200px; /* Hauteur fixe pour toutes les images */
+            object-fit: cover; /* Redimensionne l'image pour qu'elle remplisse la zone sans déformation */
+            margin-bottom: 10px; /* Espacement en bas de l'image */
         }
     </style>
 </head>
@@ -49,10 +57,14 @@
         // Parcourir les résultats
         while($row = $result->fetch_assoc()) {
             echo '<div class="item">';
-            echo '<img src="' . $row["photo"] . '" alt="Photo du bien">';
+            echo '<a href="bien' . $row["id"] . '.php">'; // Lien hypertexte vers bien{id}.php
+            echo '<div class="item-container">'; // Conteneur autour de chaque bien
+            echo '<img src="' . $row["photos"] . '" alt="Photo du bien">';
             echo '<h3>' . $row["type"] . '</h3>';
             echo '<p>' . $row["adresse"] . '</p>';
-            echo '</div>';
+            echo '</div>'; // Fermer item-container
+            echo '</a>'; // Fermer le lien hypertexte
+            echo '</div>'; // Fermer item
         }
 
         echo '</div>'; // Fermer le conteneur flex

@@ -44,21 +44,21 @@
     <h1>Nos Agents</h1>
     <?php
     include 'db.php';
-    
-    $sql = "SELECT id_agent, photo, specialite FROM agent";
+
+    $sql = "SELECT * FROM agent";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo '<div class="agent-card" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
-            echo '<img src="' . $row["photo"] . '" alt="Photo de l\'agent">';
+            echo '<img src="photos_agents/' . $row["photo"] . '" alt="Photo de l\'agent">';
             echo '<div class="specialty">Spécialité: ' . $row["specialite"] . '</div>';
             echo '</div>';
         }
     } else {
-        echo "0 results";
+        echo "No agents found";
     }
-    
+
     $conn->close();
     ?>
 </body>

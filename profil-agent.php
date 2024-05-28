@@ -88,9 +88,9 @@
         $agent = $result->fetch_assoc();
         echo '<div class="profile-card">';
         echo '<div class="header">';
-        echo '<img src="' . $agent["photo"] . '" alt="Photo de l\'agent" class="photo-agent" width="160" height="200">';
+        echo '<img src="photos_agents/'. $agent["photo"] . '" alt="Photo de l\'agent" class="photo-agent" width="160" height="200">';
         echo '<div class="info">';
-        echo '<div><strong>Name:</strong> ' . $agent["bureau"] . '</div>';
+        echo '<div><strong>Name:</strong> ' . $agent["prenom"] . ' ' . $agent["nom"] . '</div>';
         echo '<div><strong>Email:</strong> ' . $agent["courriel"] . '</div>';
         echo '<div><strong>Téléphone:</strong> ' . $agent["numero_tel"] . '</div>';
         echo '</div></div>';
@@ -105,7 +105,7 @@
         echo '<div class="buttons">';
         echo '<button onclick="alert(\'Prendre RDV avec notre conseiller\')">Prendre un RDV</button>';
         echo '<button onclick="alert(\'Rentrer en communication avec notre agent\')">Communiquer</button>';
-        echo '<button onclick="alert(\'Voir CV\')">Voir le CV</button>';
+        echo '<button onclick="window.open(\'cv_agents/' . $agent["cv"]. '\', \'_blank\')">Voir le CV</button>';
         echo '</div>';
         echo '</div>';
     } else {
