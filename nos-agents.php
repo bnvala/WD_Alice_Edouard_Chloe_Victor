@@ -51,7 +51,7 @@
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo '<div class="agent-card" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
-            echo '<img src="' . $row["photo"] . '" alt="Photo de l\'agent">';
+            echo '<img src="photos_agents/' . $agent["photo"] . '" alt="Photo de l\'agent" class="photo-agent" width="160" height="200">';
             echo '<div class="specialty">Spécialité: ' . $row["specialite"] . '</div>';
             echo '</div>';
         }
