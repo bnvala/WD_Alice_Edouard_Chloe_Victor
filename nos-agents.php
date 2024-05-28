@@ -42,11 +42,11 @@
 </head>
 <body>
     <h1>Nos Agents</h1>
-    <div class="agent-card" onclick="window.location.href='profile-agent1.php'">
+    <div class="agent-card" onclick="window.location.href='profil-agent1.php'">
         <img src="Edouard.jpg" alt="Photo de l'agent">
         <div class="specialty">Spécialité: Finance</div>
     </div>
-    <div class="agent-card" onclick="window.location.href='profile-agent2.php'">
+    <div class="agent-card" onclick="window.location.href='profil-agent2.php'">
         <img src="victor.jpg" alt="Photo de l'agent">
         <div class="specialty">Spécialité: Marketing</div>
     </div>
