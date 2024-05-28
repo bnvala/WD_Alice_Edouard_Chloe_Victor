@@ -88,24 +88,50 @@
         $agent = $result->fetch_assoc();
         echo '<div class="profile-card">';
         echo '<div class="header">';
-        echo '<img src="photos_agents/'. $agent["photo"] . '" alt="Photo de l\'agent" class="photo-agent" width="160" height="200">';
+        echo '<img src="photos_agents/' . $agent["photo"] . '" alt="Photo de l\'agent" class="photo-agent" width="160" height="200">';
         echo '<div class="info">';
         echo '<div><strong>Name:</strong> ' . $agent["prenom"] . ' ' . $agent["nom"] . '</div>';
         echo '<div><strong>Email:</strong> ' . $agent["courriel"] . '</div>';
         echo '<div><strong>Téléphone:</strong> ' . $agent["numero_tel"] . '</div>';
         echo '</div></div>';
+        
+        // Fetch availability from dispo_agents
+        $dispo_sql = "SELECT * FROM dispo_agents WHERE id_agent = $id";
+        $dispo_result = $conn->query($dispo_sql);
+        $dispo_data = [];
+        while ($dispo_row = $dispo_result->fetch_assoc()) {
+            $dispo_data[$dispo_row["jour"]] = $dispo_row;
+        }
+
+        $days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
+        
         echo '<div class="schedule">';
         echo '<table>';
-        echo '<thead><tr><th></th><th>Lundi</th><th>Mardi</th><th>Mercredi</th><th>Jeudi</th><th>Vendredi</th></tr></thead>';
+        echo '<thead><tr><th></th>';
+        foreach ($days as $day) {
+            echo "<th>$day</th>";
+        }
+        echo '</tr></thead>';
         echo '<tbody>';
-        echo '<tr><th>AM</th><td></td><td class="unavailable"></td><td></td><td></td><td class="unavailable"></td></tr>';
-        echo '<tr><th>PM</th><td></td><td></td><td class="unavailable"></td><td></td><td></td></tr>';
+        echo '<tr><th>AM</th>';
+        foreach ($days as $day) {
+            $availability = isset($dispo_data[$day]) ? $dispo_data[$day]["AM"] : 1;
+            echo '<td' . ($availability ? '' : ' class="unavailable"') . '></td>';
+        }
+        echo '</tr>';
+        echo '<tr><th>PM</th>';
+        foreach ($days as $day) {
+            $availability = isset($dispo_data[$day]) ? $dispo_data[$day]["PM"] : 1;
+            echo '<td' . ($availability ? '' : ' class="unavailable"') . '></td>';
+        }
+        echo '</tr>';
         echo '</tbody></table>';
         echo '</div>';
+        
         echo '<div class="buttons">';
         echo '<button onclick="alert(\'Prendre RDV avec notre conseiller\')">Prendre un RDV</button>';
         echo '<button onclick="alert(\'Rentrer en communication avec notre agent\')">Communiquer</button>';
-        echo '<button onclick="window.open(\'cv_agents/' . $agent["cv"]. '\', \'_blank\')">Voir le CV</button>';
+        echo '<button onclick="window.open(\'cv_agents/' . $agent["cv"] . '\', \'_blank\')">Voir le CV</button>';
         echo '</div>';
         echo '</div>';
     } else {
