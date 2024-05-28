@@ -77,52 +77,42 @@
     </style>
 </head>
 <body>
-    <div class="profile-card">
-        <div class="header">
-            <img src="photo-agent3.jpg" alt="Photo de l'agent" class="photo-agent" width="150" height="150">
-            <div class="info">
-                <div><strong>Name:</strong> Alice COUDERT</div>
-                <div><strong>Email:</strong> alice.coudert@edu.ece.fr</div>
-                <div><strong>Téléphone:</strong> +1234567890</div>
-            </div>
-        </div>
-        <div class="schedule">
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Lundi</th>
-                        <th>Mardi</th>
-                        <th>Mercredi</th>
-                        <th>Jeudi</th>
-                        <th>Vendredi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>AM</th>
-                        <td></td>
-                        <td class="unavailable"></td>
-                        <td></td>
-                        <td></td>
-                        <td class="unavailable"></td>
-                    </tr>
-                    <tr>
-                        <th>PM</th>
-                        <td></td>
-                        <td></td>
-                        <td class="unavailable"></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="buttons">
-            <button onclick="alert('Prendre RDV avec notre conseiller')">Prendre un RDV</button>
-            <button onclick="alert('Rentrer en communication avec notre agent')">Communiquer</button>
-            <button onclick="alert('Voir CV')">Voir le CV</button>
-        </div>
-    </div>
+    <?php
+    include 'db.php';
+
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM agent WHERE id_agent = $id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $agent = $result->fetch_assoc();
+        echo '<div class="profile-card">';
+        echo '<div class="header">';
+        echo '<img src="' . $agent["photo"] . '" alt="Photo de l\'agent" class="photo-agent" width="160" height="200">';
+        echo '<div class="info">';
+        echo '<div><strong>Name:</strong> ' . $agent["bureau"] . '</div>';
+        echo '<div><strong>Email:</strong> ' . $agent["courriel"] . '</div>';
+        echo '<div><strong>Téléphone:</strong> ' . $agent["numero_tel"] . '</div>';
+        echo '</div></div>';
+        echo '<div class="schedule">';
+        echo '<table>';
+        echo '<thead><tr><th></th><th>Lundi</th><th>Mardi</th><th>Mercredi</th><th>Jeudi</th><th>Vendredi</th></tr></thead>';
+        echo '<tbody>';
+        echo '<tr><th>AM</th><td></td><td class="unavailable"></td><td></td><td></td><td class="unavailable"></td></tr>';
+        echo '<tr><th>PM</th><td></td><td></td><td class="unavailable"></td><td></td><td></td></tr>';
+        echo '</tbody></table>';
+        echo '</div>';
+        echo '<div class="buttons">';
+        echo '<button onclick="alert(\'Prendre RDV avec notre conseiller\')">Prendre un RDV</button>';
+        echo '<button onclick="alert(\'Rentrer en communication avec notre agent\')">Communiquer</button>';
+        echo '<button onclick="alert(\'Voir CV\')">Voir le CV</button>';
+        echo '</div>';
+        echo '</div>';
+    } else {
+        echo "No agent found";
+    }
+
+    $conn->close();
+    ?>
 </body>
 </html>
