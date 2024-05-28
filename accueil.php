@@ -23,7 +23,7 @@
         </header>
         
         <section>
-            <h2>Bienvenue sur Omnes Immobilier</h2>
+            <h2><center>Bienvenue sur Omnes Immobilier</center></h2>
             <p>Votre plateforme pour trouver les meilleures propriétés immobilières en ligne.</p>
         <div id="carrousel">
             <ul>

@@ -1,0 +1,73 @@
+/* styles_presentation_bien.css */
+
+/* Réinitialisation des marges et des paddings pour tous les éléments */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+#wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles pour l'en-tête */
+header {
+    text-align: center;
+    border-bottom: 2px solid #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+/* Styles pour la section principale */
+section {
+    margin-bottom: 20px;
+}
+
+section h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.bien-info {
+    margin-top: 20px;
+}
+
+.bien-info h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.bien-info p {
+    margin-bottom: 10px;
+}
+
+/* Styles pour le pied de page */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+footer p {
+    font-size: 0.9em;
+    color: #777;
+}
