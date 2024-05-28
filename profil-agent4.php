@@ -79,7 +79,7 @@
 <body>
     <div class="profile-card">
         <div class="header">
-            <img src="photo-agent1.jpg" alt="Photo de l'agent" class="photo-agent" width="150" height="150">
+            <img src="victor.jpg" alt="Photo de l'agent" class="photo-agent" width="150" height="150">
             <div class="info">
                 <div><strong>Name:</strong> Victor LAINE</div>
                 <div><strong>Email:</strong> victor.laine@edu.ece.fr</div>
