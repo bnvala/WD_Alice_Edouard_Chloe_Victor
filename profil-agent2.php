@@ -79,7 +79,7 @@
 <body>
     <div class="profile-card">
         <div class="header">
-            <img src="photo-agent2.jpg" alt="Photo de l'agent" class="photo-agent" width="150" height="150">
+            <img src="photo-agent2.jpg" alt="Photo de l'agent" class="photo-agent" width="191" height="255">
             <div class="info">
                 <div><strong>Name:</strong> Chloe LESTIC</div>
                 <div><strong>Email:</strong> chloe.lestic@edu.ece.fr</div>
