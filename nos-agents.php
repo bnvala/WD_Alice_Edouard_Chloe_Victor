@@ -18,7 +18,7 @@
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 250px;
             margin: 20px;
             padding: 20px;
             text-align: center;
@@ -42,13 +42,24 @@
 </head>
 <body>
     <h1>Nos Agents</h1>
-    <div class="agent-card" onclick="window.location.href='profil-agent1.php'">
-        <img src="Edouard.jpg" alt="Photo de l'agent">
-        <div class="specialty">Spécialité: Finance</div>
-    </div>
-    <div class="agent-card" onclick="window.location.href='profil-agent2.php'">
-        <img src="victor.jpg" alt="Photo de l'agent">
-        <div class="specialty">Spécialité: Marketing</div>
-    </div>
+    <?php
+    include 'db.php';
+    
+    $sql = "SELECT id_agent, photo, specialite FROM agent";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo '<div class="agent-card" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
+            echo '<img src="' . $row["photo"] . '" alt="Photo de l\'agent">';
+            echo '<div class="specialty">Spécialité: ' . $row["specialite"] . '</div>';
+            echo '</div>';
+        }
+    } else {
+        echo "0 results";
+    }
+    
+    $conn->close();
+    ?>
 </body>
 </html>
