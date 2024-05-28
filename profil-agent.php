@@ -90,7 +90,7 @@
         echo '<div class="header">';
         echo '<img src="' . $agent["photo"] . '" alt="Photo de l\'agent" class="photo-agent" width="160" height="200">';
         echo '<div class="info">';
-        echo '<div><strong>Name:</strong> ' . $agent["prenom"] . $agent["nom"] .'</div>';
+        echo '<div><strong>Name:</strong> ' . $agent["prenom"] . ' ' . $agent["nom"] .'</div>';
         echo '<div><strong>Email:</strong> ' . $agent["courriel"] . '</div>';
         echo '<div><strong>Téléphone:</strong> ' . $agent["numero_tel"] . '</div>';
         echo '</div></div>';
