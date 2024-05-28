@@ -79,7 +79,7 @@
 <body>
     <div class="profile-card">
         <div class="header">
-            <img src="Edouard.jpg" alt="Photo de l'agent" class="photo-agent" width="200" height="130">
+            <img src="Edouard.jpg" alt="Photo de l'agent" class="photo-agent" width="160" height="200">
             <div class="info">
                 <div><strong>Name:</strong> Edouard MENUT</div>
                 <div><strong>Email:</strong> edouard.menut@edu.ece.fr</div>
