@@ -95,7 +95,6 @@
         echo '<div><strong>Téléphone:</strong> ' . $agent["numero_tel"] . '</div>';
         echo '</div></div>';
 
-        // Fetch availability from dispo_agents
         $dispo_sql = "SELECT * FROM dispo_agents WHERE id_agent = $id";
         $dispo_result = $conn->query($dispo_sql);
         $dispo_data = [];
