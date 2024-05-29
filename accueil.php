@@ -12,8 +12,7 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<?php session_start();
-include 'wrapper.php'; ?>        
+<?php include 'wrapper.php'; ?>        
         <section>
             <h2><center>Bienvenue sur Omnes Immobilier</center></h2>
             <p>Votre plateforme pour trouver les meilleures propriétés immobilières en ligne.</p>
