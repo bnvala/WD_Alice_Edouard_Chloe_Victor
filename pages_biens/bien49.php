@@ -93,7 +93,7 @@
     </div>
 
     <div class="agents-container">
-        <h2>Agents Immobiliers</h2>
+        <h2>Agents Immobiliers Spécialisés</h2>
         <div class="agents">
             <?php
             // Requête SQL pour récupérer les agents immobiliers en fonction du type du bien
@@ -101,22 +101,18 @@
             $result_agents = $conn->query($sql_agents);
 
             // Vérifier s'il y a des résultats
+
             if ($result_agents->num_rows > 0) {
-                // Afficher les agents immobiliers
                 while($row_agents = $result_agents->fetch_assoc()) {
-                    $nom = $row_agents["nom"];
-                    $prenom = $row_agents["prenom"];
-                    $photo_agent = $row_agents["photo"];
-                    echo "<div class='agent'>";
-                    echo "<img src='$photo_agent' alt='Photo de l'agent'>";
-                    echo "<p>$nom</p>";
-                    echo "<p>$prenom</p>";
-                    echo "</div>";
+                    echo '<div class="agent-card" onclick="window.location.href=\'profil-agent.php?id=' . $row_agents["id_agent"] . '\'">';
+                    echo '<img src="photos_agents/' . $row_agents["photo"] . '" alt="Photo de l\'agent">';
+                    echo '<div class="specialty"> ' . $row_agents["nom"] . '</div>';
+                    echo '<div class="specialty"> ' . $row_agents["prenom"] . '</div>';
+                    echo '</div>';
                 }
             } else {
-                echo "Aucun agent immobilier trouvé pour ce type de bien.";
+                echo "No agents found";
             }
-
             // Fermer la connexion
             $conn->close();
             ?>
