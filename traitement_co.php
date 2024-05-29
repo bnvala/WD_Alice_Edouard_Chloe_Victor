@@ -16,7 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $courriel = $_POST['courriel'];
     $motdepasse = $_POST['motdepasse'];
 
-    $sql = "SELECT * FROM client WHERE courriel = ?";
+    // Vérifier dans la table 'agent'
+    $sql = "SELECT * FROM agent WHERE courriel = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $courriel);
     $stmt->execute();
@@ -24,22 +25,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        if (password_verify($motdepasse, $row['mot_de_passe'])) {
-            // Connexion réussie, stocker les informations de l'utilisateur dans la session
+        if ($motdepasse === $row['mot_de_passe']) {
+            // Connexion réussie pour un agent
             $_SESSION['utilisateur'] = $row;
-            echo json_encode(['success' => true, 'message' => 'Connexion réussie. Redirection en cours...']);
-        } else {
-            // Identifiant ou mot de passe incorrect
-            echo json_encode(['success' => false, 'message' => 'Votre identifiant ou votre mot de passe est incorrect.']);
+            $redirect = 'mon_compte_agent.php'; // Redirection vers le compte de l'agent
+            echo json_encode(['success' => true, 'message' => 'Connexion réussie. Redirection en cours...', 'redirect' => $redirect]);
+            exit;
         }
-    } else {
-        // Identifiant ou mot de passe incorrect
-        echo json_encode(['success' => false, 'message' => 'Votre identifiant ou votre mot de passe est incorrect.']);
     }
-
-    $stmt->close();
+    
+    // Vérifier dans la table 'admin'
+    $sql = "SELECT * FROM admin WHERE courriel = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $courriel);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if ($motdepasse === $row['mot_de_passe']) {
+            // Connexion réussie pour un administrateur
+            $_SESSION['utilisateur'] = $row;
+            $redirect = 'mon_compte_admin.php'; // Redirection vers le compte de l'administrateur
+            echo json_encode(['success' => true, 'message' => 'Connexion réussie. Redirection en cours...', 'redirect' => $redirect]);
+            exit;
+        }
+    }
+    
+    // Vérifier dans la table 'client'
+    $sql = "SELECT * FROM client WHERE courriel = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $courriel);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if (password_verify($motdepasse, $row['mot_de_passe'])) {
+            // Connexion réussie pour un client
+            $_SESSION['utilisateur'] = $row;
+            $redirect = 'mon_compte_client.php'; // Redirection vers le compte du client
+            echo json_encode(['success' => true, 'message' => 'Connexion réussie. Redirection en cours...', 'redirect' => $redirect]);
+            exit;
+        }
+    }
+    
+    // Identifiant ou mot de passe incorrect
+    echo json_encode(['success' => false, 'message' => 'Votre identifiant ou votre mot de passe est incorrect.']);
+    exit;
 } else {
     echo json_encode(['success' => false, 'message' => 'Méthode de requête non valide.']);
+    exit;
 }
 
 $conn->close();

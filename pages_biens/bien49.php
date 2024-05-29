@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Présentation du Bien</title>
-    <!-- Inclusion du fichier CSS -->
+
     <link rel="stylesheet" href="biens.css">
 </head>
 <body>
@@ -12,11 +12,10 @@
     <div class="container">
         <div class="image">
             <?php
-            // Informations de connexion à la base de données
-            $servername = "localhost"; // Remplacer par le nom de votre serveur
-            $username = "root";        // Remplacer par votre nom d'utilisateur
-            $password = "";            // Remplacer par votre mot de passe
-            $dbname = "pj_piscine";    // Nom de la base de données
+            $servername = "localhost"; 
+            $username = "root";        
+            $password = "";          
+            $dbname = "pj_piscine";  
 
             // Connexion à la base de données
             $conn = new mysqli($servername, $username, $password, $dbname);
