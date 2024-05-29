@@ -78,6 +78,8 @@
 </head>
 <body>
     <?php
+    session_start(); // Démarrer la session
+
     include 'db.php';
 
     $id = $_GET['id'];
@@ -129,7 +131,11 @@
         echo '</div>';
 
         echo '<div class="buttons">';
-        echo '<button onclick="window.location.href=\'creneaux.php?id=' . $id . '\'">Prendre un RDV</button>';
+        if (isset($_SESSION['utilisateur'])) {
+            echo '<button onclick="window.location.href=\'creneaux.php?id=' . $id . '\'">Prendre un RDV</button>';
+        } else {
+            echo '<button onclick="window.location.href=\'formrdv.php?id=' . $id . '&redirect=creneaux.php?id=' . $id . '\'">Prendre un RDV</button>';
+        }
         echo '<button onclick="window.location.href=\'communiquer.php?id=' . $id . '\'">Communiquer</button>';
         echo '<button onclick="window.open(\'cv_agents/' . $agent["cv"] . '\', \'_blank\')">Voir le CV</button>';
         echo '</div>';

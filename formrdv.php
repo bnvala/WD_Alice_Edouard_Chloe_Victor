@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
+    <title>Connexion</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,56 +22,47 @@
             margin-top: 20px;
             color: #ff0000; /* Rouge */
         }
-        #inscriptionBtn {
+        #seConnecterBtn {
             font-size: 20px;
             color: white;
-            background-color: #0056b3; /* Bleu */
+            background-color: #0056b3; /* Bleu plus foncé */
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 10px; /* Espace entre le champ "Mot de passe" et le bouton */
         }
-        #inscriptionBtn:hover {
-            background-color: #0056b3; /* Bleu plus foncé au survol */
+        #seConnecterBtn:hover {
+            background-color: #004080; /* Bleu foncé au survol */
         }
     </style>
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
     <div id="cadre">
-        <h2>Inscription</h2>
-        <form action="traitement_inscription.php" method="post">
-            <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="nom" required><br><br>
-
-            <label for="prenom">Prénom :</label>
-            <input type="text" id="prenom" name="prenom" required><br><br>
-
-            <label for="adresse">Adresse :</label>
-            <textarea id="adresse" name="adresse" rows="4" required></textarea><br><br>
-
+        <h2>Connexion</h2>
+        <form id="connexionForm" action="traitement_rdv.php" method="post">
             <label for="courriel">Identifiant :</label>
             <input type="email" id="courriel" name="courriel" required><br><br>
 
             <label for="motdepasse">Mot de passe :</label>
             <input type="password" id="motdepasse" name="motdepasse" required><br><br>
 
-            <button id="inscriptionBtn" type="submit">S'inscrire</button>
+            <button id="seConnecterBtn" type="submit">Se connecter</button>
         </form>
 
         <div id="message"></div>
 
-        <button id="dejaCompte">Vous avez déjà un compte ?</button>
+        <button id="nouveauCompte">Vous n'avez pas encore de compte ?</button>
     </div>
 
     <script>
-        var form = document.querySelector("form");
+        var form = document.getElementById("connexionForm");
         var message = document.getElementById("message");
-        var dejaCompteBtn = document.getElementById("dejaCompte");
+        var nouveauCompteBtn = document.getElementById("nouveauCompte");
 
-        dejaCompteBtn.addEventListener("click", function() {
-            window.location.href = "form.php";
+        nouveauCompteBtn.addEventListener("click", function() {
+            window.location.href = "inscription_client.php";
         });
 
         form.addEventListener("submit", function(event) {
@@ -82,8 +73,14 @@
             xhr.open("POST", form.action, true);
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    message.textContent = xhr.responseText;
+                    var response = JSON.parse(xhr.responseText);
+                    message.innerHTML = response.message;
                     message.style.display = "block";
+
+                    if (response.success) {
+                        // Rediriger l'utilisateur en fonction du type de compte
+                        window.location.href = response.redirect;
+                    }
                 }
             };
             xhr.send(formData);

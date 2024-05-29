@@ -66,6 +66,7 @@ $utilisateur = $_SESSION['utilisateur'];
     </style>
 </head>
 <body>
+<?php include 'wrapper.php'; ?>
     <div id="cadre">
         <h2>Mon Compte Administrateur</h2>
         <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
