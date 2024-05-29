@@ -30,6 +30,10 @@
         }
         .agent-card img {
             border-radius: 50%;
+            width: 120px;
+            height: 150px;
+        }
+        .agent-card.large img {
             width: 150px;
             height: 150px;
         }
@@ -50,7 +54,8 @@
 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            echo '<div class="agent-card" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
+            $agent_card_class = ($row["id_agent"] >= 5 && $row["id_agent"] <= 20) ? "agent-card large" : "agent-card";
+            echo '<div class="' . $agent_card_class . '" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
             echo '<img src="photos_agents/' . $row["photo"] . '" alt="Photo de l\'agent">';
             echo '<div class="specialty">Spécialité: ' . $row["specialite"] . '</div>';
             echo '</div>';

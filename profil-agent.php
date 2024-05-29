@@ -18,7 +18,7 @@
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 700px;
+            width: 1000px;
             padding: 20px;
         }
         .profile-card .header {
@@ -88,7 +88,8 @@
         $agent = $result->fetch_assoc();
         echo '<div class="profile-card">';
         echo '<div class="header">';
-        echo '<img src="photos_agents/' . $agent["photo"] . '" alt="Photo de l\'agent" class="photo-agent" width="160" height="200">';
+        $photo_dimension = ($id >= 1 && $id <= 4) ? ' width="120" height="150"' : ' width="150" height="150"';
+        echo '<img src="photos_agents/' . $agent["photo"] . '" alt="Photo de l\'agent" class="photo-agent"' . $photo_dimension . '>';
         echo '<div class="info">';
         echo '<div><strong>Name:</strong> ' . $agent["prenom"] . ' ' . $agent["nom"] . '</div>';
         echo '<div><strong>Email:</strong> ' . $agent["courriel"] . '</div>';
