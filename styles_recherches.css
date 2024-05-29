@@ -13,6 +13,44 @@ h1, h2 {
     color: #333;
 }
 
+header {
+    text-align: center;
+    border-bottom: 2px solid #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #007BFF;
+}
+
+header h1 {
+    margin: 0;
+    text-align: center;
+}
+
+#wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
 form {
     margin: 0 auto;
     width: 60%;
