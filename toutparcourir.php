@@ -57,7 +57,7 @@
         // Parcourir les résultats
         while($row = $result->fetch_assoc()) {
             echo '<div class="item">';
-            echo '<a href="bien' . $row["id"] . '.php">'; // Lien hypertexte vers bien{id}.php
+            echo '<a href="pages_biens/bien' . $row["id"] . '.php">'; // Lien hypertexte vers bien{id}.php
             echo '<div class="item-container">'; // Conteneur autour de chaque bien
             echo '<img src="' . $row["photos"] . '" alt="Photo du bien">';
             echo '<h3>' . $row["type"] . '</h3>';

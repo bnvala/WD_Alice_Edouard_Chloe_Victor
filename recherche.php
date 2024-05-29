@@ -4,25 +4,20 @@ $username = "root";
 $password = "";
 $dbname = "pj_piscine";
 
-// Créer une connexion
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Vérifier la connexion
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Initialiser les variables de recherche
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 $description = isset($_GET['description']) ? trim($_GET['description']) : '';
 $ville = isset($_GET['ville']) ? trim($_GET['ville']) : '';
 
-// Initialiser la variable des résultats
 $searchExecuted = false;
 $result = null;
 
 if ($type !== '' || $description !== '' || $ville !== '') {
-    // Construire la requête SQL
     $sql = "SELECT * FROM biens WHERE 1=1";
     if ($type !== '') {
         $sql .= " AND type LIKE '%" . $conn->real_escape_string($type) . "%'";
@@ -43,62 +38,7 @@ if ($type !== '' || $description !== '' || $ville !== '') {
 <html>
 <head>
     <title>Recherche de biens immobiliers</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1, h2 {
-            text-align: center;
-            color: #333;
-        }
-        form {
-            margin: 0 auto;
-            width: 60%;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="text"], input[type="submit"] {
-            padding: 8px;
-            margin: 5px 0;
-            width: calc(100% - 22px);
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: rgb(135,206,250);
-            color: white;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-        input[type="submit"]:hover {
-            background-color: rgb(135,206,250);
-        }
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .thumbnail {
-            max-width: 100px;
-            max-height: 100px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles_recherches.css">
 </head>
 <body>
 
@@ -140,6 +80,28 @@ if ($type !== '' || $description !== '' || $ville !== '') {
     <?php else: ?>
         <p>Aucun résultat trouvé.</p>
     <?php endif; ?>
+<?php endif; ?>
+
+<?php if ($type !== ''): ?>
+    <h2>Agents Immobiliers Spécialisés</h2>
+    <div class="agents">
+        <?php
+        $sql_agents = "SELECT * FROM agent WHERE specialite LIKE '%" . $conn->real_escape_string($type) . "%'";
+        $result_agents = $conn->query($sql_agents);
+
+        if ($result_agents->num_rows > 0) {
+            while($row_agents = $result_agents->fetch_assoc()) {
+                echo '<div class="agent-card" onclick="window.location.href=\'profil-agent.php?id=' . $row_agents["id_agent"] . '\'">';
+                echo '<img src="photos_agents/' . htmlspecialchars($row_agents["photo"]) . '" alt="Photo de l\'agent">';
+                echo '<div class="specialty">' . htmlspecialchars($row_agents["nom"]) . '</div>';
+                echo '<div class="specialty">' . htmlspecialchars($row_agents["prenom"]) . '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo "<p>Aucun agent trouvé.</p>";
+        }
+        ?>
+    </div>
 <?php endif; ?>
 
 </body>
