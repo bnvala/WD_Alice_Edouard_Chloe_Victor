@@ -73,7 +73,7 @@ if ($type !== '' || $description !== '' || $ville !== '') {
                     <td><img src="<?php echo htmlspecialchars($row["photos"]); ?>" alt="Photo du bien" class="thumbnail"></td>
                     <td><?php echo htmlspecialchars($row["description"]); ?></td>
                     <td><?php echo htmlspecialchars($row["adresse"]); ?></td>
-                    <td><a href="annonce.php?id=<?php echo htmlspecialchars($row["id"]); ?>">Voir l'annonce</a></td>
+                    <td><a href="pages_biens/bien<?php echo htmlspecialchars($row["id"]); ?>.php">Voir l'annonce</a></td>
                 </tr>
             <?php endwhile; ?>
         </table>
