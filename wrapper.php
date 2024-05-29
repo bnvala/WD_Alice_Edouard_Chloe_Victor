@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="styles_entete.css">
-</head>
-<body>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles_entete.css">
+    </head>    
+    <body>
+
     <div id="wrapper">
         <header>
             <h1>Omnes Immobilier</h1>
