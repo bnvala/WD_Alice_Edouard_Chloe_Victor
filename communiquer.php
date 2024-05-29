@@ -62,6 +62,8 @@
         <div class="buttons">
             <button onclick="window.location.href='chat.php?id=<?php echo $id; ?>'">Chatter avec l'agent</button>
             <button onclick="window.location.href='mailto:<?php echo $agent["courriel"]; ?>'">Envoyer un mail à l'agent</button>
+            <button onclick="launchAudioCall()">Appel audio</button>
+            <button onclick="launchVideoCall()">Appel vidéo</button>
         </div>
     </div>
 
@@ -73,5 +75,21 @@
     // Fermer la connexion à la base de données
     $conn->close();
     ?>
+
+    <script>
+        function launchAudioCall() {
+            if (confirm("Voulez-vous vraiment lancer un appel audio ?")) {
+                // Code pour lancer l'appel audio ici
+                alert("L'appel audio est lancé !");
+            }
+        }
+
+        function launchVideoCall() {
+            if (confirm("Voulez-vous vraiment lancer un appel vidéo ?")) {
+                // Code pour lancer l'appel vidéo ici
+                alert("L'appel vidéo est lancé !");
+            }
+        }
+    </script>
 </body>
 </html>
