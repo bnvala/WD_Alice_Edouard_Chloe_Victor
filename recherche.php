@@ -41,6 +41,21 @@ if ($type !== '' || $description !== '' || $ville !== '') {
     <link rel="stylesheet" type="text/css" href="styles_recherches.css">
 </head>
 <body>
+<div id="wrapper">
+        <header>
+            <h1>Omnes Immobilier</h1>
+            <nav>
+                <ul>
+                    <li><a href="accueil.php">Accueil</a></li>
+                    <li><a href="toutparcourir.php">Tout Parcourir</a></li>
+                    <li><a href="recherche.php">Recherche</a></li>
+                    <li><a href="rendez-vous.php">Rendez-vous</a></li>
+                    <li><a href="form.php">Votre Compte</a></li>
+                </ul>
+            </nav>
+        </header>
+</div>
+
 
 <h1>Recherche de biens immobiliers</h1>
 
