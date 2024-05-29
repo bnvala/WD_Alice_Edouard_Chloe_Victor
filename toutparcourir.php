@@ -7,7 +7,8 @@
     <link rel="stylesheet" type="text/css" href="styles_toutparcourir.css">
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
+<?php session_start(); 
+include 'wrapper.php';?>
 
     <h1>Tout Parcourir</h1>
     <?php

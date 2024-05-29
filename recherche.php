@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -9,6 +10,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 $description = isset($_GET['description']) ? trim($_GET['description']) : '';
