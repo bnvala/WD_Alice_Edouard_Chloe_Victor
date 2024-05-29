@@ -4,33 +4,35 @@
     display: flex;
 }
 
-
 .image {
-    flex: 0 0 50%;
+    flex: 0 0 auto; /* La largeur de l'image s'adaptera à sa taille naturelle */
+    max-width: 100%; /* Pour s'assurer que l'image ne dépasse pas la taille du conteneur */
 }
 
 .info {
-    flex: 0 0 50%;
+    flex: 0 0 50%; /* La partie d'info prend 50% de la largeur du conteneur */
+    padding-left: 20px; /* Ajoute de l'espace entre la photo et les informations */
 }
 
+
 img {
-    max-width: 100%;
+    width: 900px;
     height: auto;
     display: block;
 }
 
 .title {
     text-align: center;
+    margin-bottom: 20px; /* Ajoute de l'espace sous le titre */
 }
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px;
     margin: 0;
 }
+
 .agent-card {
     background-color: #fff;
     border-radius: 15px;
@@ -42,22 +44,25 @@ body {
     cursor: pointer;
     transition: transform 0.3s;
 }
+
 .agent-card:hover {
     transform: scale(1.05);
 }
+
 .agent-card img {
     border-radius: 50%;
     width: 150px;
     height: 150px; /* Taille de l'image */
     object-fit: cover; /* Remplir l'espace disponible */
-    box-align:center
-}   
+    box-align:center;
+}
 
 .agent-card .specialty {
     margin-top: 10px;
     font-size: 18px;
     font-weight: bold;
 }
+
 .agents {
     display: flex; /* Afficher les agents sur la même ligne */
     flex-wrap: wrap; /* Permettre le retour à la ligne si nécessaire */
@@ -65,3 +70,10 @@ body {
     align-items: center; /* Centrer les images verticalement */
 }
 
+iframe {
+    max-width: 100%;
+    width: 100%; /* Ajuste la largeur de la carte */
+    height: 300px; /* Hauteur de la carte */
+    border: none; /* Supprimer les bordures de l'iframe */
+    margin-top: 20px; /* Ajouter une marge au-dessus de la carte */
+}

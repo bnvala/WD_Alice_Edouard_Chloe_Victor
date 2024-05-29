@@ -83,6 +83,10 @@
                 echo "<h2>Type: $type</h2>";
                 echo "<p>Description: $description</p>";
                 echo "<p>Adresse: $adresse</p>";
+                ?>
+                <!-- Carte Google Maps -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2783.1507817729284!2d4.828816376186492!3d45.768168371080534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eafe127bafad%3A0x9cd7f8143cc63631!2s15%20Pl.%20de%20la%20Paix%2C%2069001%20Lyon!5e0!3m2!1sfr!2sfr!4v1716992462125!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>       
+                 <?php 
             } else {
                 echo "Aucun bien trouvé avec cet ID.";
             }
@@ -108,7 +112,8 @@
                     echo '<div class="specialty"> ' . $row_agents["prenom"] . '</div>';
                     echo '</div>';
                 }
-            } else {
+     
+            }else {
                 echo "No agents found";
             }
             // Fermer la connexion
