@@ -39,6 +39,7 @@ if ($type !== '' || $description !== '' || $ville !== '') {
 <head>
     <title>Recherche de biens immobiliers</title>
     <link rel="stylesheet" type="text/css" href="styles_recherches.css">
+    <link rel="stylesheet" type="text/css" href="styles_entete.css">
 </head>
 <body>
 <div id="wrapper">
