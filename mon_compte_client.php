@@ -51,7 +51,7 @@ $utilisateur = $_SESSION['utilisateur'];
 </head>
 <body>
     <div id="cadre">
-        <h2>Mon Compte</h2>
+        <h2>Mon Compte Client</h2>
         <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
         <p>Prénom : <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
         <p>Adresse : <?php echo htmlspecialchars($utilisateur['adresse']); ?></p>
