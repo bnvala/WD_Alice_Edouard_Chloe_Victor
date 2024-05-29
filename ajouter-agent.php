@@ -52,7 +52,8 @@
     </style>
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
+<?php session_start();
+include 'wrapper.php'; ?>
     <div class="form-container">
         <h2>Ajouter Agent</h2>
         <?php
