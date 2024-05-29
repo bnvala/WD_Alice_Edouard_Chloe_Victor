@@ -130,7 +130,7 @@
 
         echo '<div class="buttons">';
         echo '<button onclick="window.location.href=\'creneaux.php?id=' . $id . '\'">Prendre un RDV</button>';
-        echo '<button onclick="alert(\'Rentrer en communication avec notre agent\')">Communiquer</button>';
+        echo '<button onclick="window.location.href=\'communiquer.php?id=' . $id . '\'">Communiquer</button>';
         echo '<button onclick="window.open(\'cv_agents/' . $agent["cv"] . '\', \'_blank\')">Voir le CV</button>';
         echo '</div>';
         echo '</div>';
