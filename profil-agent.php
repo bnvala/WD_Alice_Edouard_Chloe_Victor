@@ -94,8 +94,7 @@
         echo '<div><strong>Email:</strong> ' . $agent["courriel"] . '</div>';
         echo '<div><strong>Téléphone:</strong> ' . $agent["numero_tel"] . '</div>';
         echo '</div></div>';
-        
-        // Fetch availability from dispo_agents
+
         $dispo_sql = "SELECT * FROM dispo_agents WHERE id_agent = $id";
         $dispo_result = $conn->query($dispo_sql);
         $dispo_data = [];
@@ -104,7 +103,7 @@
         }
 
         $days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
-        
+
         echo '<div class="schedule">';
         echo '<table>';
         echo '<thead><tr><th></th>';
@@ -127,9 +126,9 @@
         echo '</tr>';
         echo '</tbody></table>';
         echo '</div>';
-        
+
         echo '<div class="buttons">';
-        echo '<button onclick="alert(\'Prendre RDV avec notre conseiller\')">Prendre un RDV</button>';
+        echo '<button onclick="window.location.href=\'creneaux.php?id=' . $id . '\'">Prendre un RDV</button>';
         echo '<button onclick="alert(\'Rentrer en communication avec notre agent\')">Communiquer</button>';
         echo '<button onclick="window.open(\'cv_agents/' . $agent["cv"] . '\', \'_blank\')">Voir le CV</button>';
         echo '</div>';
