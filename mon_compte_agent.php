@@ -15,7 +15,7 @@ $utilisateur = $_SESSION['utilisateur'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Compte</title>
+    <title>Mon Compte Agent</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,10 +52,9 @@ $utilisateur = $_SESSION['utilisateur'];
 <body>
     <div id="cadre">
         <h2>Mon Compte Agent</h2>
-        <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
-        <p>Prénom : <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
-        <p>Adresse : <?php echo htmlspecialchars($utilisateur['adresse']); ?></p>
+        <p>Nom et prénom : <?php echo htmlspecialchars($utilisateur['nom']); ?> <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
         <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
+        
 
         <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
     </div>

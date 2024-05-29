@@ -15,7 +15,7 @@ $utilisateur = $_SESSION['utilisateur'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Compte</title>
+    <title>Mon Compte Administrateur</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,10 +54,11 @@ $utilisateur = $_SESSION['utilisateur'];
         <h2>Mon Compte Administrateur</h2>
         <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
         <p>Prénom : <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
-        <p>Adresse : <?php echo htmlspecialchars($utilisateur['adresse']); ?></p>
         <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
-
+        <a href="gerer_agents.php">Gérer les agents immobiliers</a>
+        <br></br>
         <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
+        
     </div>
 </body>
 </html>
