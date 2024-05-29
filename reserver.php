@@ -15,9 +15,9 @@ if ($conn->query($sql) === TRUE) {
     echo "<script>alert('Votre rendez-vous a été réservé. Vous recevrez une confirmation par SMS ou courriel.');</script>";
     echo "<script>window.location.href = 'profil-agent.php?id=$id_agent';</script>";
     $client->messages->create(
-        '+33 6 42 13 10 99',
+        '+33642131099',
         array(
-            'from' => '+1 681 581 5884', 
+            'from' => '+16815815884', 
             'body' => 'Votre rendez-vous a été confirmé.'
         )
     )
