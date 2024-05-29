@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'Inscription</title>
+    <title>Connexion</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,7 +41,7 @@
 <body>
     <div id="cadre">
         <h2>Connexion</h2>
-        <form id="inscriptionForm" action="traitement_co.php" method="post">
+        <form id="connexionForm" action="traitement_co.php" method="post">
             <label for="courriel">Identifiant :</label>
             <input type="email" id="courriel" name="courriel" required><br><br>
 
@@ -57,7 +57,7 @@
     </div>
 
     <script>
-        var form = document.getElementById("inscriptionForm");
+        var form = document.getElementById("connexionForm");
         var message = document.getElementById("message");
         var nouveauCompteBtn = document.getElementById("nouveauCompte");
 
@@ -78,7 +78,8 @@
                     message.style.display = "block";
 
                     if (response.success) {
-                        window.location.href = 'mon_compte.php';
+                        // Rediriger l'utilisateur en fonction du type de compte
+                        window.location.href = response.redirect;
                     }
                 }
             };
