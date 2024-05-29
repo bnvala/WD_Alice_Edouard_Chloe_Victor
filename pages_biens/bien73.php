@@ -27,7 +27,7 @@
             }
 
             // ID du bien à afficher
-            $id_bien = 50;
+            $id_bien = 73;
 
             // Requête SQL pour récupérer les informations du bien avec l'ID 49
             $sql = "SELECT * FROM biens WHERE id = $id_bien";
@@ -65,7 +65,7 @@
             }
 
             // ID du bien à afficher
-            $id_bien = 50;
+            $id_bien = 73;
 
             // Requête SQL pour récupérer les informations du bien avec l'ID 49
             $sql = "SELECT * FROM biens WHERE id = $id_bien";
