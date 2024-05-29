@@ -102,7 +102,7 @@
             // Vérifier s'il y a des résultats
             if ($result_agents->num_rows > 0) {
                 while($row_agents = $result_agents->fetch_assoc()) {
-                    echo '<div class="agent-card" onclick="window.location.href=\'profil-agent.php?id=' . $row_agents["id_agent"] . '\'">';
+                    echo '<div class="agent-card" onclick="window.location.href=\'../profil-agent.php?id=' . $row_agents["id_agent"] . '\'">';
                     echo '<img src="../photos_agents/' . $row_agents["photo"] . '" alt="Photo de l\'agent">';
                     echo '<div class="specialty"> ' . $row_agents["nom"] . '</div>';
                     echo '<div class="specialty"> ' . $row_agents["prenom"] . '</div>';
