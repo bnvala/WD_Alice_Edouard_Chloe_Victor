@@ -1,15 +1,13 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['utilisateur'])) {
     // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
     echo "<script>window.location.href = 'form.php';</script>";
     exit;
 }
-$utilisateur = $_SESSION['utilisateur'];
 
-// Redirection vers la page de connexion si l'utilisateur n'est pas connecté
-echo "<script>window.location.href = 'form.php';</script>";
-exit;
+$utilisateur = $_SESSION['utilisateur'];
 ?>
 
 <!DOCTYPE html>
@@ -37,28 +35,27 @@ exit;
         #deconnexionBtn {
             font-size: 20px;
             color: white;
-            background-color: #007bff; /* Bleu */
+            background-color: #007bff;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-top: 20px;
-            text-decoration: none; /* Pour un lien */
+            text-decoration: none;
         }
         #deconnexionBtn:hover {
-            background-color: #0056b3; /* Bleu plus foncé au survol */
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div id="cadre">
         <h2>Mon Compte</h2>
-        <p>Nom : <?php echo $utilisateur['nom']; ?></p>
-        <p>Prénom : <?php echo $utilisateur['prenom']; ?></p>
-        <p>Adresse : <?php echo $utilisateur['adresse']; ?></p>
-        <p>Identifiant : <?php echo $utilisateur['courriel']; ?></p>
-        <!-- Vous pouvez ajouter d'autres informations de l'utilisateur ici -->
+        <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
+        <p>Prénom : <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
+        <p>Adresse : <?php echo htmlspecialchars($utilisateur['adresse']); ?></p>
+        <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
 
         <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
     </div>

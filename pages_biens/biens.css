@@ -6,11 +6,11 @@
 
 
 .image {
-    flex: 0 0 60%;
+    flex: 0 0 50%;
 }
 
 .info {
-    flex: 0 0 40%;
+    flex: 0 0 50%;
 }
 
 img {

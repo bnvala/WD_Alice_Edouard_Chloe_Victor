@@ -73,8 +73,13 @@
             xhr.open("POST", form.action, true);
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    message.innerHTML = xhr.responseText;
+                    var response = JSON.parse(xhr.responseText);
+                    message.innerHTML = response.message;
                     message.style.display = "block";
+
+                    if (response.success) {
+                        window.location.href = 'mon_compte.php';
+                    }
                 }
             };
             xhr.send(formData);
