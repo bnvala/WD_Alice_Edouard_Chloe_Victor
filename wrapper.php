@@ -4,7 +4,7 @@
         <link rel="stylesheet" type="text/css" href="styles_entete.css">
     </head>    
     <body>
-<div id="wrapper">
+    <div id="wrapper">
         <header>
             <h1>Omnes Immobilier</h1>
             <nav>
