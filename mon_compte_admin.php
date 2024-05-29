@@ -47,6 +47,22 @@ $utilisateur = $_SESSION['utilisateur'];
         #deconnexionBtn:hover {
             background-color: #0056b3;
         }
+        .action-btn {
+            display: block;
+            font-size: 18px;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px 0;
+            text-decoration: none;
+        }
+        .action-btn:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -55,10 +71,9 @@ $utilisateur = $_SESSION['utilisateur'];
         <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
         <p>Prénom : <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
         <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
-        <a href="gerer_agents.php">Gérer les agents immobiliers</a>
-        <br></br>
+        <a href="gerer_agents.php" class="action-btn">Gérer les agents immobiliers</a>
+        <a href="gerer_biens.php" class="action-btn">Gérer les biens</a>
         <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
-        
     </div>
 </body>
 </html>

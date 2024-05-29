@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
+    <link rel="stylesheet" type="text/css" href="styles_entete.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,6 +40,20 @@
     </style>
 </head>
 <body>
+<div id="wrapper">
+        <header>
+            <h1>Omnes Immobilier</h1>
+            <nav>
+                <ul>
+                    <li><a href="accueil.php">Accueil</a></li>
+                    <li><a href="toutparcourir.php">Tout Parcourir</a></li>
+                    <li><a href="recherche.php">Recherche</a></li>
+                    <li><a href="rendez-vous.php">Rendez-vous</a></li>
+                    <li><a href="form.php">Votre Compte</a></li>
+                </ul>
+            </nav>
+        </header>
+</div>
     <div id="cadre">
         <h2>Connexion</h2>
         <form id="connexionForm" action="traitement_co.php" method="post">
