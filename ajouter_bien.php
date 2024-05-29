@@ -113,6 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
+<?php include 'wrapper.php'; ?>
     <div class="form-container">
         <h2>Ajouter un Bien</h2>
         <form method="post" enctype="multipart/form-data">
