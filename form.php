@@ -1,3 +1,24 @@
+<?php
+session_start();
+
+if (isset($_SESSION['utilisateur']['type'])) {
+    $utilisateur = $_SESSION['utilisateur'];
+    switch ($utilisateur['type']) {
+        case 'agent':
+            $redirect = 'mon_compte_agent.php';
+            break;
+        case 'admin':
+            $redirect = 'mon_compte_admin.php';
+            break;
+        case 'client':
+            $redirect = 'mon_compte_client.php';
+            break;
+    }
+    // Redirection vers la page appropriée
+    header("Location: $redirect");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

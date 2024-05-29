@@ -5,23 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tout Parcourir</title>
     <link rel="stylesheet" type="text/css" href="styles_entete.css">
-    <link rel="stylesheet" type="text/css" href="styles_toutparcourir.css">
 </head>
 <body>
-<div id="wrapper">
-        <header>
-            <h1><center>Omnes Immobilier</center></h1>
-            <nav>
-                <ul>
-                    <li><a href="accueil.php">Accueil</a></li>
-                    <li><a href="toutparcourir.php">Tout Parcourir</a></li>
-                    <li><a href="recherche.php">Recherche</a></li>
-                    <li><a href="rendez-vous.php">Rendez-vous</a></li>
-                    <li><a href="form.php">Votre Compte</a></li>
-                </ul>
-            </nav>
-        </header>
-</div>
+<?php include 'wrapper.php'; ?>
 
     <h1>Tout Parcourir</h1>
     <?php
