@@ -70,6 +70,7 @@ $utilisateur = $_SESSION['utilisateur'];
     </style>
 </head>
 <body>
+<?php include 'wrapper.php'; ?>
     <h1>Gérer les Biens</h1>
     <a href="ajouter_bien.php" class="add-button">Ajouter un bien</a>
     <?php

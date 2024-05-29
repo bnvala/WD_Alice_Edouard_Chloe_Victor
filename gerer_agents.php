@@ -69,6 +69,7 @@
     </style>
 </head>
 <body>
+<?php include 'wrapper.php'; ?>
     <button class="add-button" onclick="window.location.href='ajouter-agent.php'">Ajouter un agent</button>
     <h1>Nos Agents</h1>
     <?php

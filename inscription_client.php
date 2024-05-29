@@ -38,6 +38,7 @@
     </style>
 </head>
 <body>
+<?php include 'wrapper.php'; ?>
     <div id="cadre">
         <h2>Inscription</h2>
         <form action="traitement_inscription.php" method="post">
