@@ -50,6 +50,7 @@ $utilisateur = $_SESSION['utilisateur'];
     </style>
 </head>
 <body>
+<?php include 'wrapper.php'; ?>
     <div id="cadre">
         <h2>Mon Compte Client</h2>
         <p>Nom et prénom : <?php echo htmlspecialchars($utilisateur['nom'])?> <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>

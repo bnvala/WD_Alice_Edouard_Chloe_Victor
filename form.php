@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,6 +40,7 @@
     </style>
 </head>
 <body>
+<?php include 'wrapper.php'; ?>
     <div id="cadre">
         <h2>Connexion</h2>
         <form id="connexionForm" action="traitement_co.php" method="post">
