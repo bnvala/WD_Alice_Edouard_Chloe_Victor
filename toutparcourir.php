@@ -4,32 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tout Parcourir</title>
-    <style>
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .item {
-            flex: 1 0 30%; /* Prend 30% de la largeur de la ligne */
-            box-sizing: border-box;
-            padding: 10px;
-            text-align: center;
-        }
-        .item-container {
-            border: 1px solid #ccc; /* Bordure autour de chaque bien */
-            padding: 10px;
-            margin-bottom: 20px;
-            cursor: pointer; /* Curseur pointer pour indiquer qu'il est cliquable */
-        }
-        .item img {
-            width: 100%; /* Largeur fixe pour toutes les images */
-            height: 200px; /* Hauteur fixe pour toutes les images */
-            object-fit: cover; /* Redimensionne l'image pour qu'elle remplisse la zone sans déformation */
-            margin-bottom: 10px; /* Espacement en bas de l'image */
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles_entete.css">
+    <link rel="stylesheet" type="text/css" href="styles_toutparcourir.css">
 </head>
 <body>
+<div id="wrapper">
+        <header>
+            <h1><center>Omnes Immobilier</center></h1>
+            <nav>
+                <ul>
+                    <li><a href="accueil.php">Accueil</a></li>
+                    <li><a href="toutparcourir.php">Tout Parcourir</a></li>
+                    <li><a href="recherche.php">Recherche</a></li>
+                    <li><a href="rendez-vous.php">Rendez-vous</a></li>
+                    <li><a href="form.php">Votre Compte</a></li>
+                </ul>
+            </nav>
+        </header>
+</div>
+
     <h1>Tout Parcourir</h1>
     <?php
     // Informations de connexion à la base de données
