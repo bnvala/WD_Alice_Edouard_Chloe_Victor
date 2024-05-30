@@ -64,7 +64,9 @@
     </style>
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
+
+<?php session_start();
+ include 'wrapper.php'; ?>
     <h1>Nos Agents</h1>
     
     <!-- Catégorie Immobilier Résidentiel -->

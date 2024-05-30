@@ -8,21 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../styles_entete.css">
 </head>
 <body>
-<div id="wrapper">
-        <header>
-            <h1>Omnes Immobilier</h1>
-            <nav>
-                <ul>
-                    <li><a href="../accueil.php">Accueil</a></li>
-                    <li><a href="../toutparcourir.php">Tout Parcourir</a></li>
-                    <li><a href="../recherche.php">Recherche</a></li>
-                    <li><a href="../nos-agents.php">Rendez-vous</a></li>
-                    <li><a href="../form.php">Votre Compte</a></li>
-                </ul>
-            </nav>
-        </header>
-        <hr>
-    </div>
+<?php include '../wrapper_biens.php'; ?>  
     <h1 class="title">Présentation du Bien</h1>
     <div class="container">
         <div class="image">
