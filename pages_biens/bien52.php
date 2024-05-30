@@ -6,9 +6,10 @@
     <title>Présentation du Bien</title>
     <link rel="stylesheet" type="text/css" href="biens.css">
     <link rel="stylesheet" type="text/css" href="../styles_entete.css">
+    <?php include '../wrapper_biens.php'; ?>  
+
 </head>
 <body>
-<?php include '../wrapper_biens.php'; ?>  
     <h1 class="title">Présentation du Bien</h1>
     <div class="container">
         <div class="image">
