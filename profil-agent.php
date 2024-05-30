@@ -1,3 +1,4 @@
+<?php include 'wrapper.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,7 +79,7 @@
 </head>
 <body>
     <?php
-    session_start(); // Démarrer la session
+
 
     include 'db.php';
 
