@@ -1,21 +1,21 @@
 <?php 
 include 'wrapper.php';
 
-// Vérifier si le client est connecté
-if (!isset($_SESSION['utilisateur']['id'])) {
+// Vérifier si l'agent est connecté
+if (!isset($_SESSION['agent']['id'])) {
     header("Location: form.php");
     exit();
 }
 
-$id_client = $_SESSION['utilisateur']['courriel'];
+$id_agent = $_SESSION['agent']['id'];
 
 // Connexion à la base de données (supposons que vous ayez déjà une connexion dans wrapper.php)
 include 'db.php';
 
-// Requête pour récupérer les rendez-vous du client actuellement connecté
-$sql = "SELECT * FROM rdv WHERE courriel_client = ?";
+// Requête pour récupérer les rendez-vous de l'agent actuellement connecté
+$sql = "SELECT * FROM rdv WHERE id_agent = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $id_client);
+$stmt->bind_param("i", $id_agent);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
     }
 } else {
     echo "<h1>Rendez-vous</h1>";
-    echo "Aucun rendez-vous trouvé.";
+    echo "Aucun rendez-vous trouvé pour cet agent.";
 }
 
 // Fermer la connexion et le statement

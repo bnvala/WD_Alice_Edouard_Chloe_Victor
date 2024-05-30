@@ -95,7 +95,7 @@ $id_agent = $utilisateur['id_agent']; // Récupérer l'ID de l'agent connecté
         <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
         
         <div class="button-container">
-            <a href="mes_rendez-vous.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Mes Rendez-vous </a>
+            <a href="rdv_agent.php" class="button">Mes Rendez-vous</a>
             <a href="mes_messages.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Mes Messages </a>
             <a href="mes_consultations.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Mes Consultations </a>
         </div>
