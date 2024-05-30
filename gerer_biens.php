@@ -38,7 +38,7 @@
             margin: 10px 0;
         }
         .item p {
-            margin: 5px 0;
+            margin: 10px 0;
         }
         .add-button {
             background-color: #28a745;
@@ -59,16 +59,28 @@
             background-color: #dc3545;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 5px 20px;
+            border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin-top: 10px;
+            margin-top: 10px; /* Augmenter la marge supérieure */
             text-decoration: none;
             font-size: 16px;
         }
         .delete-button:hover {
             background-color: #c82333;
+        }
+        .return-button {
+            background-color: transparent;
+            border: none;
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .return-button:hover {
+            color: #0056b3;
         }
     </style>
 </head>
@@ -137,5 +149,6 @@
     // Fermer la connexion
     $conn->close();
     ?>
+    <a href="mon_compte_admin.php" class="return-button">Retour</a>
 </body>
 </html>

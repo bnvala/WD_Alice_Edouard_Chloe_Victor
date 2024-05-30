@@ -1,60 +1,3 @@
-<?php
-include 'wrapper.php';
-
-if (!isset($_SESSION['utilisateur'])) {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-    echo "<script>window.location.href = 'form.php';</script>";
-    exit;
-}
-
-$utilisateur = $_SESSION['utilisateur'];
-
-// Traitement de la soumission du formulaire
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Informations de connexion à la base de données
-    $servername = "localhost"; // Remplacer par le nom de votre serveur
-    $username = "root";        // Remplacer par votre nom d'utilisateur
-    $password = "";            // Remplacer par votre mot de passe
-    $dbname = "pj_piscine";    // Nom de la base de données
-
-    // Connexion à la base de données
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Vérifier la connexion
-    if ($conn->connect_error) {
-        die("Échec de la connexion : " . $conn->connect_error);
-    }
-
-    // Récupérer les données du formulaire
-    $id = $_POST['id'];
-    $type = $_POST['type'];
-    $description = $_POST['description'];
-    $adresse = $_POST['adresse'];
-
-    // Gestion des fichiers uploadés
-    $photos = $_FILES['photos']['name'];
-    $target_dir = "photos_biens/";
-    $target_file = $target_dir . basename($photos);
-
-    // Upload du fichier
-    if (move_uploaded_file($_FILES["photos"]["tmp_name"], $target_file)) {
-        // Requête SQL pour insérer les informations du bien dans la base de données
-        $sql = "INSERT INTO biens (id, type, photos, description, adresse) VALUES ('$id', '$type', '$photos', '$description', '$adresse')";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "Nouveau bien ajouté avec succès.";
-        } else {
-            echo "Erreur : " . $sql . "<br>" . $conn->error;
-        }
-    } else {
-        echo "Désolé, une erreur s'est produite lors de l'upload de la photo.";
-    }
-
-    // Fermer la connexion
-    $conn->close();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -110,6 +53,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .form-group button:hover {
             background-color: #218838;
         }
+        .return-button {
+            border: none;
+            background-color: transparent;
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .return-button:hover {
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -140,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Ajouter le Bien</button>
             </div>
         </form>
+        <a href="gerer_biens.php" class="return-button">Retour</a>
     </div>
 </body>
 </html>
