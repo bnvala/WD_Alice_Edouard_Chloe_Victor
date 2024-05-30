@@ -1,5 +1,5 @@
 <?php
-session_start();
+include 'wrapper.php';
 
 if (!isset($_SESSION['utilisateur'])) {
     // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
@@ -113,7 +113,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
     <div class="form-container">
         <h2>Ajouter un Bien</h2>
         <form method="post" enctype="multipart/form-data">

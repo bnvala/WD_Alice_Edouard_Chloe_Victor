@@ -1,3 +1,5 @@
+<?php session_start();?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,22 +25,22 @@
                         // Afficher le lien approprié en fonction du type de compte
                         switch ($type_compte) {
                             case 'admin':
-                                echo '<li><a href="mon_compte_admin.php">Mon Compte</a></li>';
+                                echo '<li><a href="../mon_compte_admin.php">Mon Compte</a></li>';
                                 break;
                             case 'agent':
-                                echo '<li><a href="mon_compte_agent.php">Mon Compte</a></li>';
+                                echo '<li><a href="../mon_compte_agent.php">Mon Compte</a></li>';
                                 break;
                             case 'client':
-                                echo '<li><a href="mon_compte_client.php">Mon Compte</a></li>';
+                                echo '<li><a href="../mon_compte_client.php">Mon Compte</a></li>';
                                 break;
                             default:
                                 // En cas de type de compte inconnu, afficher "Se Connecter"
-                                echo '<li><a href="form.php">Se Connecter</a></li>';
+                                echo '<li><a href="../form.php">Se Connecter</a></li>';
                                 break;
                         }
                     } else {
                         // Personne n'est connecté, afficher "Se Connecter"
-                        echo '<li><a href="form.php">Se Connecter</a></li>';
+                        echo '<li><a href="../form.php">Se Connecter</a></li>';
                     }
                     ?>
                 </ul>
