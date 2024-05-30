@@ -1,3 +1,4 @@
+<?php include 'wrapper.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
