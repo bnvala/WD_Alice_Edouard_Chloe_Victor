@@ -17,10 +17,7 @@ $utilisateur = $_SESSION['utilisateur'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Compte Agent</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-        }
+
         #cadre {
             width: 400px;
             margin: 0 auto;
@@ -50,6 +47,7 @@ $utilisateur = $_SESSION['utilisateur'];
     </style>
 </head>
 <body>
+<?php include 'wrapper.php'; ?>
     <div id="cadre">
         <h2>Mon Compte Agent</h2>
         <p>Nom et prénom : <?php echo htmlspecialchars($utilisateur['nom']); ?> <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>

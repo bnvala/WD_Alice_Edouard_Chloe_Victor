@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -9,6 +10,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 $description = isset($_GET['description']) ? trim($_GET['description']) : '';
@@ -39,24 +41,9 @@ if ($type !== '' || $description !== '' || $ville !== '') {
 <head>
     <title>Recherche de biens immobiliers</title>
     <link rel="stylesheet" type="text/css" href="styles_recherches.css">
-    <link rel="stylesheet" type="text/css" href="styles_entete.css">
 </head>
 <body>
-<div id="wrapper">
-        <header>
-            <h1>Omnes Immobilier</h1>
-            <nav>
-                <ul>
-                    <li><a href="accueil.php">Accueil</a></li>
-                    <li><a href="toutparcourir.php">Tout Parcourir</a></li>
-                    <li><a href="recherche.php">Recherche</a></li>
-                    <li><a href="rendez-vous.php">Rendez-vous</a></li>
-                    <li><a href="form.php">Votre Compte</a></li>
-                </ul>
-            </nav>
-        </header>
-</div>
-
+<?php include 'wrapper.php';?>
 
 <h1>Recherche de biens immobiliers</h1>
 

@@ -15,6 +15,7 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $courriel = $_POST['courriel'];
     $motdepasse = $_POST['motdepasse'];
+    $agent_id = isset($_POST['agent_id']) ? $_POST['agent_id'] : null;
 
     // Vérifier dans la table 'agent'
     $sql = "SELECT * FROM agent WHERE courriel = ?";
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($motdepasse === $row['mot_de_passe']) {
             // Connexion réussie pour un agent
             $_SESSION['utilisateur'] = $row;
-            $_SESSION['utilisateur']['type'] = 'agent';
+            $_SESSION['agent_id'] = $agent_id; // Enregistrer l'ID de l'agent
             $redirect = 'mon_compte_agent.php'; // Redirection vers le compte de l'agent
             echo json_encode(['success' => true, 'message' => 'Connexion réussie. Redirection en cours...', 'redirect' => $redirect]);
             exit;
@@ -47,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($motdepasse === $row['mot_de_passe']) {
             // Connexion réussie pour un administrateur
             $_SESSION['utilisateur'] = $row;
-            $_SESSION['utilisateur']['type'] = 'admin';
+            $_SESSION['agent_id'] = $agent_id; // Enregistrer l'ID de l'agent
             $redirect = 'mon_compte_admin.php'; // Redirection vers le compte de l'administrateur
             echo json_encode(['success' => true, 'message' => 'Connexion réussie. Redirection en cours...', 'redirect' => $redirect]);
             exit;
@@ -66,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($motdepasse, $row['mot_de_passe'])) {
             // Connexion réussie pour un client
             $_SESSION['utilisateur'] = $row;
-            $_SESSION['utilisateur']['type'] = 'client';
+            $_SESSION['agent_id'] = $agent_id; // Enregistrer l'ID de l'agent
             $redirect = 'mon_compte_client.php'; // Redirection vers le compte du client
             echo json_encode(['success' => true, 'message' => 'Connexion réussie. Redirection en cours...', 'redirect' => $redirect]);
             exit;

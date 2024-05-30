@@ -1,33 +1,14 @@
-<?php
-session_start();
-include 'wrapper.php';
-
-if (isset($_SESSION['utilisateur']['type'])) {
-    $utilisateur = $_SESSION['utilisateur'];
-    switch ($utilisateur['type']) {
-        case 'agent':
-            $redirect = 'mon_compte_agent.php';
-            break;
-        case 'admin':
-            $redirect = 'mon_compte_admin.php';
-            break;
-        case 'client':
-            $redirect = 'mon_compte_client.php';
-            break;
-    }
-    // Redirection vers la page appropriée
-    header("Location: $redirect");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
-    
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+        }
         #cadre {
             width: 400px;
             margin: 0 auto;
@@ -60,7 +41,7 @@ if (isset($_SESSION['utilisateur']['type'])) {
 <body>
     <div id="cadre">
         <h2>Connexion</h2>
-        <form id="connexionForm" action="traitement_co.php" method="post">
+        <form id="connexionForm" action="traitement_rdv.php" method="post">
             <label for="courriel">Identifiant :</label>
             <input type="email" id="courriel" name="courriel" required><br><br>
 

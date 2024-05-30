@@ -52,6 +52,7 @@
     </style>
 </head>
 <body>
+<?php include 'wrapper.php'; ?>
     <div class="form-container">
         <h2>Modifier Agent</h2>
         <?php
