@@ -79,7 +79,6 @@
                 $agent_card_class = ($row["id_agent"] >= 5 && $row["id_agent"] <= 20) ? "agent-card large" : "agent-card";
                 echo '<div class="' . $agent_card_class . '" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
                 echo '<div class="initials">' . $initial . '</div>';
-                echo '<div class="name">' . $name . '</div>';
                 echo '<img src="photos_agents/' . $row["photo"] . '" alt="Photo de l\'agent">';
                 echo '<div class="specialty">' . $row["specialite"] . '</div>';
                 echo '</div>';
@@ -103,7 +102,6 @@
                 $agent_card_class = ($row["id_agent"] >= 5 && $row["id_agent"] <= 20) ? "agent-card large" : "agent-card";
                 echo '<div class="' . $agent_card_class . '" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
                 echo '<div class="initials">' . $initial . '</div>';
-                echo '<div class="name">' . $name . '</div>';
                 echo '<img src="photos_agents/' . $row["photo"] . '" alt="Photo de l\'agent">';
                 echo '<div class="specialty">' . $row["specialite"] . '</div>';
                 echo '</div>';
@@ -127,7 +125,6 @@
                 $agent_card_class = ($row["id_agent"] >= 5 && $row["id_agent"] <= 20) ? "agent-card large" : "agent-card";
                 echo '<div class="' . $agent_card_class . '" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
                 echo '<div class="initials">' . $initial . '</div>';
-                echo '<div class="name">' . $name . '</div>';
                 echo '<img src="photos_agents/' . $row["photo"] . '" alt="Photo de l\'agent">';
                 echo '<div class="specialty">' . $row["specialite"] . '</div>';
                 echo '</div>';
@@ -150,7 +147,6 @@
                 $agent_card_class = ($row["id_agent"] >= 5 && $row["id_agent"] <= 20) ? "agent-card large" : "agent-card";
                 echo '<div class="' . $agent_card_class . '" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
                 echo '<div class="initials">' . $initial . '</div>';
-                echo '<div class="name">' . $name . '</div>';
                 echo '<img src="photos_agents/' . $row["photo"] . '" alt="Photo de l\'agent">';
                 echo '<div class="specialty">' . $row["specialite"] . '</div>';
                 echo '</div>';
