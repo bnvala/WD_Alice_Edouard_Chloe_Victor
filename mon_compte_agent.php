@@ -1,5 +1,5 @@
 <?php
-session_start();
+include 'wrapper.php';
 
 if (!isset($_SESSION['utilisateur'])) {
     // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
@@ -73,7 +73,6 @@ $utilisateur = $_SESSION['utilisateur'];
     </style>
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
     <div id="cadre">
         <h2>Mon Compte Agent</h2>
         <p>Nom et prénom : <?php echo htmlspecialchars($utilisateur['nom']); ?> <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>

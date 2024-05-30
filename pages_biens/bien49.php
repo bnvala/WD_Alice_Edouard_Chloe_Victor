@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../styles_entete.css">
 </head>    
 <body>
-<?php session_start(); include '../wrapper_biens.php'; ?>  
+<?php include '../wrapper_biens.php'; ?>  
     <h1 class="title">Présentation du Bien</h1>
     <div class="container">
         <div class="image">

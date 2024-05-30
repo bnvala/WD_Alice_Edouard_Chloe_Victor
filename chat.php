@@ -1,5 +1,5 @@
 <?php
-session_start();
+include 'wrapper.php';
 
 if (!isset($_SESSION['utilisateur'])) {
     // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté

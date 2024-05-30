@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'wrapper.php';
 
 if (isset($_SESSION['utilisateur']['type'])) {

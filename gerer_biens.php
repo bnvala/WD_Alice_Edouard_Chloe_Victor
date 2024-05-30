@@ -1,15 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['utilisateur'])) {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-    echo "<script>window.location.href = 'form.php';</script>";
-    exit;
-}
-
-$utilisateur = $_SESSION['utilisateur'];
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,15 +17,15 @@ $utilisateur = $_SESSION['utilisateur'];
         .container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-around; /* Alignement centré avec espacement égal */
+            gap: 20px; /* Espacement entre chaque élément */
         }
         .item {
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 20px;
             padding: 20px;
-            width: 250px;
+            width: 300px; /* Largeur des éléments */
             text-align: center;
         }
         .item img {
@@ -50,7 +38,7 @@ $utilisateur = $_SESSION['utilisateur'];
             margin: 10px 0;
         }
         .item p {
-            margin: 5px 0;
+            margin: 10px 0;
         }
         .add-button {
             background-color: #28a745;
@@ -66,6 +54,33 @@ $utilisateur = $_SESSION['utilisateur'];
         }
         .add-button:hover {
             background-color: #218838;
+        }
+        .delete-button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px; /* Augmenter la marge supérieure */
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        .return-button {
+            background-color: transparent;
+            border: none;
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .return-button:hover {
+            color: #0056b3;
         }
     </style>
 </head>
@@ -88,6 +103,24 @@ $utilisateur = $_SESSION['utilisateur'];
         die("Échec de la connexion : " . $conn->connect_error);
     }
 
+    // Vérifier si un bien doit être supprimé
+    if (isset($_GET['delete']) && $_GET['delete'] == 'true' && isset($_GET['id'])) {
+        // ID du bien à supprimer
+        $bienId = $_GET['id']; // Assurez-vous que cela soit sécurisé, par exemple en utilisant des précautions contre les injections SQL
+
+        // Requête SQL pour supprimer le bien avec l'ID spécifié
+        $sql = "DELETE FROM biens WHERE id = $bienId";
+
+        // Exécution de la requête SQL
+        if ($conn->query($sql) === TRUE) {
+            // Redirection vers la page gerer_biens.php après la suppression
+            header("Location: gerer_biens.php");
+            exit; // Assurez-vous d'arrêter le script ici pour éviter toute exécution supplémentaire
+        } else {
+            echo '<script>alert("Erreur lors de la suppression du bien : ' . $conn->error . '");</script>';
+        }
+    }
+
     // Requête SQL pour récupérer tous les biens
     $sql = "SELECT * FROM biens";
     $result = $conn->query($sql);
@@ -103,6 +136,7 @@ $utilisateur = $_SESSION['utilisateur'];
             echo '<img src="' . $row["photos"] . '" alt="Photo du bien">';
             echo '<h3>' . $row["type"] . '</h3>';
             echo '<p>' . $row["adresse"] . '</p>';
+            echo '<a href="?delete=true&id=' . $row["id"] . '" class="delete-button">Supprimer</a>';
             echo '</div>'; // Fermer item-container
             echo '</div>'; // Fermer item
         }
@@ -115,5 +149,6 @@ $utilisateur = $_SESSION['utilisateur'];
     // Fermer la connexion
     $conn->close();
     ?>
+    <a href="mon_compte_admin.php" class="return-button">Retour</a>
 </body>
 </html>
