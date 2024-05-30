@@ -43,8 +43,7 @@ if ($type !== '' || $description !== '' || $ville !== '') {
     <link rel="stylesheet" type="text/css" href="styles_recherches.css">
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
-
+<?php include 'wrapper.php';?>
 
 <h1>Recherche de biens immobiliers</h1>
 

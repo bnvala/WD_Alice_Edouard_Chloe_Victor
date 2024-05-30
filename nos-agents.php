@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nos Agents</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-            margin: 0;
-        }
+       
         .category-banner {
             background-color: #007bff;
             color: #fff;
@@ -75,7 +70,7 @@
         <?php
         include 'db.php';
 
-        $sql = "SELECT * FROM agent WHERE specialite = 'Immobilier résidentiel'";
+        $sql = "SELECT * FROM agent WHERE specialite = 'résidentiel'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -99,7 +94,7 @@
     <div class="category-banner">Nos Agents Spécialisés en Immobilier Commercial</div>
     <div class="agent-container">
         <?php
-        $sql = "SELECT * FROM agent WHERE specialite = 'Immobilier commercial'";
+        $sql = "SELECT * FROM agent WHERE specialite = 'commercial'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
