@@ -144,9 +144,6 @@
         $sql = "SELECT * FROM agent WHERE specialite = 'Terrain'";
         $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $initial = strtoupper(substr($row["prenom"], 0,));
             if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $initial = strtoupper(substr($row["prenom"], 0, 1)). '.' . $name =  ucfirst(strtolower($row["nom"]));
@@ -158,8 +155,6 @@
                 echo '<div class="specialty">' . $row["specialite"] . '</div>';
                 echo '</div>';
             }
-        }
-    }
         } else {
             echo "No agents found";
         }
