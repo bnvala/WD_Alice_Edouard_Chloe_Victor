@@ -30,21 +30,20 @@
             background-color: #f4f4f4;
         }
         .unavailable {
+            background-color: #ffcccc;
+            pointer-events: none;
+        }
+        .unavailable-creneau {
             background-color: #000;
             color: #fff;
             pointer-events: none;
         }
-        .reserved {
-            background-color: blue;
-            color: #fff;
-            pointer-events: none;
-        }
         .available {
-            background-color: #fff;
+            background-color: #ccffcc;
             cursor: pointer;
         }
         .available:hover {
-            background-color: #ddd;
+            background-color: #b2ffb2;
         }
     </style>
     <script>
@@ -60,12 +59,21 @@
     include 'db.php';
 
     $id_agent = $_GET['id'];
-    $sql = "SELECT * FROM dispo_agents_heure_par_heure WHERE id_agent = $id_agent";
-    $result = $conn->query($sql);
+    $sql_heure = "SELECT * FROM dispo_agents_heure_par_heure WHERE id_agent = $id_agent";
+    $result_heure = $conn->query($sql_heure);
 
-    $dispo_data = [];
-    while ($row = $result->fetch_assoc()) {
-        $dispo_data[$row["jour"]][$row["heure"]] = $row["dispo"];
+    $sql_creneau = "SELECT * FROM dispo_agents WHERE id_agent = $id_agent";
+    $result_creneau = $conn->query($sql_creneau);
+
+    $dispo_heure_data = [];
+    while ($row = $result_heure->fetch_assoc()) {
+        $dispo_heure_data[$row["jour"]][$row["heure"]] = $row["dispo"];
+    }
+
+    $dispo_creneau_data = [];
+    while ($row = $result_creneau->fetch_assoc()) {
+        $dispo_creneau_data[$row["jour"]]["AM"] = $row["AM"];
+        $dispo_creneau_data[$row["jour"]]["PM"] = $row["PM"];
     }
 
     $days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
@@ -86,9 +94,22 @@
                 <tr>
                     <th><?php echo $hour; ?></th>
                     <?php foreach ($days as $day) {
-                        $dispo = isset($dispo_data[$day][$hour]) ? $dispo_data[$day][$hour] : 0;
-                        $status_class = $dispo ? 'available' : 'unavailable';
-                        echo '<td class="' . $status_class . '" onclick="bookSlot(' . $id_agent . ', \'' . $day . '\', \'' . $hour . '\')"></td>';
+                        $dispo_heure = isset($dispo_heure_data[$day][$hour]) ? $dispo_heure_data[$day][$hour] : 1;
+                        $is_am = in_array($hour, ["10:00:00", "11:00:00", "12:00:00", "13:00:00"]);
+                        $creneau = $is_am ? 'AM' : 'PM';
+                        $dispo_creneau = isset($dispo_creneau_data[$day][$creneau]) ? $dispo_creneau_data[$day][$creneau] : 1;
+
+                        if ($dispo_creneau == 0) {
+                            $status_class = 'unavailable-creneau';
+                        } else {
+                            $status_class = $dispo_heure ? 'available' : 'unavailable';
+                        }
+
+                        echo '<td class="' . $status_class . '"';
+                        if ($status_class === 'available') {
+                            echo ' onclick="bookSlot(' . $id_agent . ', \'' . $day . '\', \'' . $hour . '\')"';
+                        }
+                        echo '></td>';
                     } ?>
                 </tr>
                 <?php } ?>
