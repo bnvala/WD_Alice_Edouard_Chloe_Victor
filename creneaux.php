@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,8 +18,7 @@
             text-align: center;
         }
         .schedule table {
-            margin: auto;
-            width: 70%;
+            width: 100%;
             border-collapse: collapse;
         }
         .schedule th, .schedule td {
@@ -30,15 +29,31 @@
         .schedule th {
             background-color: #f4f4f4;
         }
-        .available {
+        .unavailable {
+            background-color: #000;
+            color: #fff;
+            pointer-events: none;
+        }
+        .reserved {
             background-color: blue;
             color: #fff;
+            pointer-events: none;
         }
-        .unavailable {
-            background-color: black;
-            color: #fff;
+        .available {
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .available:hover {
+            background-color: #ddd;
         }
     </style>
+    <script>
+        function bookSlot(id_agent, jour, heure) {
+            if (confirm("Voulez-vous confirmer la réservation pour " + jour + " à " + heure + "?")) {
+                window.location.href = 'reserver.php?id_agent=' + id_agent + '&jour=' + jour + '&heure=' + heure;
+            }
+        }
+    </script>
 </head>
 <body>
     <?php
@@ -48,17 +63,13 @@
     $sql = "SELECT * FROM dispo_agents_heure_par_heure WHERE id_agent = $id_agent";
     $result = $conn->query($sql);
 
-    if ($result === false) {
-        echo "Erreur lors de l'exécution de la requête SQL : " . $conn->error;
-        exit;
-    }
-
     $dispo_data = [];
     while ($row = $result->fetch_assoc()) {
-        $dispo_data[$row["heure"]][$row["jour"]] = $row["dispo"];
+        $dispo_data[$row["jour"]][$row["heure"]] = $row["dispo"];
     }
 
     $days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
+    $hours = ["10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00", "17:00:00"];
     ?>
 
     <div class="schedule">
@@ -71,17 +82,15 @@
                 </tr>
             </thead>
             <tbody>
-                <?php 
-                $hours = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"];
-                foreach ($hours as $hour) { ?>
-                    <tr>
-                        <th><?php echo $hour; ?></th>
-                        <?php foreach ($days as $day) {
-                            $dispo = isset($dispo_data[$hour][$day]) ? $dispo_data[$hour][$day] : null;
-                            $status_class = $dispo ? 'available' : 'unavailable';
-                            echo '<td class="' . $status_class . '">' . ($dispo ? 'Disponible' : 'Non disponible') . '</td>';
-                        } ?>
-                    </tr>
+                <?php foreach ($hours as $hour) { ?>
+                <tr>
+                    <th><?php echo $hour; ?></th>
+                    <?php foreach ($days as $day) {
+                        $dispo = isset($dispo_data[$day][$hour]) ? $dispo_data[$day][$hour] : 0;
+                        $status_class = $dispo ? 'available' : 'unavailable';
+                        echo '<td class="' . $status_class . '" onclick="bookSlot(' . $id_agent . ', \'' . $day . '\', \'' . $hour . '\')"></td>';
+                    } ?>
+                </tr>
                 <?php } ?>
             </tbody>
         </table>
