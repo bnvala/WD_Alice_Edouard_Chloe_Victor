@@ -6,11 +6,13 @@ body {
 
 #wrapper {
     text-align: center;
+    color: #000;
+   
 }
 
 header {
     padding: 20px 0;
-    background-color: #f8f8f8;
+    background-color: #376b8c;
 }
 
 header h1 {
@@ -32,7 +34,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #333;
+    color: #000;
 }
 
 /* Ligne de séparation */

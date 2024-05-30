@@ -17,10 +17,7 @@ $utilisateur = $_SESSION['utilisateur'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Compte Client</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-        }
+
         #cadre {
             width: 400px;
             margin: 0 auto;

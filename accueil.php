@@ -8,7 +8,6 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omnes Immobilier - Accueil</title>
     <link rel="stylesheet" href="styles_accueil.css">
-    <link rel="stylesheet" type="text/css" href="styles_entete.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>

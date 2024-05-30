@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'wrapper.php';
 
 if (isset($_SESSION['utilisateur']['type'])) {
     $utilisateur = $_SESSION['utilisateur'];
@@ -27,10 +28,6 @@ if (isset($_SESSION['utilisateur']['type'])) {
     <title>Connexion</title>
     
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-        }
         #cadre {
             width: 400px;
             margin: 0 auto;
@@ -61,7 +58,6 @@ if (isset($_SESSION['utilisateur']['type'])) {
     </style>
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
     <div id="cadre">
         <h2>Connexion</h2>
         <form id="connexionForm" action="traitement_co.php" method="post">
