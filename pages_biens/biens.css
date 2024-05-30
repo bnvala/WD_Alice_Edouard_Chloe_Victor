@@ -29,12 +29,7 @@
     margin-bottom: 20px; /* Ajoute de l'espace sous le titre */
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 20px;
-    margin: 0;
-}
+
 
 .agent-card {
     background-color: #fff;
