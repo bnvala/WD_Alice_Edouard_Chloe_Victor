@@ -66,12 +66,11 @@
 <body>
     <h1>Nos Agents</h1>
     
-    <!-- Catégorie Immobilier Résidentiel -->
     <div class="category-banner">Nos Agents Spécialisés en Immobilier Résidentiel</div>
     <div class="agent-container">
         <?php
         include 'db.php';
-
+        include 'wrapper.php';
         $sql = "SELECT * FROM agent WHERE specialite = 'Immobilier résidentiel'";
         $result = $conn->query($sql);
 
