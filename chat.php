@@ -1,6 +1,5 @@
 <?php
-// Démarrer la session pour stocker les messages
-session_start();
+include 'wrapper.php';
 
 // Détruire la session existante pour réinitialiser la conversation
 session_destroy();
