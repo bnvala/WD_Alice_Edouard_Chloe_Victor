@@ -15,7 +15,7 @@
                     <li><a href="accueil.php">Accueil</a></li>
                     <li><a href="toutparcourir.php">Tout Parcourir</a></li>
                     <li><a href="recherche.php">Recherche</a></li>
-                    <li><a href="nos-agents.php">Rendez-vous</a></li>
+                    <li><a href="rdv.php">Rendez-vous</a></li>
                     <?php
                     // Vérifier si quelqu'un est connecté et son type de compte
                     if (isset($_SESSION['utilisateur']['type'])) {
