@@ -33,23 +33,12 @@
         .available {
             background-color: blue;
             color: #fff;
-            cursor: pointer;
         }
         .unavailable {
             background-color: black;
             color: #fff;
         }
-        .available:hover {
-            background-color: #0066cc;
-        }
     </style>
-    <script>
-        function bookSlot(id_agent, jour, heure) {
-            if (confirm("Voulez-vous confirmer la réservation pour " + jour + " " + heure + "?")) {
-                window.location.href = 'reserver.php?id_agent=' + id_agent + '&jour=' + jour + '&heure=' + heure;
-            }
-        }
-    </script>
 </head>
 <body>
     <?php
@@ -66,7 +55,7 @@
 
     $dispo_data = [];
     while ($row = $result->fetch_assoc()) {
-        $dispo_data[$row["jour"]][$row["heure"]] = $row["dispo"];
+        $dispo_data[$row["heure"]][$row["jour"]] = $row["dispo"];
     }
 
     $days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
@@ -82,19 +71,15 @@
                 </tr>
             </thead>
             <tbody>
-                <?php for ($hour = 10; $hour <= 17; $hour++) { ?>
+                <?php 
+                $hours = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"];
+                foreach ($hours as $hour) { ?>
                     <tr>
-                        <th><?php echo $hour . "h"; ?></th>
+                        <th><?php echo $hour; ?></th>
                         <?php foreach ($days as $day) {
-                            if(isset($dispo_data[$day][$hour])){
-                                $dispo = $dispo_data[$day][$hour]; // Si défini, récupérer la disponibilité
-                                $status_class = $dispo ? 'available' : 'unavailable';
-                            } else {
-                                $dispo = null; // Si non défini, considérer comme indisponible (0)
-                                $status_class = 'unavailable';
-                            }
-                            $content = $dispo === null ? 'R' : ($dispo ? 'O' : 'X');
-                            echo '<td class="' . $status_class . '" onclick="bookSlot(' . $id_agent . ', \'' . $day . '\', \'' . $hour . 'h\')">' . $content . '</td>';
+                            $dispo = isset($dispo_data[$hour][$day]) ? $dispo_data[$hour][$day] : null;
+                            $status_class = $dispo ? 'available' : 'unavailable';
+                            echo '<td class="' . $status_class . '">' . ($dispo ? 'Disponible' : 'Non disponible') . '</td>';
                         } ?>
                     </tr>
                 <?php } ?>
