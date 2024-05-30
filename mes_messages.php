@@ -1,6 +1,5 @@
 <?php
-// Démarre la session
-session_start();
+include 'wrapper.php';
 
 // Informations de connexion à la base de données
 $servername = "localhost";
@@ -16,26 +15,40 @@ if ($conn->connect_error) {
     die("Échec de la connexion : " . $conn->connect_error);
 }
 
-// Vérifie si l'ID de l'agent est défini dans la session
-if (!isset($_SESSION['utilisateur']['id'])) {
-    echo "ID de l'agent non défini.";
+// Vérifie si l'ID de l'agent est défini dans l'URL
+if (!isset($_GET['id_agent'])) {
+    echo "ID de l'agent non défini dans l'URL.";
     exit; // Arrête le script
 }
 
-$agent_id = $_SESSION['utilisateur']['id'];
+$agent_id = $_GET['id_agent'];
 
-// Récupérer toutes les conversations de l'agent avec les clients
-$sql = "SELECT communication.*, utilisateur.nom AS nom_client
+// Récupérer toutes les communications de l'agent
+$sql = "SELECT communication.*, client.nom AS nom_client
         FROM communication
-        INNER JOIN utilisateur ON communication.ID_client = utilisateur.id
-        WHERE ID_agent = $agent_id
-        ORDER BY date_envoi DESC";
+        INNER JOIN client ON communication.ID_client = client.id
+        WHERE communication.ID_agent = $agent_id
+        ORDER BY communication.ID_client, communication.timestamp DESC";
+
 $result = $conn->query($sql);
 
+if ($result === false) {
+    echo "Erreur lors de l'exécution de la requête : " . $conn->error;
+    exit;
+}
+
 $conversations = [];
-if ($result && $result->num_rows > 0) {
+if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $conversations[] = $row;
+        $conversation_id = $row['ID_client'];
+        // Créer une nouvelle conversation ou ajouter un message à une conversation existante
+        if (!isset($conversations[$conversation_id])) {
+            $conversations[$conversation_id] = [
+                'nom_client' => $row['nom_client'],
+                'messages' => []
+            ];
+        }
+        $conversations[$conversation_id]['messages'][] = $row;
     }
 }
 
@@ -49,67 +62,26 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conversations de l'Agent</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            margin: 0;
-        }
-        .conversation {
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 600px;
-            margin: 20px;
-        }
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #e9e9e9;
-        }
-        .message.agent {
-            background-color: #c3e6cb;
-            text-align: right;
-        }
-        .message.client {
-            background-color: #d1ecf1;
-        }
-        .message p {
-            margin: 5px 0;
-        }
+        /* Vos styles CSS ici */
     </style>
 </head>
 <body>
     <h2>Conversations de l'Agent</h2>
-    <?php foreach ($conversations as $conversation): ?>
-        <div class="conversation">
-            <h3>Conversation avec <?php echo $conversation['nom_client']; ?></h3>
-            <?php
-            $conversation_id = $conversation['ID_client'];
-            $sql = "SELECT * FROM communication WHERE (ID_agent = $agent_id AND ID_client = $conversation_id) OR (ID_agent = $conversation_id AND ID_client = $agent_id) ORDER BY date_envoi";
-            $result = $conn->query($sql);
-
-            if ($result && $result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $message_class = $row['ID_client'] == $conversation_id ? 'client' : 'agent';
-                    ?>
-                    <div class="message <?php echo $message_class; ?>">
-                        <strong><?php echo $message_class == 'client' ? $conversation['nom_client'] : 'Vous'; ?>:</strong>
-                        <p><?php echo htmlspecialchars($row['message']); ?></p>
-                        <span><?php echo $row['date_envoi']; ?></span>
+    <?php if (empty($conversations)): ?>
+        <p>Aucune conversation trouvée pour cet agent.</p>
+    <?php else: ?>
+        <?php foreach ($conversations as $conversation_id => $conversation): ?>
+            <div class="conversation">
+                <h3>Conversation avec <?php echo $conversation['nom_client']; ?></h3>
+                <?php foreach ($conversation['messages'] as $message): ?>
+                    <div class="message">
+                        <strong><?php echo $conversation['nom_client']; ?>:</strong>
+                        <p><?php echo htmlspecialchars($message['message']); ?></p>
+                        <span><?php echo $message['timestamp']; ?></span>
                     </div>
-                    <?php
-                }
-            } else {
-                echo "<p>Aucun message dans cette conversation.</p>";
-            }
-            ?>
-        </div>
-    <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </body>
 </html>
