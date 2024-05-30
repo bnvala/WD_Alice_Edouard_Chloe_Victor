@@ -103,7 +103,6 @@ $conn->close();
     </style>
 </head>
 <body>
-    <?php include 'wrapper.php'; ?>
     <div class="chat-container">
         <form method="post">
             <div class="form-group">
