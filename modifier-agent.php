@@ -32,7 +32,7 @@
             display: block;
             margin-bottom: 5px;
         }
-        .form-group input[type="text"], .form-group input[type="courriel"], .form-group input[type="tel"], .form-group input[type="file"], .form-group input[type="password"] {
+        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="tel"], .form-group input[type="file"], .form-group input[type="password"] {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
@@ -52,39 +52,46 @@
     </style>
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
+<?php include 'wrapper.php'; 
+if (isset($_GET['agent_id'])) {
+    // Récupérer l'ID de l'agent
+    $agent_id = $_GET['agent_id'];
+} else {
+    // Gérer le cas où l'ID de l'agent n'est pas défini dans l'URL
+    echo "Erreur: aucun ID d'agent fourni.";
+    exit;
+}
+?>
+
     <div class="form-container">
         <h2>Modifier Agent</h2>
+        <p>ID de l'agent sélectionné : <?php echo $agent_id; ?></p>
+
         <?php
         include 'db.php';
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_agent'])) {
-            $agent_id = $_POST['agent_id'];
-
-            // Récupérer les informations de l'agent à partir de l'ID
-            $sql = "SELECT * FROM agent WHERE id_agent = $agent_id";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $nom = $row['nom'];
-                $prenom = $row['prenom'];
-                $specialite = $row['specialite'];
-                $photo = $row['photo'];
-                $courriel = $row['courriel'];
-                $numero_tel = $row['numero_tel'];
-                $bureau = $row['bureau'];
-                $video = $row['video'];
-                $cv = $row['cv'];
-                $mot_de_passe = $row['mot_de_passe'];
-            } else {
-                echo "Agent non trouvé.";
-                exit();
-            }
+        // Récupérer les informations de l'agent à partir de l'ID
+        $sql = "SELECT * FROM agent WHERE id_agent = $agent_id";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $nom = $row['nom'];
+            $prenom = $row['prenom'];
+            $specialite = $row['specialite'];
+            $photo = $row['photo'];
+            $courriel = $row['courriel'];
+            $numero_tel = $row['numero_tel'];
+            $bureau = $row['bureau'];
+            $video = $row['video'];
+            $cv = $row['cv'];
+            $mot_de_passe = $row['mot_de_passe'];
+        } else {
+            echo "Agent non trouvé.";
+            exit();
         }
 
         // Traitement de la soumission du formulaire de modification
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_agent'])) {
-            $agent_id = $_POST['agent_id'];
             $nom = $_POST['nom'];
             $prenom = $_POST['prenom'];
             $specialite = $_POST['specialite'];
@@ -156,8 +163,8 @@
                 <input type="text" id="specialite" name="specialite" value="<?php echo $specialite; ?>" required>
             </div>
             <div class="form-group">
-                <label for="courriel">courriel:</label>
-                <input type="courriel" id="courriel" name="courriel" value="<?php echo $courriel; ?>" required>
+                <label for="courriel">Courriel:</label>
+                <input type="email" id="courriel" name="courriel" value="<?php echo $courriel; ?>" required>
             </div>
             <div class="form-group">
                 <label for="numero_tel">Téléphone:</label>
@@ -186,10 +193,22 @@
                 <input type="file" id="cv" name="cv">
                 <input type="hidden" name="current_cv" value="<?php echo $cv; ?>">
             </div>
+
             <div class="form-group">
                 <button type="submit" name="update_agent">Mettre à jour</button>
             </div>
         </form>
+        <button onclick="modifierDispos()">Modifier Disponibilités</button>
+
+        <script>
+            function modifierDispos() {
+                // Récupérer l'ID de l'agent sélectionné
+                var agentId = <?php echo $agent_id; ?>;
+                
+                // Rediriger vers la page modifier_dispos.php avec l'ID de l'agent
+                window.location.href = 'modifier_dispos.php?agent_id=' + agentId;
+            }
+        </script>
     </div>
 </body>
 </html>
