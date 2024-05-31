@@ -1,22 +1,27 @@
 <?php
-// Vérifier si l'identifiant du rendez-vous est passé en paramètre d'URL
-if (!isset($_GET['id'])) {
-    echo "Identifiant du rendez-vous manquant.";
+// Vérifier si l'ID du rendez-vous est passé en paramètre d'URL
+if (!isset($_GET['id_rdv'])) {
+    echo "ID du rendez-vous manquant dans l'URL.";
     exit();
 }
 
-$id_rdv = $_GET['id'];
+$id_rdv = $_GET['id_rdv'];
 
 // Connexion à la base de données (supposons que vous ayez déjà une connexion dans wrapper.php)
 include 'db.php';
 
-// Requête pour supprimer le rendez-vous de la base de données
+// Requête pour supprimer le rendez-vous de la table rdv
 $sql = "DELETE FROM rdv WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_rdv);
-$stmt->execute();
 
-// Redirection vers la page de liste des rendez-vous
-header("Location: rdv_agent.php");
-exit();
+if ($stmt->execute()) {
+    echo "Le rendez-vous a été supprimé avec succès.";
+} else {
+    echo "Erreur lors de la suppression du rendez-vous.";
+}
+
+// Fermer le statement et la connexion
+$stmt->close();
+$conn->close();
 ?>
