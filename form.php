@@ -70,7 +70,7 @@ if (isset($_SESSION['utilisateur']['type'])) {
         </form>
 
         <div id="message"></div>
-
+        <br>
         <button id="nouveauCompte">Vous n'avez pas encore de compte ?</button>
     </div>
 
