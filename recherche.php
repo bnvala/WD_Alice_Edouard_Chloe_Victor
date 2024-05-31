@@ -14,11 +14,13 @@ include 'wrapper.php';
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 $description = isset($_GET['description']) ? trim($_GET['description']) : '';
 $ville = isset($_GET['ville']) ? trim($_GET['ville']) : '';
+$prix_min = isset($_GET['prix_min']) ? trim($_GET['prix_min']) : '';
+$prix_max = isset($_GET['prix_max']) ? trim($_GET['prix_max']) : '';
 
 $searchExecuted = false;
 $result = null;
 
-if ($type !== '' || $description !== '' || $ville !== '') {
+if ($type !== '' || $description !== '' || $ville !== '' || $prix_min !== '' || $prix_max !== '') {
     $sql = "SELECT * FROM biens WHERE 1=1";
     if ($type !== '') {
         $sql .= " AND type LIKE '%" . $conn->real_escape_string($type) . "%'";
@@ -28,6 +30,12 @@ if ($type !== '' || $description !== '' || $ville !== '') {
     }
     if ($ville !== '') {
         $sql .= " AND adresse LIKE '%" . $conn->real_escape_string($ville) . "%'";
+    }
+    if ($prix_min !== '') {
+        $sql .= " AND prix >= " . (float)$prix_min;
+    }
+    if ($prix_max !== '') {
+        $sql .= " AND prix <= " . (float)$prix_max;
     }
 
     $result = $conn->query($sql);
@@ -52,6 +60,10 @@ if ($type !== '' || $description !== '' || $ville !== '') {
     <input type="text" id="description" name="description" value="<?php echo htmlspecialchars($description ?? ''); ?>"><br>
     <label for="ville">Ville:</label>
     <input type="text" id="ville" name="ville" value="<?php echo htmlspecialchars($ville ?? ''); ?>"><br>
+    <label for="prix_min">Prix minimum:</label>
+    <input type="text" id="prix_min" name="prix_min" value="<?php echo htmlspecialchars($prix_min ?? ''); ?>"><br>
+    <label for="prix_max">Prix maximum:</label>
+    <input type="text" id="prix_max" name="prix_max" value="<?php echo htmlspecialchars($prix_max ?? ''); ?>"><br>
     <input type="submit" value="Rechercher">
 </form>
 
@@ -65,6 +77,7 @@ if ($type !== '' || $description !== '' || $ville !== '') {
                 <th>Photos</th>
                 <th>Description</th>
                 <th>Adresse</th>
+                <th>Prix</th>
                 <th>Liens</th>
             </tr>
             <?php while($row = $result->fetch_assoc()): ?>
@@ -74,6 +87,7 @@ if ($type !== '' || $description !== '' || $ville !== '') {
                     <td><img src="<?php echo htmlspecialchars($row["photos"]); ?>" alt="Photo du bien" class="thumbnail"></td>
                     <td><?php echo htmlspecialchars($row["description"]); ?></td>
                     <td><?php echo htmlspecialchars($row["adresse"]); ?></td>
+                    <td><?php echo htmlspecialchars($row["prix"]); ?> €</td>
                     <td><a href="pages_biens/bien<?php echo htmlspecialchars($row["id"]); ?>.php">Voir l'annonce</a></td>
                 </tr>
             <?php endwhile; ?>
