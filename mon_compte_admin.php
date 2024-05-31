@@ -16,15 +16,6 @@ $utilisateur = $_SESSION['utilisateur'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Compte Administrateur</title>
     <style>
-
-        #cadre {
-            width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            text-align: center;
-        }
         h2 {
             margin-bottom: 20px;
         }
@@ -45,31 +36,35 @@ $utilisateur = $_SESSION['utilisateur'];
         }
         .action-btn {
             display: block;
-            font-size: 18px;
+            font-size: 16px; /* Réduit la taille de la police */
             color: white;
-            background-color: #28a745;
+            background-color: #376b8c; /* Couleur spécifiée */
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px; /* Réduit les dimensions du bouton */
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin: 10px 0;
+            margin: 10px auto; /* Centre horizontalement */
             text-decoration: none;
+            max-width: 200px; /* Limite la largeur du bouton */
         }
         .action-btn:hover {
-            background-color: #218838;
+            background-color: #2b5170; /* Couleur au survol */
         }
     </style>
 </head>
 <body>
-    <div id="cadre">
-        <h2>Mon Compte Administrateur</h2>
-        <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
-        <p>Prénom : <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
-        <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
-        <a href="gerer_agents.php" class="action-btn">Gérer les agents immobiliers</a>
-        <a href="gerer_biens.php" class="action-btn">Gérer les biens</a>
-        <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
+    <div>
+        <center>
+            <h2>Mon Compte Administrateur</h2>
+            <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>
+            <p>Prénom : <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
+            <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
+            <a href="gerer_agents.php" class="action-btn">Gérer les agents immobiliers</a>
+            <a href="gerer_biens.php" class="action-btn">Gérer les biens</a>
+            <a href="ajt_admin.php" class="action-btn">Ajouter un administrateur</a><br>
+            <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
+        </center>
     </div>
 </body>
 </html>

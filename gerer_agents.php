@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les agents immobiliers</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        /* Styles déplacés du body */
+        .tt {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
             margin: 0;
+            background-color: #f4f4f4;
         }
+
+        /* Autres styles inchangés */
         .agent-card {
             background-color: #fff;
             border-radius: 15px;
@@ -25,23 +27,33 @@
             cursor: pointer;
             transition: transform 0.3s;
         }
+
+        /* Autres styles inchangés */
         .agent-card:hover {
             transform: scale(1.05);
         }
+
+        /* Autres styles inchangés */
         .agent-card img {
             border-radius: 50%;
             width: 120px;
             height: 150px;
         }
+
+        /* Autres styles inchangés */
         .agent-card.large img {
             width: 150px;
             height: 150px;
         }
+
+        /* Autres styles inchangés */
         .agent-card .specialty {
             margin-top: 10px;
             font-size: 18px;
             font-weight: bold;
         }
+
+        /* Autres styles inchangés */
         .delete-button, .edit-button {
             background-color: #ff3333;
             color: #fff;
@@ -51,26 +63,52 @@
             cursor: pointer;
             margin-top: 10px;
         }
+
+        /* Autres styles inchangés */
         .delete-button:hover, .edit-button:hover {
             background-color: #cc0000;
         }
+
+        /* Autres styles inchangés */
         .add-button {
             background-color: #28a745;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 20px 40px;
             border-radius: 5px;
             cursor: pointer;
             margin-bottom: 20px;
         }
+
+        /* Autres styles inchangés */
         .add-button:hover {
             background-color: #218838;
+        }
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .auth-footer button {
+            background: none;
+            border: none;
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0; /* Supprime le rembourrage */
+            margin: 0; /* Supprime les marges */
+            font-size: inherit; /* Utilise la taille de police par défaut */
+            text-align: center;
+        }
+        .auth-footer button:hover {
+            color: darkblue;
         }
     </style>
 </head>
 <body>
-<?php include 'wrapper.php'; ?>
-    
+
+    <?php include 'wrapper.php'; ?>
+    <div class="tt">
+    <br>
     <button class="add-button" onclick="window.location.href='ajouter-agent.php'">Ajouter un agent</button>
     <h1>Nos Agents</h1>
     <?php
@@ -117,8 +155,16 @@
     } else {
         echo "Aucun agent trouvé";
     }
+    
 
     $conn->close();
     ?>
+    <div class="auth-footer">
+            <form action="mon_compte_admin.php">
+                <button type="submit">Retour</button>
+            </form>
+            <br><br>
+    </div>
+</div>    
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
-session_start();
+include 'wrapper.php';
+
 include 'db.php';
 
 // Vérifier si le client est connecté
@@ -49,14 +50,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Authentification de paiement</title>
     <style>
  <style>
-        body {
+        .boda {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Centrer horizontalement */
+            align-items: center; /* Centrer verticalement */
             height: 100vh;
             margin: 0;
+            margin-left: auto;
+            margin-right: auto;
         }
         .auth-container {
             background-color: #fff;
@@ -87,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 10px;
             border-radius: 0 0 10px 10px;
         }
-        .auth-footer button {
+        .auth-footer button, .auth-footer a {
             background-color: #007bff;
             border: none;
             color: #fff;
@@ -95,8 +98,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 5px;
             cursor: pointer;
             margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
         }
-        .auth-footer button:hover {
+        .auth-footer button:hover, .auth-footer a:hover {
             background-color: #0056b3;
         }
         .logo-container {
@@ -111,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
     </style>
 </head>
-<body>
+<div class="boda">
     <div class="auth-container">
         <div class="auth-header">
             En attente d’authentification
@@ -130,12 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p>Cette authentification est obligatoire pour vérifier que vous êtes bien le titulaire de la carte. Si vous ne souhaitez pas vous authentifier, la transaction en cours sera annulée.</p>
         </div>
         <div class="auth-footer">
-            <button type="button">Je ne souhaite pas m'authentifier et j'annule ma transaction</button>
+        <a href="accueil.php" style="background-color: blue; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">Je ne souhaite pas m'authentifier</a>
             <form method="POST" action="">
                 <button type="submit">S'authentifier</button>
             </form>
         </div>
     </div>
 
-</body>
+    </div>
 </html>
