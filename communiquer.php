@@ -73,14 +73,15 @@
         function launchAudioCall() {
             if (confirm("Voulez-vous vraiment lancer un appel audio ?")) {
                 // Code pour lancer l'appel audio ici
-                alert("L'appel audio est lancé !");
+                //alert("L'appel audio est lancé !");
+                window.location.href = 'https://teams.live.com/l/invite/FEAL8HUGO780vvGBAE';
             }
         }
 
         function launchVideoCall() {
             if (confirm("Voulez-vous vraiment lancer un appel vidéo ?")) {
-                // Code pour lancer l'appel vidéo ici
-                alert("L'appel vidéo est lancé !");
+                window.location.href = 'https://teams.live.com/l/invite/FEAL8HUGO780vvGBAE';
+                //alert("L'appel vidéo est lancé !");
             }
         }
     </script>

@@ -9,7 +9,7 @@
 <body>
 <?php include 'wrapper.php';?>
 
-    <h1>Tout Parcourir</h1>
+    <h1>Nos propriétés</h1>
     <?php
     // Informations de connexion à la base de données
     $servername = "localhost"; // Remplacer par le nom de votre serveur
@@ -53,6 +53,8 @@
 
     // Fermer la connexion
     $conn->close();
+    include 'nos-agents.php';
     ?>
+   
 </body>
 </html>
