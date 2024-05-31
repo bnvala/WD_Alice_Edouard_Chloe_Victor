@@ -1,12 +1,13 @@
 <?php 
 include 'wrapper.php';
 
-// Vérifier si l'agent est connecté
-if (!isset($_SESSION['utilisateur'])) {
+// Vérifier si le client est connecté
+if (!isset($_SESSION['utilisateur']['id_agent'])) {
     header("Location: form.php");
     exit();
 }
 
+$id_client = $_SESSION['utilisateur']['courriel'];
 // Vérifier si l'ID de l'agent est passé en paramètre d'URL
 if (!isset($_GET['id_agent'])) {
     echo "ID de l'agent manquant dans l'URL.";
