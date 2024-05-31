@@ -23,6 +23,25 @@ if ($result->num_rows === 0) {
 $client = $result->fetch_assoc();
 $courriel_client = $client['courriel'];
 
+// Vérifier si des informations financières existent pour ce courriel_client
+$sql_existing = "SELECT id FROM infos_financieres WHERE courriel_client = ?";
+$stmt_existing = $conn->prepare($sql_existing);
+$stmt_existing->bind_param("s", $courriel_client);
+$stmt_existing->execute();
+$result_existing = $stmt_existing->get_result();
+
+if ($result_existing->num_rows > 0) {
+    // Des informations financières existent déjà pour ce client, effectuer une mise à jour
+    $sql_update = "UPDATE infos_financieres SET nom_carte = ?, prenom_carte = ?, adresse_ligne_1 = ?, adresse_ligne_2 = ?, ville = ?, code_postal = ?, pays = ?, numero_tel = ?, code_cb = ?, cvv = ? WHERE courriel_client = ?";
+    $stmt_update = $conn->prepare($sql_update);
+    $stmt_update->bind_param("sssssssssss", $nom_carte, $prenom_carte, $adresse_ligne_1, $adresse_ligne_2, $ville, $code_postal, $pays, $numero_tel, $code_cb_last4, $cvv, $courriel_client);
+} else {
+    // Aucune information financière existante, effectuer une insertion
+    $sql_insert = "INSERT INTO infos_financieres (courriel_client, nom_carte, prenom_carte, adresse_ligne_1, adresse_ligne_2, ville, code_postal, pays, numero_tel, code_cb, cvv) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt_insert = $conn->prepare($sql_insert);
+    $stmt_insert->bind_param("sssssssssss", $courriel_client, $nom_carte, $prenom_carte, $adresse_ligne_1, $adresse_ligne_2, $ville, $code_postal, $pays, $numero_tel, $code_cb_last4, $cvv);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données du formulaire
     $nom_carte = $_POST['nom_carte'];
@@ -39,25 +58,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Extraire les 4 derniers chiffres du numéro de carte bancaire
     $code_cb_last4 = substr($code_cb, -4);
 
-    // Insérer les données dans la table infos_financieres
-    $sql_insert = "INSERT INTO infos_financieres (courriel_client, nom_carte, prenom_carte, adresse_ligne_1, adresse_ligne_2, ville, code_postal, pays, numero_tel, code_cb, cvv) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt_insert = $conn->prepare($sql_insert);
-    $stmt_insert->bind_param("sssssssssss", $courriel_client, $nom_carte, $prenom_carte, $adresse_ligne_1, $adresse_ligne_2, $ville, $code_postal, $pays, $numero_tel, $code_cb_last4, $cvv);
-
-    if ($stmt_insert->execute()) {
-        echo "<script>
+    // Exécuter la requête en fonction de l'existence des informations financières
+    if (isset($stmt_update)) {
+        if ($stmt_update->execute()) {
+            echo "<script>
+                alert('Informations financières mises à jour avec succès.');
+                window.location.href = 'verif_paiement.php';
+            </script>";
+        } else {
+            echo "Erreur lors de la mise à jour des informations financières : " . $stmt_update->error;
+        }
+    } elseif (isset($stmt_insert)) {
+        if ($stmt_insert->execute()) {
+            echo "<script>
                 alert('Informations financières enregistrées avec succès.');
                 window.location.href = 'verif_paiement.php';
-              </script>";
-    } else {
-        echo "Erreur lors de l'enregistrement des informations financières : " . $stmt_insert->error;
+            </script>";
+        } else {
+            echo "Erreur lors de l'enregistrement des informations financières : " . $stmt_insert->error;
+        }
     }
 
-    $stmt_insert->close();
+    // Fermer les statements
+    if (isset($stmt_insert)) {
+        $stmt_insert->close();
+    }
+    if (isset($stmt_update)) {
+        $stmt_update->close();
+    }
 }
 
+$stmt->close();
+$stmt_existing->close();
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
