@@ -26,7 +26,7 @@
     }
 
     // Requête SQL pour récupérer les biens de 49 à 73
-    $sql = "SELECT * FROM biens WHERE id BETWEEN 49 AND 73";
+    $sql = "SELECT id, type, adresse, photos, prix FROM biens WHERE id BETWEEN 49 AND 73";
     $result = $conn->query($sql);
 
     // Vérifier s'il y a des résultats
@@ -41,6 +41,7 @@
             echo '<img src="' . $row["photos"] . '" alt="Photo du bien">';
             echo '<h3>' . $row["type"] . '</h3>';
             echo '<p>' . $row["adresse"] . '</p>';
+            echo '<p>Prix: ' . $row["prix"] . ' €</p>'; // Afficher le prix du bien
             echo '</div>'; // Fermer item-container
             echo '</a>'; // Fermer le lien hypertexte
             echo '</div>'; // Fermer item

@@ -74,16 +74,18 @@
 
             // Vérifier s'il y a des résultats
             if ($result->num_rows > 0) {
-                // Récupérer les données du bien
-                $row = $result->fetch_assoc();
-                $type = $row["type"];
-                $description = $row["description"];
-                $adresse = $row["adresse"];
-
-              // Afficher les informations du bien
-              echo "<h2>Type: $type</h2>";
-              echo "<p>Description: $description</p>";
-              echo "<p>Adresse: $adresse</p>";
+                 // Récupérer les données du bien
+                 $row = $result->fetch_assoc();
+                 $type = $row["type"];
+                 $description = $row["description"];
+                 $adresse = $row["adresse"];
+                 $prix = $row["prix"]; // Nouvelle ligne pour récupérer le prix du bien
+         
+                 // Afficher les informations du bien
+                 echo "<h2>Type: $type</h2>";
+                 echo "<p>Description: $description</p>";
+                 echo "<p>Adresse: $adresse</p>";
+                 echo "<p>Prix: $prix €</p>"; // Afficher le prix du bien
               ?>
               <!-- Carte Google Maps -->
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2530.2660044358527!2d3.014740376473815!3d50.640750771629115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c32aa785fa98bd%3A0x83317c7db567a5b3!2s10%20Av.%20de%20la%20R%C3%A9publique%2C%2059160%20Lille!5e0!3m2!1sfr!2sfr!4v1716993651194!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                <?php 
