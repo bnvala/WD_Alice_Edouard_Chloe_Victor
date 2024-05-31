@@ -1,5 +1,6 @@
 <?php
-session_start();
+include 'wrapper.php';
+
 include 'db.php';
 $id_agent = $_GET['id_agent'];
 $jour = $_GET['jour'];

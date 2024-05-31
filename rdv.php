@@ -31,6 +31,13 @@ if ($result->num_rows > 0) {
         echo "<p>Heure: " . $row['heure'] . "</p>";
         echo "<p>Adresse: " . $row['adresse'] . "</p>";
         echo "<p>Durée: " . $row['duree'] . " minutes</p>";
+        // Bouton d'annulation de rendez-vous
+        echo "<form action='supprimer_rdv.php' method='get'>";
+        echo "<input type='hidden' name='id_rdv' value='" . urlencode($row['id']) . "'>";
+        echo "<input type='submit' value='Annuler le rendez-vous'>";
+        echo "</form>";
+        
+
         echo "</div>";
         echo "<hr>";
         $count++;
