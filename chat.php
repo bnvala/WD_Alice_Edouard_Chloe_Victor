@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = $_POST['message'];
 
     // Requête SQL pour insérer la communication dans la base de données
-    $stmt = $conn->prepare("INSERT INTO communication (ID_client, ID_agent, message) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO communication (ID_client, ID_agent, message, envoyeur) VALUES (?, ?, ?, 'client')");
     $stmt->bind_param("iis", $id_client, $id_agent, $message);
 
     if ($stmt->execute()) {
