@@ -9,6 +9,37 @@ if (!isset($_SESSION['utilisateur'])) {
 
 $utilisateur = $_SESSION['utilisateur'];
 $id_agent = $utilisateur['id_agent']; // Récupérer l'ID de l'agent connecté
+
+include 'db.php';
+
+// Récupérer les données de disponibilité de l'agent depuis la base de données
+$sql = "SELECT jour, heure, dispo FROM dispo_agents_heure_par_heure WHERE id_agent = $id_agent";
+$result = $conn->query($sql);
+
+$sql_creneau = "SELECT * FROM dispo_agents WHERE id_agent = $id_agent";
+    $result_creneau = $conn->query($sql_creneau);
+
+// Créer un tableau associatif pour stocker les données de disponibilité
+$dispo = array();
+while ($row = $result->fetch_assoc()) {
+    $dispo[$row['jour']][$row['heure']] = $row['dispo'];
+}
+
+$dispo_creneau_data = [];
+    while ($row = $result_creneau->fetch_assoc()) {
+        $dispo_creneau_data[$row["jour"]]["AM"] = $row["AM"];
+        $dispo_creneau_data[$row["jour"]]["PM"] = $row["PM"];
+    }
+
+// Fonction pour afficher une case du calendrier
+function afficherCase($dispo) {
+    if ($dispo) {
+        echo '<td style="background-color: green;"></td>';
+    } else {
+        echo '<td style="background-color: red;"></td>';
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +59,7 @@ $id_agent = $utilisateur['id_agent']; // Récupérer l'ID de l'agent connecté
         #cadre {
             width: 100%; 
             max-width: 800px; 
-            height: 400px;
+
             margin: 50px auto; 
             padding: 20px;
             background-color: #fff;
@@ -86,6 +117,20 @@ $id_agent = $utilisateur['id_agent']; // Récupérer l'ID de l'agent connecté
         .button:hover {
             background-color: #0056b3;
         }
+        .table-container {
+            margin: 0 auto; /* Centre horizontalement */
+            width: fit-content; /* Largeur du conteneur */
+            max-width: 800px; /* Largeur maximale */
+            text-align: center;
+
+
+        }
+        .unavailable-creneau {
+            background-color: #000;
+            color: #fff;
+            pointer-events: none;
+        }
+
     </style>
 </head>
 <body>
@@ -98,11 +143,51 @@ $id_agent = $utilisateur['id_agent']; // Récupérer l'ID de l'agent connecté
 
         
         <div class="button-container">
-            <a href="rdv_agent.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Mes Rendez-vous</a>
+            <a href="rdv_agent.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Mes rendez-vous</a>
             <a href="mes_messages.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Mes Messages</a>
             <a href="mes_consultations.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Historique des RDV</a>
         </div>
 
+        <div class="table-container">
+            <br> <br> <br>
+            <h3>Mon calendrier</h3>
+            <table border= 1>
+                <tr>
+                    <th>Heure</th>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                </tr>
+                <?php
+                $heures = array("10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00", "17:00:00");
+                
+                foreach ($heures as $heure) {
+                    echo "<tr>";
+                    echo "<td>$heure</td>";
+                    foreach (array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi") as $jour) {
+                        if (isset($dispo[$jour][$heure])) {
+                            $is_am = in_array($heure, ["10:00:00", "11:00:00", "12:00:00", "13:00:00"]);
+                            $creneau = $is_am ? 'AM' : 'PM';
+                            $dispo_creneau = isset($dispo_creneau_data[$jour][$creneau]) ? $dispo_creneau_data[$jour][$creneau] : 1;
+                            if ($dispo_creneau == 0) {
+                                echo '<td style="background-color: black;"></td>'; // Case noire si le créneau est indisponible
+                            } else {
+                                afficherCase($dispo[$jour][$heure]); // Remplissage précédent en rouge et vert
+                            }
+                        } else {
+                            afficherCase(false);
+                        }
+                    }
+                    echo "</tr>";
+                }
+                             
+                
+                ?>
+            </table>
+        </div>
+        <!-- Fin du calendrier -->
         <br><br>
 
         <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
