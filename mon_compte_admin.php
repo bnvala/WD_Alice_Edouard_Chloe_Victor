@@ -61,7 +61,8 @@ $utilisateur = $_SESSION['utilisateur'];
             <p>Prénom : <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
             <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
             <a href="gerer_agents.php" class="action-btn">Gérer les agents immobiliers</a>
-            <a href="gerer_biens.php" class="action-btn">Gérer les biens</a><br>
+            <a href="gerer_biens.php" class="action-btn">Gérer les biens</a>
+            <a href="ajt_admin.php" class="action-btn">Ajouter un administrateur</a><br>
             <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
         </center>
     </div>

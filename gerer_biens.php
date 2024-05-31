@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gérer les Biens</title>
     <style>
-        body {
+        .ok {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
@@ -86,8 +86,11 @@
 </head>
 <body>
 <?php include 'wrapper.php'; ?>
-    <h1>Gérer les Biens</h1>
-    <a href="ajouter_bien.php" class="add-button">Ajouter un bien</a>
+<div ok>
+    <h1><center>Gérer les Biens</center></h1>
+    <br>
+    <center><a href="ajouter_bien.php" class="add-button">Ajouter un bien</a></center>
+    <br><br>
     <?php
     // Informations de connexion à la base de données
     $servername = "localhost"; // Remplacer par le nom de votre serveur
@@ -149,6 +152,9 @@
     // Fermer la connexion
     $conn->close();
     ?>
-    <a href="mon_compte_admin.php" class="return-button">Retour</a>
+    <br><br>
+    <center><a href="mon_compte_admin.php" class="return-button">Retour</a></center>
+    <br><br>
+</div>
 </body>
 </html>

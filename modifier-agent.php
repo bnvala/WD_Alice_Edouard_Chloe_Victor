@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier Agent</title>
     <style>
-        body {
+        .ish {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
@@ -49,6 +49,24 @@
         .form-group button:hover {
             background-color: #218838;
         }
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .auth-footer button {
+            background: none;
+            border: none;
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0; /* Supprime le rembourrage */
+            margin: 0; /* Supprime les marges */
+            font-size: inherit; /* Utilise la taille de police par défaut */
+            text-align: center;
+        }
+        .auth-footer button:hover {
+            color: darkblue;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +80,7 @@ if (isset($_GET['agent_id'])) {
     exit;
 }
 ?>
+<div class="ish">
 
     <div class="form-container">
         <h2>Modifier Agent</h2>
@@ -210,5 +229,12 @@ if (isset($_GET['agent_id'])) {
             }
         </script>
     </div>
+        </div>
+        <div class="auth-footer">
+            <form action="mon_compte_admin.php">
+                <button type="submit">Retour</button>
+            </form>
+            <br><br>
+        </div>
 </body>
 </html>

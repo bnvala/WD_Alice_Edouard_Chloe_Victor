@@ -1,3 +1,4 @@
+<?php include 'wrapper.php'?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un Bien</title>
     <style>
-        body {
+        .ish {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
@@ -67,7 +68,7 @@
         }
     </style>
 </head>
-<body>
+<body><div class="ish">
     <div class="form-container">
         <h2>Ajouter un Bien</h2>
         <form method="post" enctype="multipart/form-data">
@@ -95,7 +96,8 @@
                 <button type="submit">Ajouter le Bien</button>
             </div>
         </form>
-        <a href="gerer_biens.php" class="return-button">Retour</a>
+        <center><a href="gerer_biens.php" class="return-button">Retour</a></center>
+    </div>
     </div>
 </body>
 </html>
