@@ -5,94 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omnes Immobilier - Accueil</title>
-    <style>
-        #content {
-            display: flex;
-            flex-direction: column; /* Organiser les éléments en colonne */
-            align-items: center; /* Centrer les éléments horizontalement */
-            margin: 20px; /* Marge autour du conteneur */
-        }
-
-        #carrousel {
-            width: 40%;
-            height: 400px; /* Ajustez la hauteur selon vos besoins */
-            overflow: hidden;
-            margin: 20px 0; /* Marge autour du carrousel */
-        }
-        
-        #carrousel ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            transition: transform 1s ease-in-out;
-        }
-        
-        #carrousel ul li {
-            flex: 0 0 100%;
-            overflow: hidden; /* Pour recadrer les images */
-        }
-
-        #carrousel ul li img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Recadrage des images */
-            object-position: center; /* Positionnement au centre */
-        }
-
-        .intro, .bulletin {
-            width: 60%; /* Ajustez la largeur selon vos besoins */
-            margin: 20px 0; /* Marge autour des sections */
-            text-align: center;
-        }
-
-        .offer-box {
-            border: 2px solid #000; /* Bordure noire de 2 pixels */
-            padding: 10px; /* Espace intérieur */
-            margin-top: 20px; /* Espace au-dessus du cadre */
-            text-align: center; /* Centrer le texte */
-            background-color: #f9f9f9; /* Couleur de fond */
-            font-weight: bold; /* Texte en gras */
-        }
-
-        footer {
-            display: flex; /* Utiliser flexbox pour aligner les enfants */
-            justify-content: space-between; /* Espacer les enfants également */
-            border-top: 2px solid #000; /* Bordure noire en haut de 2 pixels */
-            padding: 20px; /* Espace intérieur */
-            background-color: #376b8c; /* Couleur de fond bleue */
-            color: white; /* Couleur du texte en blanc */
-            bottom: 0; /* Positionne le footer en bas de la page */
-            left: 0; /* Positionne le footer à gauche de la page */
-            right: 0; /* Positionne le footer à droite de la page */
-            width: 100%; /* Assure que le footer s'étend sur toute la largeur */
-            width: 1200px; /* Largeur fixe */
-        }
-
-        h3{
-            text-align: center;
-        }
-        .footer-content {
-    flex: 1; /* Permet à la section de prendre tout l'espace disponible */
-    max-width: 50%; /* La moitié de l'espace disponible */
-}
-
-.footer-map {
-    flex: 1; /* Permet à la section de prendre tout l'espace disponible */
-    max-width: 50%; /* La moitié de l'espace disponible */
-    height: 200px; /* Ajuster la hauteur selon vos besoins */
-}
-        .footer-map iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles_accueil.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <section id="carrousel-container"> <!-- Ajout d'un conteneur pour le carrousel -->
-    <h2><center>Bienvenue chez Omnes Immobilier</center></h2>
+    <h1><center>Bienvenue chez Omnes Immobilier</center></h1>
     <div id="content">
         <div class="intro">
             <h3>À propos de nous</h3>

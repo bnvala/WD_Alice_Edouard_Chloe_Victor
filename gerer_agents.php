@@ -70,6 +70,7 @@
 </head>
 <body>
 <?php include 'wrapper.php'; ?>
+    
     <button class="add-button" onclick="window.location.href='ajouter-agent.php'">Ajouter un agent</button>
     <h1>Nos Agents</h1>
     <?php
@@ -106,10 +107,11 @@
             echo '<input type="hidden" name="agent_id" value="' . $row["id_agent"] . '">';
             echo '<button type="submit" name="delete_agent" class="delete-button">Supprimer</button>';
             echo '</form>';
-            echo '<form action="modifier-agent.php" method="post">';
+            echo '<form action="modifier-agent.php" method="get">';
             echo '<input type="hidden" name="agent_id" value="' . $row["id_agent"] . '">';
-            echo '<button type="submit" name="edit_agent" class="edit-button">Modifier</button>';
+            echo '<button type="submit" class="edit-button">Modifier</button>';
             echo '</form>';
+
             echo '</div>';
         }
     } else {
