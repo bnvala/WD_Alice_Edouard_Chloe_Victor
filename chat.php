@@ -51,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -100,6 +99,9 @@ $conn->close();
         .form-group button:hover {
             background-color: #218838;
         }
+        .bottom-link {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -114,5 +116,9 @@ $conn->close();
             </div>
         </form>
     </div>
+    <a href="historique_message.php?id=<?php echo $id_client; ?>" class="bottom-link">Voir l'historique des messages</a>
 </body>
 </html>
+
+    
+

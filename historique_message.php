@@ -15,36 +15,36 @@ if ($conn->connect_error) {
     die("Échec de la connexion : " . $conn->connect_error);
 }
 
-// Vérifie si l'ID de l'agent est défini dans l'URL
-if (!isset($_GET['id_agent'])) {
-    echo "ID de l'agent non défini dans l'URL.";
+// Vérifie si l'ID du client est défini dans l'URL
+if (!isset($_GET['id'])) {
+    echo "ID du client non défini dans l'URL.";
     exit; // Arrête le script
 }
 
-$agent_id = $_GET['id_agent'];
+$client_id = $_GET['id'];
 
-// Récupérer toutes les communications de l'agent
-$sql = "SELECT communication.*, client.nom AS nom_client
+// Récupérer toutes les communications du client
+$sql = "SELECT communication.*, agent.nom AS nom_agent
         FROM communication
-        INNER JOIN client ON communication.ID_client = client.id
-        WHERE communication.ID_agent = $agent_id
-        ORDER BY communication.ID_client, communication.timestamp DESC"; // Ordre DESC pour les messages les plus récents en premier
+        INNER JOIN agent ON communication.ID_agent = agent.id
+        WHERE communication.ID_client = $client_id
+        ORDER BY communication.timestamp DESC"; // Ordre DESC pour les messages les plus récents en premier
 
 $result = $conn->query($sql);
 
 $conversations = [];
-$clients = [];
+$agents = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $conversation_id = $row['ID_client'];
-        if (!isset($clients[$conversation_id])) {
-            $clients[$conversation_id] = $row['nom_client'];
+        $conversation_id = $row['ID_agent'];
+        if (!isset($agents[$conversation_id])) {
+            $agents[$conversation_id] = $row['nom_agent'];
         }
         // Créer une nouvelle conversation ou ajouter un message à une conversation existante
         if (!isset($conversations[$conversation_id])) {
             $conversations[$conversation_id] = [
-                'nom_client' => $row['nom_client'],
+                'nom_agent' => $row['nom_agent'],
                 'messages' => []
             ];
         }
@@ -61,9 +61,9 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversations de l'Agent</title>
+    <title>Conversations du Client</title>
     <style>
-        body {
+body {
             display: flex;
             flex-direction: column;
             margin: 0;
@@ -147,7 +147,7 @@ $conn->close();
             var form = document.getElementById('form-' + conversationId);
             var formData = new FormData(form);
 
-            fetch('send_message.php', {
+            fetch('send_message_client.php', {
                 method: 'POST',
                 body: formData
             })
@@ -160,54 +160,50 @@ $conn->close();
                     var conversationElement = document.getElementById('conversation-' + conversationId);
                     conversationElement.insertBefore(messageContainer, form.parentNode);
                     form.reset();
-                } 
+                } else {
+                    alert('Erreur lors de l\'envoi du message.');
+                }
             })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Erreur lors de l\'envoi du message.');
+            });
         }
     </script>
 </head>
 <body>
     <div class="wrapper">
-        <!-- Le contenu du wrapper sera inclus ici -->
     </div>
     <div class="main">
         <div class="sidebar">
-            <h3>Clients</h3>
+            <h3>Agents</h3>
             <ul>
-                <?php foreach ($clients as $conversation_id => $nom_client): ?>
-                    <li><a href="javascript:void(0)" onclick="showConversation(<?php echo $conversation_id; ?>)"><?php echo $nom_client; ?></a></li>
+                <?php foreach ($agents as $conversation_id => $nom_agent): ?>
+                    <li><a href="historique_message.php?id=<?php echo $client_id; ?>&id_agent=<?php echo $conversation_id; ?>"><?php echo $nom_agent; ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </div>
         <div class="content">
-            <h2>Conversations de l'Agent</h2>
+            <h2>Conversations du Client</h2>
             <?php if (empty($conversations)): ?>
-                <p>Aucune conversation trouvée pour cet agent.</p>
+                <p>Aucune conversation trouvée pour ce client.</p>
             <?php else: ?>
                 <?php foreach ($conversations as $conversation_id => $conversation): ?>
-                    <div id="conversation-<?php echo $conversation_id; ?>" class="conversation" style="display: none;">
-                        <h3>Conversation avec <?php echo $conversation['nom_client']; ?></h3>
+                    <div id="conversation-<?php echo $conversation_id; ?>" class="conversation">
+                        <h3>Conversation avec <?php echo $conversation['nom_agent']; ?></h3>
                         <?php foreach ($conversation['messages'] as $message): ?>
-                            <div class="message <?php echo $message['envoyeur'] == 'agent' ? 'agent' : 'client'; ?>">
-                                <strong><?php echo $message['envoyeur'] == 'agent' ? 'Vous' : $conversation['nom_client']; ?>:</strong>
-<p><?php echo htmlspecialchars($message['message']); ?></p>
-<span><?php echo $message['timestamp']; ?></span>
-</div>
-<?php endforeach; ?>
-<div class="form-container">
-<div class="form-inner">
-<form id="form-<?php echo $conversation_id; ?>" action="send_message.php" method="POST">
-<input type="hidden" name="id_agent" value="<?php echo $agent_id; ?>">
-<input type="hidden" name="id_client" value="<?php echo $conversation_id; ?>">
-<textarea name="message" rows="4" cols="50" required></textarea><br>
-<button type="button" onclick="sendMessage(<?php echo $conversation_id; ?>)">Envoyer</button>
-</form>
-</div>
-</div>
-</div>
-<?php endforeach; ?>
-<?php endif; ?>
-</div>
-</div>
-
+                            <div class="message <?php echo $message['envoyeur'] == 'client' ? 'client' : 'agent'; ?>">
+                                <strong><?php echo $message['envoyeur'] == 'client' ? 'Vous' : $conversation['nom_agent']; ?>:</strong>
+                                <p><?php echo htmlspecialchars($message['message']); ?></p>
+                                <span><?php echo $message['timestamp']; ?></span>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
 </body>
 </html>
+
+
