@@ -78,11 +78,13 @@
                 $type = $row["type"];
                 $description = $row["description"];
                 $adresse = $row["adresse"];
+                $prix = $row["prix"]; // Nouvelle ligne pour récupérer le prix du bien
         
                 // Afficher les informations du bien
                 echo "<h2>Type: $type</h2>";
                 echo "<p>Description: $description</p>";
                 echo "<p>Adresse: $adresse</p>";
+                echo "<p>Prix: $prix €</p>"; // Afficher le prix du bien
         ?>
                 <!-- Carte Google Maps -->
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2623.922425013107!2d2.3936363763673913!3d48.87875537133496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66dbe90b1280d%3A0xe06e4977b6eea5d!2s12%20Rue%20des%20Lilas%2C%2075019%20Paris!5e0!3m2!1sfr!2sfr!4v1716985780909!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
