@@ -24,7 +24,7 @@ if (!isset($_GET['id_agent'])) {
 $agent_id = $_GET['id_agent'];
 
 // Récupérer toutes les communications de l'agent
-$sql = "SELECT communication.*, client.nom AS nom_client
+$sql = "SELECT communication.*, client.prenom AS prenom_client, client.nom AS nom_client
         FROM communication
         INNER JOIN client ON communication.ID_client = client.id
         WHERE communication.ID_agent = $agent_id
@@ -39,12 +39,12 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $conversation_id = $row['ID_client'];
         if (!isset($clients[$conversation_id])) {
-            $clients[$conversation_id] = $row['nom_client'];
+            $clients[$conversation_id] = $row['prenom_client'] . ' ' . $row['nom_client'];
         }
         // Créer une nouvelle conversation ou ajouter un message à une conversation existante
         if (!isset($conversations[$conversation_id])) {
             $conversations[$conversation_id] = [
-                'nom_client' => $row['nom_client'],
+                'nom_client' => $clients[$conversation_id],
                 'messages' => []
             ];
         }
@@ -81,12 +81,23 @@ $conn->close();
             border-right: 1px solid #ccc;
             padding: 10px;
             overflow-y: auto;
+        }
+        .sidebar ul {
             list-style: none; /* Remove bullets */
-            margin: 0;
             padding: 0;
+            margin: 0;
         }
         .sidebar li {
-            padding: 5px 0;
+            margin-bottom: 10px;
+        }
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 5px;
         }
         .content {
             flex: 1;
@@ -129,7 +140,7 @@ $conn->close();
             max-width: 500px; /* Set a max width for the textarea */
             margin-bottom: 10px; /* Space between textarea and button */
         }
-        button {
+        button[type="button"] {
             width: 100%;
             max-width: 100px; /* Set a max width for the button */
         }
@@ -160,8 +171,14 @@ $conn->close();
                     var conversationElement = document.getElementById('conversation-' + conversationId);
                     conversationElement.insertBefore(messageContainer, form.parentNode);
                     form.reset();
-                } 
+                } else {
+                    alert('Erreur lors de l\'envoi du message.');
+                }
             })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Erreur lors de l\'envoi du message.');
+            });
         }
     </script>
 </head>
@@ -173,8 +190,12 @@ $conn->close();
         <div class="sidebar">
             <h3>Clients</h3>
             <ul>
-                <?php foreach ($clients as $conversation_id => $nom_client): ?>
-                    <li><a href="javascript:void(0)" onclick="showConversation(<?php echo $conversation_id; ?>)"><?php echo $nom_client; ?></a></li>
+                <?php foreach ($clients as $conversation_id => $nom_complet_client): ?>
+                    <li>
+                        <button onclick="showConversation(<?php echo $conversation_id; ?>)">
+                            <?php echo $nom_complet_client; ?>
+                        </button>
+                    </li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -189,25 +210,25 @@ $conn->close();
                         <?php foreach ($conversation['messages'] as $message): ?>
                             <div class="message <?php echo $message['envoyeur'] == 'agent' ? 'agent' : 'client'; ?>">
                                 <strong><?php echo $message['envoyeur'] == 'agent' ? 'Vous' : $conversation['nom_client']; ?>:</strong>
-<p><?php echo htmlspecialchars($message['message']); ?></p>
-<span><?php echo $message['timestamp']; ?></span>
-</div>
-<?php endforeach; ?>
-<div class="form-container">
-<div class="form-inner">
-<form id="form-<?php echo $conversation_id; ?>" action="send_message.php" method="POST">
-<input type="hidden" name="id_agent" value="<?php echo $agent_id; ?>">
-<input type="hidden" name="id_client" value="<?php echo $conversation_id; ?>">
-<textarea name="message" rows="4" cols="50" required></textarea><br>
-<button type="button" onclick="sendMessage(<?php echo $conversation_id; ?>)">Envoyer</button>
-</form>
-</div>
-</div>
-</div>
-<?php endforeach; ?>
-<?php endif; ?>
-</div>
-</div>
-
+                                <p><?php echo htmlspecialchars($message['message']); ?></p>
+                                <span><?php echo $message['timestamp']; ?></span>
+                            </div>
+                        <?php endforeach; ?>
+                        <div class="form-container">
+                            <div class="form-inner">
+                                <form id="form-<?php echo $conversation_id; ?>" action="send_message.php" method="POST">
+                                    <input type="hidden" name="id_agent" value="<?php echo $agent_id; ?>">
+                                    <input type="hidden" name="id_client" value="<?php echo $conversation_id; ?>">
+                                    <textarea name="message" rows="4" cols="50" required></textarea><br>
+                                    <button type="button" onclick="sendMessage(<?php echo $conversation_id; ?>)">Envoyer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
 </body>
 </html>
+

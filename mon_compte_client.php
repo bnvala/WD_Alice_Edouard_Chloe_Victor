@@ -66,7 +66,7 @@ $utilisateur = $_SESSION['utilisateur'];
         <p>Adresse : <?php echo htmlspecialchars($utilisateur['adresse']); ?></p>
         <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
         <br>
-        <a href="historique_message.php" id="messagerieBtn">Messagerie</a>
+        <a href="historique_message.php?id=<?php echo $utilisateur['id']; ?>" id="messagerieBtn">Messagerie</a>
         <br><br><br> 
         <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
     </div>
