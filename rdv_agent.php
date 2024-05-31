@@ -131,7 +131,7 @@ $result = $stmt->get_result();
                 echo "<p>Autres informations: " . htmlspecialchars($row['autres_infos']) . "</p>";
                 echo "<a href='ajouter_infos.php?id_rdv=" . urlencode($row['id']) . "' class='edit-button'>Modifier les informations du rendez-vous</a>";
                 echo "<a href='rdv_effectue.php?id_rdv=" . urlencode($row['id']) . "' class='complete-button'>Rendez-vous effectué</a>";
-                echo "<a href='supprimer_rdv.php?id_rdv=" . urlencode($row['id']) . "' class='cancel-button'>Annuler</a>";
+                echo "<a href='supprimer_rdv.php?id_rdv=" . (isset($row['id']) ? urlencode($row['id']) : '') . "' class='cancel-button'>Annuler</a>";
                 echo "</div>";
                 echo "<hr>";
                 $count++;

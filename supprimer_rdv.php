@@ -1,4 +1,5 @@
 <?php
+include 'wrapper.php';
 // Vérifier si l'ID du rendez-vous est passé en paramètre d'URL
 if (!isset($_GET['id_rdv'])) {
     echo "ID du rendez-vous manquant dans l'URL.";
