@@ -115,7 +115,7 @@
                     echo '</div>';
                 }
             } else {
-                echo "No agents found";
+                echo "pas d'agent trouvé";
             }
             // Fermer la connexion
             $conn->close();
