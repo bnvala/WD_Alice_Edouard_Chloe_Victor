@@ -145,7 +145,7 @@ function afficherCase($dispo) {
         <div class="button-container">
             <a href="rdv_agent.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Mes rendez-vous</a>
             <a href="mes_messages.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Mes Messages</a>
-            <a href="mes_consultations.php?id_agent=<?php echo urlencode($id_agent); ?>" class="button">Historique des RDV</a>
+            <a href="historique.php?id_agent=<?php echo urlencode($_SESSION['utilisateur']['id_agent']); ?>" class="button">Historique des RDV</a>
         </div>
 
         <div class="table-container">
