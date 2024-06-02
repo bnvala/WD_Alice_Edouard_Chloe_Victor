@@ -87,17 +87,22 @@ $conn->close();
             padding: 10px;
             overflow-y: auto;
         }
+        .sidebar ul {
+            list-style: none; /* Remove bullets */
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar li {
+            margin-bottom: 10px;
+        }
         .sidebar button {
             width: 100%;
-            text-align: left;
             padding: 10px;
-            border: none;
-            background: none;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            text-align: left;
             cursor: pointer;
-            outline: none;
-        }
-        .sidebar button:hover {
-            background-color: #f0f0f0;
+            border-radius: 5px;
         }
         .content {
             flex: 1;
@@ -140,7 +145,7 @@ $conn->close();
             max-width: 500px; /* Set a max width for the textarea */
             margin-bottom: 10px; /* Space between textarea and button */
         }
-        button {
+        button[type="button"] {
             width: 100%;
             max-width: 100px; /* Set a max width for the button */
         }
@@ -171,14 +176,7 @@ $conn->close();
                     var conversationElement = document.getElementById('conversation-' + conversationId);
                     conversationElement.insertBefore(messageContainer, form.parentNode);
                     form.reset();
-                } else {
-                    alert('Erreur lors de l\'envoi du message.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Erreur lors de l\'envoi du message.');
-            });
+                }});
         }
     </script>
 </head>
@@ -189,11 +187,15 @@ $conn->close();
     <div class="main">
         <div class="sidebar">
             <h3>Agents</h3>
-            <?php foreach ($agents as $conversation_id => $nom_complet_agent): ?>
-                <button onclick="showConversation(<?php echo $conversation_id; ?>)">
-                    <?php echo $nom_complet_agent; ?>
-                </button>
-            <?php endforeach; ?>
+            <ul>
+                <?php foreach ($agents as $conversation_id => $nom_complet_agent): ?>
+                    <li>
+                        <button onclick="showConversation(<?php echo $conversation_id; ?>)">
+                            <?php echo $nom_complet_agent; ?>
+                        </button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
         <div class="content">
             <h2>Conversations du Client</h2>

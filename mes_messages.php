@@ -171,15 +171,9 @@ $conn->close();
                     var conversationElement = document.getElementById('conversation-' + conversationId);
                     conversationElement.insertBefore(messageContainer, form.parentNode);
                     form.reset();
-                } else {
-                    alert('Erreur lors de l\'envoi du message.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Erreur lors de l\'envoi du message.');
+                } 
             });
-        }
+            
     </script>
 </head>
 <body>

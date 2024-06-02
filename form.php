@@ -30,6 +30,7 @@ if (isset($_SESSION['utilisateur']['type'])) {
         #cadre {
             width: 400px;
             margin: 0 auto;
+            margin-top : 20px; 
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
