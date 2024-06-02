@@ -1,25 +1,28 @@
 <?php
+// mdp id bdd
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pj_piscine";
-
+// connexion bdd
 $conn = new mysqli($servername, $username, $password, $dbname);
-
+// verif de connexion bdd
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+// affichage de l'entete 
 include 'wrapper.php';
-
+// critère de recherche (type de bien, prix, descrpition, ville)
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 $description = isset($_GET['description']) ? trim($_GET['description']) : '';
 $ville = isset($_GET['ville']) ? trim($_GET['ville']) : '';
 $prix_min = isset($_GET['prix_min']) ? trim($_GET['prix_min']) : '';
 $prix_max = isset($_GET['prix_max']) ? trim($_GET['prix_max']) : '';
-
+// initialisation de variable 
 $searchExecuted = false;
 $result = null;
 
+// recherche en fonction des critères en php 
 if ($type !== '' || $description !== '' || $ville !== '' || $prix_min !== '' || $prix_max !== '') {
     $sql = "SELECT * FROM biens WHERE 1=1";
     if ($type !== '') {
@@ -42,7 +45,7 @@ if ($type !== '' || $description !== '' || $ville !== '' || $prix_min !== '' || 
     $searchExecuted = true;
 }
 ?>
-
+<!--page html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +53,7 @@ if ($type !== '' || $description !== '' || $ville !== '' || $prix_min !== '' || 
     <link rel="stylesheet" type="text/css" href="styles_recherches.css">
 </head>
 <body>
-
+<!-- contenu du corp de la page html -->
 <h1>Recherche de biens immobiliers</h1>
 
 <form method="get" action="recherche.php">
@@ -68,6 +71,7 @@ if ($type !== '' || $description !== '' || $ville !== '' || $prix_min !== '' || 
 </form>
 
 <?php if ($searchExecuted): ?>
+       <!-- affichage du resultat en php  -->
     <h2>Résultats de la recherche</h2>
     <?php if ($result && $result->num_rows > 0): ?>
         <table>
