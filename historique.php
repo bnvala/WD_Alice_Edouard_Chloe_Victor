@@ -8,7 +8,7 @@ if (!isset($_SESSION['utilisateur']['id_agent'])) {
 }
 
 // Récupérer l'id_agent passé en paramètre d'URL ou à partir de la session
-$id_agent = isset($_GET['id_agent']) ? urldecode($_GET['id_agent']) : $_SESSION['utilisateur']['id'];
+$id_agent = isset($_GET['id_agent']) ? urldecode($_GET['id_agent']) : $_SESSION['utilisateur']['id_agent'];
 ?>
 
 <!DOCTYPE html>
@@ -70,10 +70,7 @@ $id_agent = isset($_GET['id_agent']) ? urldecode($_GET['id_agent']) : $_SESSION[
         }
 
         // Requête SQL pour récupérer les consultations de l'agent connecté
-        $sql = "SELECT c.id, c.courriel_client, , c.date_consultation 
-                FROM consultations c 
-                JOIN biens b ON c.id_bien = b.id
-                WHERE b.id_agent = ?";
+        $sql = "SELECT id, courriel_client, date, heure, id_agent FROM consultations WHERE id_agent = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id_agent);
         $stmt->execute();
@@ -82,15 +79,15 @@ $id_agent = isset($_GET['id_agent']) ? urldecode($_GET['id_agent']) : $_SESSION[
         // Vérifier s'il y a des résultats
         if ($result->num_rows > 0) {
             echo '<table>';
-            echo '<tr><th>ID Consultation</th><th>ID Client</th><th>ID Bien</th><th>Date Consultation</th></tr>';
+            echo '<tr><th>ID Consultation</th><th>Courriel Client</th><th>Date</th><th>Heure</th></tr>';
 
             // Afficher les données pour chaque ligne
             while($row = $result->fetch_assoc()) {
                 echo '<tr>';
-                echo '<td>' . $row["id_consultation"] . '</td>';
-                echo '<td>' . $row["id_client"] . '</td>';
-                echo '<td>' . $row["id_bien"] . '</td>';
-                echo '<td>' . $row["date_consultation"] . '</td>';
+                echo '<td>' . $row["id"] . '</td>';
+                echo '<td>' . $row["courriel_client"] . '</td>';
+                echo '<td>' . $row["date"] . '</td>';
+                echo '<td>' . $row["heure"] . '</td>';
                 echo '</tr>';
             }
 
