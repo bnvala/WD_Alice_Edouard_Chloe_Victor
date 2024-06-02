@@ -1,13 +1,13 @@
 <?php
 include 'wrapper.php';
 
-// Vérifier si l'utilisateur est connecté
+//connexion
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: form.php");
     exit();
 }
 
-// Vérifier si l'ID du rendez-vous est passé en paramètre d'URL
+//parametre dans l'url ?
 if (!isset($_GET['id_rdv'])) {
     echo "ID du rendez-vous manquant dans l'URL.";
     exit();
@@ -15,7 +15,6 @@ if (!isset($_GET['id_rdv'])) {
 
 $id_rdv = $_GET['id_rdv'];
 
-// Connexion à la base de données (supposons que vous ayez déjà une connexion dans wrapper.php)
 include 'db.php';
 
 // Requête pour insérer le rendez-vous effectué dans la table consultations
@@ -36,13 +35,11 @@ if ($stmt_insert->execute()) {
         echo "Erreur lors de la suppression du rendez-vous de la liste des rendez-vous.";
     }
 
-    // Fermer le statement de suppression
     $stmt_delete->close();
 } else {
     echo "Erreur lors de l'inscription du rendez-vous effectué.";
 }
 
-// Fermer le statement d'insertion et la connexion
 $stmt_insert->close();
 $conn->close();
 ?>

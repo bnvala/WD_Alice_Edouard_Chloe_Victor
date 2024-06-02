@@ -9,7 +9,7 @@ $heure = $_GET['heure'];
 $id_client = $_SESSION['utilisateur']['id'];
 $duree = "01:00:00";
 
-// Récupérer l'email du client
+// Récupérer le courriel du client car c'est l'id 
 $sql_courriel = "SELECT courriel FROM client WHERE id = ?";
 $stmt_courriel = $conn->prepare($sql_courriel);
 $stmt_courriel->bind_param("i", $id_client);
@@ -24,7 +24,7 @@ if ($result_courriel->num_rows === 0) {
 $client = $result_courriel->fetch_assoc();
 $courriel_client = $client['courriel'];
 
-// Insérer le rendez-vous
+// ajout d'un nouveau rdv dans la bdd
 $sql_insert_rdv = "INSERT INTO rdv (id_agent, courriel_client, date, heure, duree) VALUES (?, ?, ?, ?, ?)";
 $stmt_insert_rdv = $conn->prepare($sql_insert_rdv);
 $stmt_insert_rdv->bind_param("issss", $id_agent, $courriel_client, $jour, $heure, $duree);
@@ -32,10 +32,10 @@ $stmt_insert_rdv->bind_param("issss", $id_agent, $courriel_client, $jour, $heure
 $conn->begin_transaction();
 
 if ($stmt_insert_rdv->execute()) {
-    // Obtenir l'ID du rendez-vous inséré
+    // id du rdv ajouté 
     $id_rdv = $conn->insert_id;
 
-    // Mettre à jour la disponibilité de l'agent avec l'ID du rendez-vous
+    // maj de la dispo de l'agent avec l'id du rdv
     $sql_update_dispo = "UPDATE dispo_agents_heure_par_heure SET dispo = 0, id_rdv = ? WHERE id_agent = ? AND jour = ? AND heure = ?";
     $stmt_update_dispo = $conn->prepare($sql_update_dispo);
     $stmt_update_dispo->bind_param("iiss", $id_rdv, $id_agent, $jour, $heure);

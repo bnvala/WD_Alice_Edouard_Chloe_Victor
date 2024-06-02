@@ -1,16 +1,16 @@
 
         #content {
             display: flex;
-            flex-direction: column; /* Organiser les éléments en colonne */
-            align-items: center; /* Centrer les éléments horizontalement */
-            margin: 20px; /* Marge autour du conteneur */
+            flex-direction: column; 
+            align-items: center;
+            margin: 20px; 
         }
 
         #carrousel {
             width: 40%;
-            height: 400px; /* Ajustez la hauteur selon vos besoins */
+            height: 400px; 
             overflow: hidden;
-            margin: 20px 0; /* Marge autour du carrousel */
+            margin: 20px 0; 
         }
         
         #carrousel ul {
@@ -23,42 +23,42 @@
         
         #carrousel ul li {
             flex: 0 0 100%;
-            overflow: hidden; /* Pour recadrer les images */
+            overflow: hidden; 
         }
 
         #carrousel ul li img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Recadrage des images */
-            object-position: center; /* Positionnement au centre */
+            object-fit: cover; 
+            object-position: center; 
         }
 
         .intro, .bulletin {
-            width: 60%; /* Ajustez la largeur selon vos besoins */
-            margin: 20px 0; /* Marge autour des sections */
+            width: 60%; 
+            margin: 20px 0; 
             text-align: center;
         }
 
         .offer-box {
-            border: 2px solid #000; /* Bordure noire de 2 pixels */
-            padding: 10px; /* Espace intérieur */
-            margin-top: 20px; /* Espace au-dessus du cadre */
-            text-align: center; /* Centrer le texte */
-            background-color: #f9f9f9; /* Couleur de fond */
-            font-weight: bold; /* Texte en gras */
+            border: 2px solid #000; 
+            padding: 10px; 
+            margin-top: 20px; 
+            text-align: center; 
+            background-color: #f9f9f9; */
+            font-weight: bold; 
         }
 
         footer {
-            display: flex; /* Utiliser flexbox pour aligner les enfants */
-            justify-content: space-between; /* Espacer les enfants également */
-            border-top: 2px solid #000; /* Bordure noire en haut de 2 pixels */
-            padding: 20px; /* Espace intérieur */
-            background-color: #376b8c; /* Couleur de fond bleue */
-            color: white; /* Couleur du texte en blanc */
-            bottom: 0; /* Positionne le footer en bas de la page */
-            left: 0; /* Positionne le footer à gauche de la page */
-            right: 0; /* Positionne le footer à droite de la page */
-            width: 100%; /* Assure que le footer s'étend sur toute la largeur */
+            display: flex; 
+            justify-content: space-between; 
+            border-top: 2px solid #000; 
+            padding: 20px; 
+            background-color: #376b8c; 
+            color: white; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            width: 100%; 
             
         }
 
@@ -66,14 +66,14 @@
             text-align: center;
         }
         .footer-content {
-    flex: 1; /* Permet à la section de prendre tout l'espace disponible */
-    max-width: 50%; /* La moitié de l'espace disponible */
+    flex: 1; 
+    max-width: 50%; 
 }
 
 .footer-map {
-    flex: 1; /* Permet à la section de prendre tout l'espace disponible */
-    max-width: 50%; /* La moitié de l'espace disponible */
-    height: 200px; /* Ajuster la hauteur selon vos besoins */
+    flex: 1; 
+    max-width: 50%; 
+    height: 200px;
 }
         .footer-map iframe {
             width: 100%;

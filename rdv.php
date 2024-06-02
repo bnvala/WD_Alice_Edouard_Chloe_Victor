@@ -1,7 +1,7 @@
 <?php 
 include 'wrapper.php';
 
-// Vérifier si le client est connecté
+// connexion
 if (!isset($_SESSION['utilisateur']['id'])) {
     header("Location: form.php");
     exit();
@@ -9,7 +9,6 @@ if (!isset($_SESSION['utilisateur']['id'])) {
 
 $id_client = $_SESSION['utilisateur']['courriel'];
 
-// Connexion à la base de données (supposons que vous ayez déjà une connexion dans wrapper.php)
 include 'db.php';
 
 // Requête pour récupérer les rendez-vous du client actuellement connecté
@@ -19,7 +18,6 @@ $stmt->bind_param("s", $id_client);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Vérifier s'il y a des rendez-vous
 if ($result->num_rows > 0) {
     echo "<h1>Rendez-vous</h1>";
     // Affichage des rendez-vous
@@ -47,7 +45,6 @@ if ($result->num_rows > 0) {
     echo "Aucun rendez-vous trouvé.";
 }
 
-// Fermer la connexion et le statement
 $stmt->close();
 $conn->close();
 ?>
@@ -58,7 +55,6 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rendez-vous</title>
     <style>
-        /* Style CSS pour les rendez-vous */
         h1 {
             text-align: center;
         }
@@ -78,6 +74,5 @@ $conn->close();
     </style>
 </head>
 <body>
-    <!-- Aucun contenu HTML ici, tout est généré par PHP -->
 </body>
 </html>

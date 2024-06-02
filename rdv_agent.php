@@ -1,14 +1,13 @@
 <?php 
 include 'wrapper.php';
-
-// Vérifier si le client est connecté
+//connexion 
 if (!isset($_SESSION['utilisateur']['id_agent'])) {
     header("Location: form.php");
     exit();
 }
 
 $id_client = $_SESSION['utilisateur']['courriel'];
-// Vérifier si l'ID de l'agent est passé en paramètre d'URL
+
 if (!isset($_GET['id_agent'])) {
     echo "ID de l'agent manquant dans l'URL.";
     exit();
@@ -16,7 +15,7 @@ if (!isset($_GET['id_agent'])) {
 
 $id_agent = $_GET['id_agent'];
 
-// Connexion à la base de données (supposons que vous ayez déjà une connexion dans wrapper.php)
+
 include 'db.php';
 
 // Requête pour récupérer les rendez-vous de l'agent actuellement connecté
@@ -40,7 +39,7 @@ $result = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rendez-vous</title>
     <style>
-        /* Style CSS pour les rendez-vous */
+        
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -118,7 +117,7 @@ $result = $stmt->get_result();
     <div class="rdv-container">
         <h1>Rendez-vous</h1>
         <?php
-        // Vérifier s'il y a des rendez-vous
+        
         if ($result->num_rows > 0) {
             // Affichage des rendez-vous
             $count = 1;
@@ -141,7 +140,7 @@ $result = $stmt->get_result();
             echo "<p>Aucun rendez-vous trouvé pour cet agent.</p>";
         }
 
-        // Fermer la connexion et le statement
+       
         $stmt->close();
         $conn->close();
         ?>

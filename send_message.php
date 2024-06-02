@@ -1,25 +1,25 @@
 <?php
-// Informations de connexion à la base de données
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pj_piscine";
 
-// Connexion à la base de données
+// Connexion a la bdd
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Vérifier la connexion
+
 if ($conn->connect_error) {
     die("Échec de la connexion : " . $conn->connect_error);
 }
 
-// Traitement de la soumission du formulaire
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_agent = $_POST['id_agent'];
     $id_client = $_POST['id_client'];
     $message = $_POST['message'];
 
-    // Requête SQL pour insérer la communication dans la base de données
+    // insertion de la communication dans la bdd ==> on entre le message pour le ressortir qu destinatire 
     $stmt = $conn->prepare("INSERT INTO communication (ID_client, ID_agent, message, envoyeur) VALUES (?, ?, ?, 'agent')");
     $stmt->bind_param("iis", $id_client, $id_agent, $message);
 
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode([
             'success' => true,
             'message' => $message,
-            'timestamp' => date('Y-m-d H:i:s') // Vous pouvez utiliser le timestamp réel de la base de données si nécessaire
+            'timestamp' => date('Y-m-d H:i:s') 
         ]);
     } else {
         echo json_encode([
