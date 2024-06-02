@@ -10,8 +10,8 @@ if (isset($_POST['mailform'])) {
     $mail = new PHPMailer(true);
 
     try {
-        // Paramètres du serveur SMTP
-        $mail->SMTPDebug = 2; // Activer le débogage SMTP pour plus de détails
+        
+        $mail->SMTPDebug = 2; 
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;

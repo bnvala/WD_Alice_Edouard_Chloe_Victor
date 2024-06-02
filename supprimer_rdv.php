@@ -8,10 +8,8 @@ if (!isset($_GET['id_rdv'])) {
 
 $id_rdv = $_GET['id_rdv'];
 
-// Connexion à la base de données (supposons que vous ayez déjà une connexion dans wrapper.php)
 include 'db.php';
 
-// Démarrer une transaction
 $conn->begin_transaction();
 
 // Requête pour supprimer le rendez-vous de la table rdv
@@ -26,21 +24,21 @@ if ($stmt_delete_rdv->execute()) {
     $stmt_update_dispo->bind_param("i", $id_rdv);
 
     if ($stmt_update_dispo->execute()) {
-        // Si les deux opérations réussissent, commit la transaction
+        
         $conn->commit();
         echo "Le rendez-vous a été supprimé avec succès et la disponibilité de l'agent a été mise à jour.";
     } else {
-        // Si la mise à jour échoue, rollback la transaction
+    
         $conn->rollback();
         echo "Erreur lors de la mise à jour de la disponibilité de l'agent.";
     }
 } else {
-    // Si la suppression échoue, rollback la transaction
+   
     $conn->rollback();
     echo "Erreur lors de la suppression du rendez-vous.";
 }
 
-// Fermer les statements et la connexion
+
 $stmt_delete_rdv->close();
 $stmt_update_dispo->close();
 $conn->close();

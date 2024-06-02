@@ -44,7 +44,7 @@
             padding: 10px; 
             margin-top: 20px; 
             text-align: center; 
-            background-color: #f9f9f9; */
+            background-color: #f9f9f9; 
             font-weight: bold; 
         }
 
@@ -73,7 +73,7 @@
 .footer-map {
     flex: 1; 
     max-width: 50%; 
-    height: 200px;
+    height: 200px; 
 }
         .footer-map iframe {
             width: 100%;

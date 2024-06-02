@@ -9,7 +9,7 @@ if (!isset($_SESSION['utilisateur']['id'])) {
     exit();
 }
 
-// Récupérer l'adresse e-mail de l'utilisateur connecté
+// Récupérer le courriel de l'utilisateur connecté
 $email_utilisateur = $_SESSION['utilisateur']['courriel'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
-            justify-content: center; /* Centrer horizontalement */
-            align-items: center; /* Centrer verticalement */
+            justify-content: center; 
+            align-items: center; 
             height: 100vh;
             margin: 0;
             margin-left: auto;

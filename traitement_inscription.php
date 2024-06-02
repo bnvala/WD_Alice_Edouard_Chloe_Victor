@@ -43,7 +43,6 @@ if ($stmt->execute()) {
     echo "Erreur: " . $stmt->error;
 }
 
-// Fermer la requête et la connexion
 $stmt->close();
 $conn->close();
 ?>
