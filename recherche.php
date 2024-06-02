@@ -12,12 +12,15 @@ if ($conn->connect_error) {
 }
 // affichage de l'entete 
 include 'wrapper.php';
-// critère de recherche (type de bien, prix, descrpition, ville)
+// critère de recherche (type de bien, prix, description, ville)
 $type = isset($_GET['type']) ? trim($_GET['type']) : '';
 $description = isset($_GET['description']) ? trim($_GET['description']) : '';
 $ville = isset($_GET['ville']) ? trim($_GET['ville']) : '';
 $prix_min = isset($_GET['prix_min']) ? trim($_GET['prix_min']) : '';
 $prix_max = isset($_GET['prix_max']) ? trim($_GET['prix_max']) : '';
+$nom_agent = isset($_GET['nom_agent']) ? trim($_GET['nom_agent']) : '';
+$prenom_agent = isset($_GET['prenom_agent']) ? trim($_GET['prenom_agent']) : '';
+
 // initialisation de variable 
 $searchExecuted = false;
 $result = null;
@@ -44,6 +47,23 @@ if ($type !== '' || $description !== '' || $ville !== '' || $prix_min !== '' || 
     $result = $conn->query($sql);
     $searchExecuted = true;
 }
+
+// Recherche des agents par nom et prénom
+$agentsResult = null;
+$agentSearchExecuted = false;
+
+if ($nom_agent !== '' || $prenom_agent !== '') {
+    $sql_agents = "SELECT * FROM agent WHERE 1=1";
+    if ($nom_agent !== '') {
+        $sql_agents .= " AND nom LIKE '%" . $conn->real_escape_string($nom_agent) . "%'";
+    }
+    if ($prenom_agent !== '') {
+        $sql_agents .= " AND prenom LIKE '%" . $conn->real_escape_string($prenom_agent) . "%'";
+    }
+
+    $agentsResult = $conn->query($sql_agents);
+    $agentSearchExecuted = true;
+}
 ?>
 <!--page html -->
 <!DOCTYPE html>
@@ -67,12 +87,16 @@ if ($type !== '' || $description !== '' || $ville !== '' || $prix_min !== '' || 
     <input type="text" id="prix_min" name="prix_min" value="<?php echo htmlspecialchars($prix_min ?? ''); ?>"><br>
     <label for="prix_max">Prix maximum:</label>
     <input type="text" id="prix_max" name="prix_max" value="<?php echo htmlspecialchars($prix_max ?? ''); ?>"><br>
+    <label for="nom_agent">Nom de l'agent:</label>
+    <input type="text" id="nom_agent" name="nom_agent" value="<?php echo htmlspecialchars($nom_agent ?? ''); ?>"><br>
+    <label for="prenom_agent">Prénom de l'agent:</label>
+    <input type="text" id="prenom_agent" name="prenom_agent" value="<?php echo htmlspecialchars($prenom_agent ?? ''); ?>"><br>
     <input type="submit" value="Rechercher">
 </form>
 
 <?php if ($searchExecuted): ?>
-       <!-- affichage du resultat en php  -->
-    <h2>Résultats de la recherche</h2>
+    <!-- affichage du resultat en php  -->
+    <h2>Résultats de la recherche de biens</h2>
     <?php if ($result && $result->num_rows > 0): ?>
         <table>
             <tr>
@@ -97,7 +121,24 @@ if ($type !== '' || $description !== '' || $ville !== '' || $prix_min !== '' || 
             <?php endwhile; ?>
         </table>
     <?php else: ?>
-        <p>Aucun résultat trouvé.</p>
+        <p>Aucun résultat trouvé pour les biens immobiliers.</p>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php if ($agentSearchExecuted): ?>
+    <h2>Résultats de la recherche d'agents</h2>
+    <?php if ($agentsResult && $agentsResult->num_rows > 0): ?>
+        <div class="agents">
+            <?php while($row_agents = $agentsResult->fetch_assoc()): ?>
+                <div class="agent-card" onclick="window.location.href='profil-agent.php?id=<?php echo $row_agents['id_agent']; ?>'">
+                    <img src="photos_agents/<?php echo htmlspecialchars($row_agents['photo']); ?>" alt="Photo de l'agent">
+                    <div class="specialty"><?php echo htmlspecialchars($row_agents['nom']); ?></div>
+                    <div class="specialty"><?php echo htmlspecialchars($row_agents['prenom']); ?></div>
+                </div>
+            <?php endwhile; ?>
+        </div>
+    <?php else: ?>
+        <p>Aucun agent trouvé.</p>
     <?php endif; ?>
 <?php endif; ?>
 
