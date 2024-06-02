@@ -10,7 +10,7 @@ if (!isset($_SESSION['utilisateur'])) {
 
 $utilisateur = $_SESSION['utilisateur'];
 ?>
-<!-- contenu de la page html -->
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,7 +18,7 @@ $utilisateur = $_SESSION['utilisateur'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Compte Client</title>
     <style>
-    /* style de la page CSS*/ 
+   
         #cadre {
             width: 400px;
             margin: 0 auto;

@@ -14,7 +14,6 @@ if (isset($_SESSION['utilisateur']['type'])) {
             $redirect = 'mon_compte_client.php';
             break;
     }
-    // Redirection vers la page appropriée
     header("Location: $redirect");
     exit;
 }
@@ -39,25 +38,26 @@ if (isset($_SESSION['utilisateur']['type'])) {
         #message {
             display: none;
             margin-top: 20px;
-            color: #ff0000; /* Rouge */
+            color: #ff0000; 
         }
         #seConnecterBtn {
             font-size: 20px;
             color: white;
-            background-color: #0056b3; /* Bleu plus foncé */
+            background-color: #0056b3; 
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-top: 10px; /* Espace entre le champ "Mot de passe" et le bouton */
+            margin-top: 10px; 
         }
         #seConnecterBtn:hover {
-            background-color: #004080; /* Bleu foncé au survol */
+            background-color: #004080; 
         }
     </style>
 </head>
 <body>
+     <!-- formulaire de connexion a un compte -->
     <div id="cadre">
         <h2>Connexion</h2>
         <form id="connexionForm" action="traitement_co.php" method="post">

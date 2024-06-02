@@ -52,9 +52,9 @@
             color: blue;
             text-decoration: underline;
             cursor: pointer;
-            padding: 0; /* Supprime le rembourrage */
-            margin: 0; /* Supprime les marges */
-            font-size: inherit; /* Utilise la taille de police par défaut */
+            padding: 0; 
+            margin: 0; 
+            font-size: inherit; 
             text-align: center;
         }
         .auth-footer button:hover {
@@ -75,7 +75,7 @@
             $courriel = $_POST['courriel'];
             $mot_de_passe = $_POST['mot_de_passe'];
 
-            // Requête SQL pour insérer un nouvel administrateur
+            // Requête SQL insertion
             $sql_insert = "INSERT INTO admin (nom, prenom, courriel, mot_de_passe) VALUES (
                 '$nom', 
                 '$prenom', 
@@ -92,7 +92,7 @@
 
         $conn->close();
         ?>
-
+ <!-- form des infos a rentrrer dans la bdd-->
         <form method="post">
             <div class="form-group">
                 <label for="nom">Nom:</label>

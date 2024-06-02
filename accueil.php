@@ -9,13 +9,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<section id="carrousel-container"> <!-- Ajout d'un conteneur pour le carrousel -->
+<section id="carrousel-container"> 
     <h1><center>Bienvenue chez Omnes Immobilier</center></h1>
     <div id="content">
         <div class="intro">
             <h3>À propos de nous</h3>
             <p>Omnes Immobilier est dédié à la communauté Omnes Education. <br></br>Nous offrons une plateforme innovante pour explorer, acheter, louer des propriétés, avec des agents immobiliers qualifiés à votre service.</p>
         </div>
+         <!-- carroussel de phtos -->
         <div id="carrousel">
             <ul>
                 <li><img src="photos_biens/bien59.jpg" alt="Image 1"/></li>
@@ -47,7 +48,7 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10501.54984724702!2d2.2854888397040134!3d48.850821493288315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6701b377bfac1%3A0xccc4e62b16ff4998!2s12%20Rue%20Sextius%20Michel%2C%2075015%20Paris!5e0!3m2!1sfr!2sfr!4v1717088265269!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </footer>
-
+ <!-- code du carroussel pour defiler les images  -->
 <script>
     $(document).ready(function () {
         var $carrousel = $('#carrousel ul');

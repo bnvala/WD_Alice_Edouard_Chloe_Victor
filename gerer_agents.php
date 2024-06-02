@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les agents immobiliers</title>
     <style>
-        /* Styles déplacés du body */
+        
         .tt {
             display: flex;
             flex-direction: column;
@@ -15,7 +15,7 @@
             background-color: #f4f4f4;
         }
 
-        /* Autres styles inchangés */
+        
         .agent-card {
             background-color: #fff;
             border-radius: 15px;
@@ -28,32 +28,32 @@
             transition: transform 0.3s;
         }
 
-        /* Autres styles inchangés */
+        
         .agent-card:hover {
             transform: scale(1.05);
         }
 
-        /* Autres styles inchangés */
+        
         .agent-card img {
             border-radius: 50%;
             width: 120px;
             height: 150px;
         }
 
-        /* Autres styles inchangés */
+        
         .agent-card.large img {
             width: 150px;
             height: 150px;
         }
 
-        /* Autres styles inchangés */
+        
         .agent-card .specialty {
             margin-top: 10px;
             font-size: 18px;
             font-weight: bold;
         }
 
-        /* Autres styles inchangés */
+  
         .delete-button, .edit-button {
             background-color: #ff3333;
             color: #fff;
@@ -64,12 +64,12 @@
             margin-top: 10px;
         }
 
-        /* Autres styles inchangés */
+
         .delete-button:hover, .edit-button:hover {
             background-color: #cc0000;
         }
 
-        /* Autres styles inchangés */
+    
         .add-button {
             background-color: #28a745;
             color: #fff;
@@ -79,8 +79,6 @@
             cursor: pointer;
             margin-bottom: 20px;
         }
-
-        /* Autres styles inchangés */
         .add-button:hover {
             background-color: #218838;
         }
@@ -94,9 +92,9 @@
             color: blue;
             text-decoration: underline;
             cursor: pointer;
-            padding: 0; /* Supprime le rembourrage */
-            margin: 0; /* Supprime les marges */
-            font-size: inherit; /* Utilise la taille de police par défaut */
+            padding: 0; 
+            margin: 0;
+            font-size: inherit; 
             text-align: center;
         }
         .auth-footer button:hover {
@@ -114,15 +112,14 @@
     <?php
     include 'db.php';
 
-    // Traitement de la soumission du formulaire de suppression
+    // bouton supprimer cliqué
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_agent'])) {
-        // Récupérer l'ID de l'agent à supprimer
+//id a supp
         $agent_id = $_POST['agent_id'];
         
         // Requête SQL pour supprimer l'agent de la base de données
         $sql_delete = "DELETE FROM agent WHERE id_agent = $agent_id";
 
-        // Exécution de la requête
         if ($conn->query($sql_delete) === TRUE) {
             echo "Agent supprimé avec succès";
         } else {
@@ -130,7 +127,7 @@
         }
     }
 
-    // Récupération des agents depuis la base de données
+    // requete pour avoir tous les agents 
     $sql = "SELECT * FROM agent";
     $result = $conn->query($sql);
 
@@ -140,7 +137,6 @@
             echo '<div class="' . $agent_card_class . '" onclick="window.location.href=\'profil-agent.php?id=' . $row["id_agent"] . '\'">';
             echo '<img src="photos_agents/' . $row["photo"] . '" alt="Photo de l\'agent">';
             echo '<div class="specialty">Spécialité: ' . $row["specialite"] . '</div>';
-            // Ajout des boutons Supprimer et Modifier avec des formulaires distincts
             echo '<form method="post">';
             echo '<input type="hidden" name="agent_id" value="' . $row["id_agent"] . '">';
             echo '<button type="submit" name="delete_agent" class="delete-button">Supprimer</button>';

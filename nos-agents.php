@@ -61,7 +61,7 @@
 <body>
     <h1>Nos Agents</h1>
     
-    <!-- Catégorie Immobilier Résidentiel -->
+    <!-- afficage des agens de la Catégorie Immobilier Résidentiel -->
     <div class="category-banner">Nos Agents Spécialisés en Immobilier Résidentiel</div>
     <div class="agent-container">
         <?php
@@ -86,7 +86,7 @@
         ?>
     </div>
 
-    <!-- Catégorie Immobilier Commercial -->
+    <!-- Affichage des agents de la Catégorie Immobilier Commercial -->
     <div class="category-banner">Nos Agents Spécialisés en Immobilier Commercial</div>
     <div class="agent-container">
         <?php
@@ -109,7 +109,7 @@
         ?>
     </div>
 
-    <!-- Catégorie Location -->
+    <!--affichage des agents de la  Catégorie Location -->
     <div class="category-banner">Nos Agents Spécialisés en Location</div>
     <div class="agent-container">
         <?php
@@ -131,6 +131,7 @@
         }
         ?>
     </div>
+    <!--affichage des agents de la  Catégorie terrain -->
 
     <div class="category-banner">Nos Agents Spécialisés en Terrain</div>
     <div class="agent-container">

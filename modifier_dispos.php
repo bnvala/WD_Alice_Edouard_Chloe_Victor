@@ -1,17 +1,15 @@
 <?php
 include 'wrapper.php';
-// Inclure le fichier de connexion à la base de données et d'autres fichiers nécessaires
 include 'db.php';
 
-// Vérifier si un agent est sélectionné
+//id de l'agent a modifier 
 if(isset($_GET['agent_id'])) {
     $agent_id = $_GET['agent_id'];
 
-    // Récupérer les disponibilités actuelles de l'agent pour chaque jour de la semaine
+    // requete sql qui recupere les dispos de l'agent dans la table agent 
     $sql = "SELECT * FROM dispo_agents WHERE id_agent = $agent_id ORDER BY FIELD(jour, 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi')";
     $result = $conn->query($sql);
 
-    // Vérifier si les disponibilités existent
     if ($result->num_rows > 0) {
         $dispos = [];
         while ($row = $result->fetch_assoc()) {
@@ -26,14 +24,15 @@ if(isset($_GET['agent_id'])) {
     exit();
 }
 
-// Traitement de la soumission du formulaire de modification des disponibilités
+// formulaire de modif des dispos 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_dispo'])) {
     $update_errors = [];
     foreach (['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'] as $jour) {
+        // choix dispo ou non 
         $AM = isset($_POST[$jour . '_AM']) ? 1 : 0;
         $PM = isset($_POST[$jour . '_PM']) ? 1 : 0;
 
-        // Mettre à jour les disponibilités de l'agent dans la base de données
+        // maj des nouvelles dispos 
         $sql_update = "UPDATE dispo_agents SET AM='$AM', PM='$PM' WHERE id_agent=$agent_id AND jour='$jour'";
 
         if (!$conn->query($sql_update)) {
@@ -48,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_dispo'])) {
     }
 }
 
-// Fermer la connexion à la base de données
 $conn->close();
 ?>
 
@@ -58,11 +56,11 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier Disponibilités</title>
-    <!-- Ajouter le style CSS si nécessaire -->
 </head>
 <body>
     <h2>Modifier Disponibilités</h2>
     <form method="post">
+         <!-- affichage html avec carrés a cocher  -->
         <input type="hidden" name="agent_id" value="<?php echo $agent_id; ?>">
         <?php foreach (['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'] as $jour): ?>
             <div>

@@ -35,24 +35,23 @@
 </head>
 <body>
     <?php
-    // Inclure le fichier de connexion à la base de données
     include 'db.php';
 
-    // Récupérer l'ID de l'agent depuis l'URL
+    // prendre id depuis url 
     $id = $_GET['id'];
 
-    // Requête pour obtenir les informations de l'agent
+    // infos de lagent
     $sql = "SELECT * FROM agent WHERE id_agent = $id";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        // Récupérer les informations de l'agent
         $agent = $result->fetch_assoc();
     ?>
 
     <div class="communication-card">
         <h2>Communiquer avec l'agent</h2>
         <div class="buttons">
+             <!-- boutons pour differents choix qui envoient vers d'autres pages  -->
             <button onclick="window.location.href='chat.php?id=<?php echo $id; ?>'">Chatter avec l'agent</button>
             <button onclick="window.location.href='mailto:<?php echo $agent["courriel"]; ?>'">Envoyer un mail à l'agent</button>
             <button onclick="launchAudioCall()">Appel audio</button>
@@ -65,15 +64,13 @@
         echo "No agent found";
     }
 
-    // Fermer la connexion à la base de données
     $conn->close();
     ?>
 
     <script>
         function launchAudioCall() {
             if (confirm("Voulez-vous vraiment lancer un appel audio ?")) {
-                // Code pour lancer l'appel audio ici
-                //alert("L'appel audio est lancé !");
+                //renvo vers lien teams 
                 window.location.href = 'https://teams.live.com/l/invite/FEAL8HUGO780vvGBAE';
             }
         }
@@ -81,7 +78,7 @@
         function launchVideoCall() {
             if (confirm("Voulez-vous vraiment lancer un appel vidéo ?")) {
                 window.location.href = 'https://teams.live.com/l/invite/FEAL8HUGO780vvGBAE';
-                //alert("L'appel vidéo est lancé !");
+                //renvoi vers lien teams 
             }
         }
     </script>

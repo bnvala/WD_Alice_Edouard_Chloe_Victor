@@ -21,25 +21,26 @@
         #message {
             display: none;
             margin-top: 20px;
-            color: #ff0000; /* Rouge */
+            color: #ff0000; 
         }
         #seConnecterBtn {
             font-size: 20px;
             color: white;
-            background-color: #0056b3; /* Bleu plus foncé */
+            background-color: #0056b3; 
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-top: 10px; /* Espace entre le champ "Mot de passe" et le bouton */
+            margin-top: 10px; 
         }
         #seConnecterBtn:hover {
-            background-color: #004080; /* Bleu foncé au survol */
+            background-color: #004080; 
         }
     </style>
 </head>
 <body>
+     <!--connexion a un compte si on veut prendre un rdv mais que l'on n'est pas encore connecte -->
     <div id="cadre">
         <h2>Connexion</h2>
         <form id="connexionForm" action="traitement_rdv.php" method="post">
@@ -79,7 +80,6 @@
                     message.style.display = "block";
 
                     if (response.success) {
-                        // Rediriger l'utilisateur en fonction du type de compte
                         window.location.href = response.redirect;
                     }
                 }

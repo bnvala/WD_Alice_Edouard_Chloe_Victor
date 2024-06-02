@@ -59,9 +59,9 @@
             color: blue;
             text-decoration: underline;
             cursor: pointer;
-            padding: 0; /* Supprime le rembourrage */
-            margin: 0; /* Supprime les marges */
-            font-size: inherit; /* Utilise la taille de police par défaut */
+            padding: 0; 
+            margin: 0; 
+            font-size: inherit; 
             text-align: center;
         }
         .auth-footer button:hover {
@@ -70,12 +70,14 @@
     </style>
 </head>
 <body>
+     <!-- entete de la page -->
 <?php include 'wrapper.php'; 
+ //recuperer l'id de lagent a modifier 
 if (isset($_GET['agent_id'])) {
-    // Récupérer l'ID de l'agent
+    
     $agent_id = $_GET['agent_id'];
 } else {
-    // Gérer le cas où l'ID de l'agent n'est pas défini dans l'URL
+    
     echo "Erreur: aucun ID d'agent fourni.";
     exit;
 }
@@ -89,7 +91,7 @@ if (isset($_GET['agent_id'])) {
         <?php
         include 'db.php';
 
-        // Récupérer les informations de l'agent à partir de l'ID
+        // requete sql pour recuperer les infos d elagent 
         $sql = "SELECT * FROM agent WHERE id_agent = $agent_id";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -109,7 +111,7 @@ if (isset($_GET['agent_id'])) {
             exit();
         }
 
-        // Traitement de la soumission du formulaire de modification
+        // modifications a update 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_agent'])) {
             $nom = $_POST['nom'];
             $prenom = $_POST['prenom'];
@@ -119,12 +121,11 @@ if (isset($_GET['agent_id'])) {
             $bureau = $_POST['bureau'];
             $mot_de_passe = $_POST['mot_de_passe'];
 
-            // Gestion des fichiers uploadés
+            //gestion pour les nouveaux fichiers photos et vidéos 
             $photo = $_FILES['photo']['name'] ? $_FILES['photo']['name'] : $_POST['current_photo'];
             $video = $_FILES['video']['name'] ? $_FILES['video']['name'] : $_POST['current_video'];
             $cv = $_FILES['cv']['name'] ? $_FILES['cv']['name'] : $_POST['current_cv'];
 
-            // Upload des nouveaux fichiers si fournis
             if ($_FILES['photo']['name']) {
                 $target_dir = "photos_agents/";
                 $target_file = $target_dir . basename($photo);
@@ -143,7 +144,7 @@ if (isset($_GET['agent_id'])) {
                 move_uploaded_file($_FILES["cv"]["tmp_name"], $target_file);
             }
 
-            // Requête SQL pour mettre à jour les informations de l'agent
+            // Requête SQL de maj des infos dans la table agent 
             $sql_update = "UPDATE agent SET 
                 nom='$nom', 
                 prenom='$prenom', 
@@ -221,10 +222,9 @@ if (isset($_GET['agent_id'])) {
 
         <script>
             function modifierDispos() {
-                // Récupérer l'ID de l'agent sélectionné
                 var agentId = <?php echo $agent_id; ?>;
                 
-                // Rediriger vers la page modifier_dispos.php avec l'ID de l'agent
+                // lien vers la page de modif des dispos si buton clique
                 window.location.href = 'modifier_dispos.php?agent_id=' + agentId;
             }
         </script>

@@ -68,6 +68,7 @@
         }
     </style>
 </head>
+ <!-- form d'ajout du bien -->
 <body><div class="ish">
     <div class="form-container">
         <h2>Ajouter un Bien</h2>

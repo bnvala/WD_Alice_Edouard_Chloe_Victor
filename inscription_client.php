@@ -20,12 +20,12 @@
         #message {
             display: none;
             margin-top: 20px;
-            color: #ff0000; /* Rouge */
+            color: #ff0000; 
         }
         #inscriptionBtn {
             font-size: 20px;
             color: white;
-            background-color: #0056b3; /* Bleu */
+            background-color: #0056b3; 
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -33,13 +33,14 @@
             transition: background-color 0.3s ease;
         }
         #inscriptionBtn:hover {
-            background-color: #0056b3; /* Bleu plus foncé au survol */
+            background-color: #0056b3; 
         }
     </style>
 </head>
 <body>
 <?php include 'wrapper.php'; ?>
     <div id="cadre">
+         <!-- formulaire avec toutes les infos pour remplir la table client-->
         <h2>Inscription</h2>
         <form action="traitement_inscription.php" method="post">
             <label for="nom">Nom :</label>
@@ -68,6 +69,7 @@
     <script>
         var form = document.querySelector("form");
         var message = document.getElementById("message");
+        //verifier que ce client n'a pas deja un compte
         var dejaCompteBtn = document.getElementById("dejaCompte");
 
         dejaCompteBtn.addEventListener("click", function() {

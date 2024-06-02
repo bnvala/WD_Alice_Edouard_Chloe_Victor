@@ -1,13 +1,13 @@
 <?php
 include 'wrapper.php';
 
-// Vérifier si l'agent est connecté
+// verification de la connexion
 if (!isset($_SESSION['utilisateur']['id_agent'])) {
     header("Location: form.php");
     exit();
 }
 
-// Récupérer l'id_agent passé en paramètre d'URL ou à partir de la session
+// recup de l'id_agent sur la session
 $id_agent = isset($_GET['id_agent']) ? urldecode($_GET['id_agent']) : $_SESSION['utilisateur']['id_agent'];
 ?>
 
@@ -55,33 +55,34 @@ $id_agent = isset($_GET['id_agent']) ? urldecode($_GET['id_agent']) : $_SESSION[
     <div class="container">
         <h1>Historique des Consultations</h1>
         <?php
-        // Informations de connexion à la base de données
+        
         $servername = "localhost";
         $username = "root";
         $password = "";
         $dbname = "pj_piscine";
 
-        // Connexion à la base de données
+        // Connexion bdd
         $conn = new mysqli($servername, $username, $password, $dbname);
 
-        // Vérifier la connexion
+       
         if ($conn->connect_error) {
             die("Échec de la connexion : " . $conn->connect_error);
         }
 
-        // Requête SQL pour récupérer les consultations de l'agent connecté
+        //recuperation des consult de lagent 
         $sql = "SELECT id, courriel_client, date, heure, id_agent FROM consultations WHERE id_agent = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id_agent);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // Vérifier s'il y a des résultats
+        
         if ($result->num_rows > 0) {
+            // creation du tab
             echo '<table>';
             echo '<tr><th>ID Consultation</th><th>Courriel Client</th><th>Date</th><th>Heure</th></tr>';
 
-            // Afficher les données pour chaque ligne
+            // affichage des donnee dans le tab
             while($row = $result->fetch_assoc()) {
                 echo '<tr>';
                 echo '<td>' . $row["id"] . '</td>';
@@ -96,7 +97,6 @@ $id_agent = isset($_GET['id_agent']) ? urldecode($_GET['id_agent']) : $_SESSION[
             echo "<p>Aucune consultation trouvée.</p>";
         }
 
-        // Fermer la connexion
         $stmt->close();
         $conn->close();
         ?>

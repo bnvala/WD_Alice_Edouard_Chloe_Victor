@@ -1,37 +1,34 @@
 <?php
 include 'wrapper.php';
 
-// Vérifier si l'agent est connecté
 if (!isset($_SESSION['utilisateur'])) {
     header("Location: form.php");
     exit();
 }
 
-// Vérifier si l'ID du rendez-vous est passé en paramètre d'URL
+//chercher id du rdv dans l'url de la page 
 if (!isset($_GET['id_rdv'])) {
     echo "ID du rendez-vous manquant dans l'URL.";
     exit();
 }
-
+//prendfe l'id du rdv 
 $id_rdv = $_GET['id_rdv'];
 
-// Connexion à la base de données (supposons que vous ayez déjà une connexion dans wrapper.php)
 include 'db.php';
 
-// Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'];
     $heure = $_POST['heure'];
     $adresse = $_POST['adresse'];
     $autres_infos = $_POST['autres_infos'];
 
-    // Requête pour mettre à jour les informations du rendez-vous
+    // maj des  informations du rendez-vous
     $sql = "UPDATE rdv SET date = ?, heure = ?, adresse = ?, autres_infos = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssi", $date, $heure, $adresse, $autres_infos, $id_rdv);
 
     if ($stmt->execute()) {
-        // Rediriger vers la page rdv_agent.php avec l'ID de l'agent connecté
+        //redirection apres execution
         $id_agent = $_SESSION['utilisateur']['id_agent'];
         header("Location: rdv_agent.php?id_agent=" . urlencode($id_agent));
         exit();
@@ -39,11 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Erreur lors de la mise à jour des informations.";
     }
 
-    // Fermer le statement
     $stmt->close();
 }
 
-// Récupérer les informations actuelles du rendez-vous pour pré-remplir le formulaire
+// pre-remplir le form 
 $sql = "SELECT * FROM rdv WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_rdv);
@@ -51,7 +47,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 $rdv = $result->fetch_assoc();
 
-// Fermer la connexion
 $stmt->close();
 $conn->close();
 ?>
@@ -63,7 +58,6 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier les informations du RDV</title>
     <style>
-        /* Style CSS pour le formulaire */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -111,6 +105,7 @@ $conn->close();
     </style>
 </head>
 <body>
+     <!-- formulaire a completer  mettre "aucune info" si la base de donnée est vide pour ne pas faire beuguer -->
     <div class="form-container">
         <h1>Modifier les informations du RDV</h1>
         <form action="" method="post">

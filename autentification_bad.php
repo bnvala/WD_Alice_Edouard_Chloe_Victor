@@ -23,7 +23,7 @@
             text-align: center;
         }
         .auth-header {
-            background-color: #FF0000; /* Rouge */
+            background-color: #FF0000; /* couleur rouge car autentificaion echouée  */
             color: #fff;
             padding: 15px;
             border-radius: 10px 10px 0 0;
@@ -58,6 +58,7 @@
     </style>
 </head>
 <body>
+     <!-- meme DA que pour autentification mais avec du rouge et bouton retour -->
     <div class="auth-container">
         <div class="auth-header">
             Authentification Échouée

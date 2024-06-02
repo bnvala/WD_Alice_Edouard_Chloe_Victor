@@ -1,7 +1,6 @@
 <?php
 include 'wrapper.php';
 
-// mot de passe et id base de données 
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -65,7 +64,6 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conversations du Client</title>
     <style>
-        /* style de la page en css*/
         body {
             display: flex;
             flex-direction: column;

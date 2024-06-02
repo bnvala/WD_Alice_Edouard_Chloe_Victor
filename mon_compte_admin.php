@@ -1,7 +1,7 @@
 <?php include 'wrapper.php';
 
 if (!isset($_SESSION['utilisateur'])) {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+//verif la connexion et page d econnexion si deco
     echo "<script>window.location.href = 'form.php';</script>";
     exit;
 }
@@ -36,25 +36,26 @@ $utilisateur = $_SESSION['utilisateur'];
         }
         .action-btn {
             display: block;
-            font-size: 16px; /* Réduit la taille de la police */
+            font-size: 16px; 
             color: white;
-            background-color: #376b8c; /* Couleur spécifiée */
+            background-color: #376b8c; 
             border: none;
-            padding: 8px 16px; /* Réduit les dimensions du bouton */
+            padding: 8px 16px; 
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin: 10px auto; /* Centre horizontalement */
+            margin: 10px auto; 
             text-decoration: none;
-            max-width: 200px; /* Limite la largeur du bouton */
+            max-width: 200px; 
         }
         .action-btn:hover {
-            background-color: #2b5170; /* Couleur au survol */
+            background-color: #2b5170; 
         }
     </style>
 </head>
 <body>
     <div>
+         <!-- informations de l'admin +boutons pour toutes les fonctionnalité speciales du profil -->
         <center>
             <h2>Mon Compte Administrateur</h2>
             <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>

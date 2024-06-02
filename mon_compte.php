@@ -50,6 +50,7 @@ $utilisateur = $_SESSION['utilisateur'];
     </style>
 </head>
 <body>
+     <!-- infos du compte client et bouton de déconnexion  -->
     <div id="cadre">
         <h2>Mon Compte</h2>
         <p>Nom : <?php echo htmlspecialchars($utilisateur['nom']); ?></p>

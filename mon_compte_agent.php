@@ -2,36 +2,33 @@
 include 'wrapper.php';
 
 if (!isset($_SESSION['utilisateur'])) {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    // verif connexion et page de connexion si pas connecte 
     echo "<script>window.location.href = 'form.php';</script>";
     exit;
 }
 
 $utilisateur = $_SESSION['utilisateur'];
-$id_agent = $utilisateur['id_agent']; // Récupérer l'ID de l'agent connecté
+$id_agent = $utilisateur['id_agent']; // Récuperation id_agent connecte mtn 
 
 include 'db.php';
-
-// Récupérer les données de disponibilité de l'agent depuis la base de données
+//dispo depuis bdd avec id_agent
 $sql = "SELECT jour, heure, dispo FROM dispo_agents_heure_par_heure WHERE id_agent = $id_agent";
 $result = $conn->query($sql);
 
 $sql_creneau = "SELECT * FROM dispo_agents WHERE id_agent = $id_agent";
     $result_creneau = $conn->query($sql_creneau);
 
-// Créer un tableau associatif pour stocker les données de disponibilité
 $dispo = array();
 while ($row = $result->fetch_assoc()) {
     $dispo[$row['jour']][$row['heure']] = $row['dispo'];
 }
-
+//afficher les dispos 
 $dispo_creneau_data = [];
     while ($row = $result_creneau->fetch_assoc()) {
         $dispo_creneau_data[$row["jour"]]["AM"] = $row["AM"];
         $dispo_creneau_data[$row["jour"]]["PM"] = $row["PM"];
     }
-
-// Fonction pour afficher une case du calendrier
+//couleur en fct des dispo 
 function afficherCase($dispo) {
     if ($dispo) {
         echo '<td style="background-color: green;"></td>';
@@ -118,9 +115,9 @@ function afficherCase($dispo) {
             background-color: #0056b3;
         }
         .table-container {
-            margin: 0 auto; /* Centre horizontalement */
-            width: fit-content; /* Largeur du conteneur */
-            max-width: 800px; /* Largeur maximale */
+            margin: 0 auto; 
+            width: fit-content; 
+            max-width: 800px; 
             text-align: center;
 
 
@@ -134,7 +131,8 @@ function afficherCase($dispo) {
     </style>
 </head>
 <body>
-    <div id="cadre">
+ <!--affichage des données sur lagent -->
+     <div id="cadre">
         <h2>Mon Compte Agent</h2>
         <p>Nom et prénom : <?php echo htmlspecialchars($utilisateur['nom']); ?> <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
         <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
@@ -162,7 +160,7 @@ function afficherCase($dispo) {
                 </tr>
                 <?php
                 $heures = array("10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00", "17:00:00");
-                
+                // calendrirer 
                 foreach ($heures as $heure) {
                     echo "<tr>";
                     echo "<td>$heure</td>";
@@ -187,7 +185,7 @@ function afficherCase($dispo) {
                 ?>
             </table>
         </div>
-        <!-- Fin du calendrier -->
+        
         <br><br>
 
         <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>

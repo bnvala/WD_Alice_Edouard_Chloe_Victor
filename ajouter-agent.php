@@ -60,9 +60,9 @@
             color: blue;
             text-decoration: underline;
             cursor: pointer;
-            padding: 0; /* Supprime le rembourrage */
-            margin: 0; /* Supprime les marges */
-            font-size: inherit; /* Utilise la taille de police par défaut */
+            padding: 0; 
+            margin: 0; 
+            font-size: inherit; 
             text-align: center;
         }
         .auth-footer button:hover {
@@ -86,12 +86,12 @@
             $bureau = $_POST['bureau'];
             $mot_de_passe = $_POST['mot_de_passe'];
 
-            // Gestion des fichiers uploadés
+            
             $photo = $_FILES['photo']['name'];
             $video = $_FILES['video']['name'];
             $cv = $_FILES['cv']['name'];
 
-            // Upload des fichiers
+            // Upload des fichiers importés 
             if ($photo) {
                 $target_dir = "photos_agents/";
                 $target_file = $target_dir . basename($photo);
@@ -110,7 +110,7 @@
                 move_uploaded_file($_FILES["cv"]["tmp_name"], $target_file);
             }
 
-            // Requête SQL pour insérer un nouvel agent
+            // Requête SQL d'insertion
             $sql_insert = "INSERT INTO agent (nom, prenom, specialite, photo, courriel, numero_tel, bureau, video, cv, mot_de_passe) VALUES (
                 '$nom', 
                 '$prenom', 
@@ -133,7 +133,7 @@
 
         $conn->close();
         ?>
-
+ <!-- formulaire a replir  -->
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="nom">Nom:</label>

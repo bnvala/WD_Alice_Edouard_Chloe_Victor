@@ -2,7 +2,6 @@
 session_start();
 include 'db.php';
 
-// Vérifier si le client est connecté
 if (!isset($_SESSION['utilisateur']['id'])) {
     header("Location: form.php");
     exit();
@@ -23,7 +22,7 @@ if ($result->num_rows === 0) {
 $client = $result->fetch_assoc();
 $courriel_client = $client['courriel'];
 
-// Vérifier si des informations financières existent pour ce courriel_client
+// on verifie si il n'y a pas deja une ligne dans la table pour ce client (lid est le courriel)
 $sql_existing = "SELECT id FROM infos_financieres WHERE courriel_client = ?";
 $stmt_existing = $conn->prepare($sql_existing);
 $stmt_existing->bind_param("s", $courriel_client);
@@ -31,19 +30,19 @@ $stmt_existing->execute();
 $result_existing = $stmt_existing->get_result();
 
 if ($result_existing->num_rows > 0) {
-    // Des informations financières existent déjà pour ce client, effectuer une mise à jour
+    // si oui maj de la ligne 
     $sql_update = "UPDATE infos_financieres SET nom_carte = ?, prenom_carte = ?, adresse_ligne_1 = ?, adresse_ligne_2 = ?, ville = ?, code_postal = ?, pays = ?, numero_tel = ?, code_cb = ?, cvv = ? WHERE courriel_client = ?";
     $stmt_update = $conn->prepare($sql_update);
     $stmt_update->bind_param("sssssssssss", $nom_carte, $prenom_carte, $adresse_ligne_1, $adresse_ligne_2, $ville, $code_postal, $pays, $numero_tel, $code_cb_last4, $cvv, $courriel_client);
 } else {
-    // Aucune information financière existante, effectuer une insertion
+    // si non, requete sql d'insertion
     $sql_insert = "INSERT INTO infos_financieres (courriel_client, nom_carte, prenom_carte, adresse_ligne_1, adresse_ligne_2, ville, code_postal, pays, numero_tel, code_cb, cvv) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_insert = $conn->prepare($sql_insert);
     $stmt_insert->bind_param("sssssssssss", $courriel_client, $nom_carte, $prenom_carte, $adresse_ligne_1, $adresse_ligne_2, $ville, $code_postal, $pays, $numero_tel, $code_cb_last4, $cvv);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer les données du formulaire
+    // on prend les données du form
     $nom_carte = $_POST['nom_carte'];
     $prenom_carte = $_POST['prenom_carte'];
     $adresse_ligne_1 = $_POST['adresse_ligne_1'];
@@ -55,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $code_cb = $_POST['code_cb'];
     $cvv = $_POST['cvv'];
 
-    // Extraire les 4 derniers chiffres du numéro de carte bancaire
+    // on prend kes 4 derniers chiffres de la cb et on masque le reste 
     $code_cb_last4 = substr($code_cb, -4);
 
-    // Exécuter la requête en fonction de l'existence des informations financières
+
     if (isset($stmt_update)) {
         if ($stmt_update->execute()) {
             echo "<script>
@@ -79,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Fermer les statements
+
     if (isset($stmt_insert)) {
         $stmt_insert->close();
     }
@@ -147,6 +146,8 @@ $conn->close();
     </style>
 </head>
 <body>
+        <!--formulaire pour remplir les infos de paiement dans la bdd-->
+
     <div class="payment-form">
         <h2>Informations de Paiement</h2>
         <form method="POST" action="">

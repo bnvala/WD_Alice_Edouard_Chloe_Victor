@@ -2,41 +2,35 @@
 include 'wrapper.php';
 
 if (!isset($_SESSION['utilisateur'])) {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
     echo "<script>window.location.href = 'form.php';</script>";
     exit;
 }
-
+//recuperer l'ytulisateur (agent admin client) et son id
 $utilisateur = $_SESSION['utilisateur'];
 $id_client = $utilisateur['id'];
 
-// Récupérer l'ID de l'agent depuis l'URL
 $id_agent = isset($_GET['id']) ? $_GET['id'] : null;
 
-// Vérifier que l'ID de l'agent est présent
 if (!$id_agent) {
     die("ID de l'agent manquant.");
 }
 
-// Informations de connexion à la base de données
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pj_piscine";
 
-// Connexion à la base de données
+// Connexion bdd
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Vérifier la connexion
 if ($conn->connect_error) {
     die("Échec de la connexion : " . $conn->connect_error);
 }
 
-// Traitement de la soumission du formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = $_POST['message'];
 
-    // Requête SQL pour insérer la communication dans la base de données
+    // insertion des messages dans la table communication
     $stmt = $conn->prepare("INSERT INTO communication (ID_client, ID_agent, message, envoyeur) VALUES (?, ?, ?, 'client')");
     $stmt->bind_param("iis", $id_client, $id_agent, $message);
 

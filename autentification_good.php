@@ -23,7 +23,7 @@
             text-align: center;
         }
         .auth-header {
-            background-color: #4CAF50; /* Vert */
+            background-color: #4CAF50; /* Vert car réussie */
             color: #fff;
             padding: 15px;
             border-radius: 10px 10px 0 0;
@@ -58,6 +58,7 @@
     </style>
 </head>
 <body>
+     <!--affichage avec du vert et retour a l'accueil apres le paiement -->
     <div class="auth-container">
         <div class="auth-header">
             Authentification Réussie
