@@ -1,15 +1,16 @@
 <?php
+// entete 
 include 'wrapper.php';
 
+// verification de connexion au compte client  en php
 if (!isset($_SESSION['utilisateur'])) {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
     echo "<script>window.location.href = 'form.php';</script>";
     exit;
 }
 
 $utilisateur = $_SESSION['utilisateur'];
 ?>
-
+<!-- contenu de la page html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,7 +18,7 @@ $utilisateur = $_SESSION['utilisateur'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Compte Client</title>
     <style>
-
+    /* style de la page CSS*/ 
         #cadre {
             width: 400px;
             margin: 0 auto;
@@ -60,14 +61,17 @@ $utilisateur = $_SESSION['utilisateur'];
     </style>
 </head>
 <body>
+    <!-- contenu du corp de la page html -->
     <div id="cadre">
         <h2>Mon Compte Client</h2>
         <p>Nom et prénom : <?php echo htmlspecialchars($utilisateur['nom'])?> <?php echo htmlspecialchars($utilisateur['prenom']); ?></p>
         <p>Adresse : <?php echo htmlspecialchars($utilisateur['adresse']); ?></p>
         <p>Identifiant : <?php echo htmlspecialchars($utilisateur['courriel']); ?></p>
         <br>
+        <!-- bouton permetant d'avoir acces à la messagerie  -->
         <a href="historique_message.php?id=<?php echo $utilisateur['id']; ?>" id="messagerieBtn">Messagerie</a>
         <br><br><br> 
+        <!-- boutons de deconnexion de l'espace client -->
         <a href="deconnexion.php" id="deconnexionBtn">Se déconnecter</a>
     </div>
 </body>
